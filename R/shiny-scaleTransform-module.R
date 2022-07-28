@@ -214,7 +214,7 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
                                path,
                                transfoName) {
                                    
-      if(transfoName != " ") {
+      if (transfoName != " ") {
         #browser()
         pipL <- buildCytoPipelineFromCache(experimentName,
                                            path = path)
@@ -241,7 +241,7 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
           updateSelectInput(inputId = "transfoType",
                             selected = tPars$type)
           
-          if(tPars$type == "logicle"){
+          if (tPars$type == "logicle") {
             val_negDecades <- round(tPars$paramsList$a, digits = 1)
             val_width <- round(tPars$paramsList$w, digits = 1)
             val_posDecades <- round(tPars$paramsList$m -

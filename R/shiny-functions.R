@@ -91,7 +91,7 @@ updateChannelMarkerList <- function(experimentName,
                                     flowFrameName,
                                     inputIds){
   #browser()
-  if(flowFrameName != " ") {
+  if (flowFrameName != " ") {
     pipL <- buildCytoPipelineFromCache(experimentName,
                                        path = path)
     ff <- getCytoPipelineFlowFrame(pipL,
@@ -336,7 +336,7 @@ plotScaleTransformedChannel <- function(ff,
     theTransList <- flowCore::transformList(from = channel,
                                             tfun = theTrans)
     
-    if(applyTransform == "data"){
+    if (applyTransform == "data") {
       runTransforms <- TRUE
       if (transfoType == "logicle") {
         linearRange <- c(0, posDecades + width)

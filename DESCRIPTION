@@ -21,7 +21,7 @@ Collate:
     shiny-scaleTransform-module.R
     shiny.R
 Depends: 
-    R (>= 4.1),
+    R (>= 4.2),
 Imports:
     CytoPipeline,
     shiny,

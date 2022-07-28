@@ -16,4 +16,6 @@ dir <- "."
 CytoPipelineCheckApp(dir = dir)
 ScaleTransformApp(dir = dir)
 
+expect_true(TRUE)
+
 
