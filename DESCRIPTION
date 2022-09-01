@@ -1,6 +1,6 @@
 Package: CytoPipelineGUI
 Title: GUI's for visualization of flow cytometry data analysis pipelines
-Version: 0.0.0.9000
+Version: 0.99.0
 Authors@R: 
     c(person(given = "Philippe",
              family = "Hauchamps",
@@ -10,20 +10,27 @@ Authors@R:
       person(given = "Laurent", family = "Gatto",
              email = "laurent.gatto@uclouvain.be",
              role = "aut",
-             comment = c(ORCID = "0000-0002-1520-2268")))
-Description: This package provides GUI's (shiny apps) for the visualization of flow cytometry data analysis pipelines.
+             comment = c(ORCID = "0000-0002-1520-2268")),
+      person(given = "Dan",
+             family = "Lin",
+             role = "ctb",
+             email = "dan.8.lin@gsk.com"))
+Description: This package provides GUI's (shiny apps) for the visualization of 
+ flow cytometry data analysis pipelines.
 License: GPL (>=3) | file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
+biocViews: FlowCytometry, Preprocessing, QualityControl, WorkflowStep,
+ ImmunoOncology, Software, Visualization, GUI
 Collate: 
     shiny-functions.R
     shiny-scaleTransform-module.R
     shiny.R
 Depends: 
     R (>= 4.2),
+    CytoPipeline
 Imports:
-    CytoPipeline,
     shiny,
     plotly,
     ggplot2,
