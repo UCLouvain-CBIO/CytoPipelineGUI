@@ -133,7 +133,10 @@ plotSelectedFlowFrame <- function(experimentName,
                                   flowFrameName,
                                   path,
                                   xChannelLabel,
-                                  yChannelLabel
+                                  yChannelLabel,
+                                  nDisplayCells,
+                                  useMaxValueLinearRange,
+                                  maxValueLinearRange
 ) {
   if (xChannelLabel != " ") {
     message("displaying flow frame plot...")
@@ -152,13 +155,11 @@ plotSelectedFlowFrame <- function(experimentName,
     fluoChannels <- flowCore::colnames(ff)[areFluoCols(ff)]
     
     xScale = "linear"
-    xLinearRange = c(0,262144)
     if (xChannel %in% fluoChannels) {
       xScale = "logicle"
     }
     
     yScale = "linear"
-    yLinearRange = c(0,262144)
     if (yChannelLabel == " ") {
       yChannel <- NULL
     } else {
@@ -169,10 +170,18 @@ plotSelectedFlowFrame <- function(experimentName,
       }
     }
     
+    if (useMaxValueLinearRange) {
+      xLinearRange = c(0, maxValueLinearRange)
+      yLinearRange = c(0, maxValueLinearRange)
+    } else {
+      xLinearRange = NULL
+      yLinearRange = NULL
+    }
+    
     p <- ggplotEvents(obj = ff,
                       xChannel = xChannel,
                       yChannel = yChannel,
-                      nDisplayCells = 10000,
+                      nDisplayCells = nDisplayCells,
                       seed = 0,
                       bins = 216,
                       fill = "lightgreen",
@@ -204,7 +213,10 @@ plotDiffFlowFrame <- function(experimentNameFrom,
                               xChannelLabelTo,
                               yChannelLabelFrom,
                               yChannelLabelTo,
-                              interactive = FALSE) {
+                              interactive = FALSE,
+                              nDisplayCells,
+                              useMaxValueLinearRange,
+                              maxValueLinearRange) {
   
   if (xChannelLabelFrom != " " &&
       yChannelLabelFrom != " " &&
@@ -235,13 +247,12 @@ plotDiffFlowFrame <- function(experimentNameFrom,
     
     fluoChannels <- flowCore::colnames(ffFrom)[areFluoCols(ffFrom)]
     xScale = "linear"
-    xLinearRange = c(0,262144)
+    
     if (xChannel %in% fluoChannels) {
       xScale = "logicle"
     }
     
     yScale = "linear"
-    yLinearRange = c(0,262144)
     if (yChannelLabelFrom == " ") {
       yChannel <- NULL
     } else {
@@ -252,11 +263,22 @@ plotDiffFlowFrame <- function(experimentNameFrom,
       }
     }
     
+    if (useMaxValueLinearRange) {
+      xLinearRange = c(0, maxValueLinearRange)
+      yLinearRange = c(0, maxValueLinearRange)
+    } else {
+      xLinearRange = NULL
+      yLinearRange = NULL
+    }
+    
+    # used to prevent shiny app being frozen by plotly plot
+    nEffectiveDisplayCells <- min(10000, nDisplayCells)
+    
     p <- ggplotFilterEvents(ffPre = ffFrom,
                             ffPost = ffTo,
                             xChannel = xChannel,
                             yChannel = yChannel,
-                            nDisplayCells = 10000,
+                            nDisplayCells = nEffectiveDisplayCells,
                             seed = 0,
                             size = 0.1,
                             xScale = xScale,

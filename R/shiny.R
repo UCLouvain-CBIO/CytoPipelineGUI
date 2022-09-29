@@ -152,12 +152,28 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                                 enableTransfoListUpdate = FALSE, 
                                 enableTransfoListSave = FALSE),
                
-      )
-      
-      # navbarMenu("More",
-      #   tabPanel("Settings", "Settings page"),
+      ),
+      navbarMenu("More",
+         tabPanel("flowframe plots settings", 
+                  fluidPage(
+                    numericInput(inputId = "nSubSampleEvents",
+                                 label = "Max nb of displayed events:",
+                                 value = 10000,
+                                 min = 100,
+                                 max = NA),
+                    checkboxInput(inputId = "useMaxValueLinearRange",
+                                  label = "Use maximum value for linear range:",
+                                  value = FALSE),
+                    numericInput(inputId = "maxValueLinearRange",
+                                 label = "Maximum value for linear range:",
+                                 value = 262144,
+                                 min = 100,
+                                 max = NA)
+                    
+                  )),
       #   "------",
-      #   tabPanel("About", "About page"))
+      #   tabPanel("About", "About page")
+      )
   
     ) # end navbarPage
 
@@ -415,7 +431,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                               path = path,
                               flowFrameName = input$flowFrameFrom,
                               xChannelLabel = input$xchannelFrom,
-                              yChannelLabel = input$ychannelFrom)
+                              yChannelLabel = input$ychannelFrom,
+                              nDisplayCells = input$nSubSampleEvents,
+                              useMaxValueLinearRange =
+                                input$useMaxValueLinearRange,
+                              maxValueLinearRange = input$maxValueLinearRange)
       })
 
       output$ffPlotTo <- renderPlot({
@@ -425,7 +445,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                               path = path,
                               flowFrameName = input$flowFrameTo,
                               xChannelLabel = input$xchannelTo,
-                              yChannelLabel = input$ychannelTo)
+                              yChannelLabel = input$ychannelTo,
+                              nDisplayCells = input$nSubSampleEvents,
+                              useMaxValueLinearRange =
+                                input$useMaxValueLinearRange,
+                              maxValueLinearRange = input$maxValueLinearRange)
       })
 
       output$ffDiffPlotly <- plotly::renderPlotly({
@@ -443,7 +467,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                           xChannelLabelTo = input$xchannelTo,
                           yChannelLabelFrom = input$ychannelFrom,
                           yChannelLabelTo = input$ychannelTo,
-                          interactive = TRUE)
+                          interactive = TRUE,
+                          nDisplayCells = input$nSubSampleEvents,
+                          useMaxValueLinearRange =
+                            input$useMaxValueLinearRange,
+                          maxValueLinearRange = input$maxValueLinearRange)
       })
       
       scaleTransformServer(id = "scaleTransformUI",
