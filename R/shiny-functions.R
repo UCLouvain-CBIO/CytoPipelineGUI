@@ -11,7 +11,7 @@
 # GNU General Public License for more details (<http://www.gnu.org/licenses/>).
 
 channelLabel2Name <- function(channelLabel, ff) {
-  channels <- unname(flowCore::colnames(ff)[areSignalCols(ff)])
+  channels <- unname(flowCore::colnames(ff))#[areSignalCols(ff)])
   chLabels <- lapply(channels,
                      FUN = function(ch){
                        chMk <- flowCore::getChannelMarker(ff, ch)
@@ -102,6 +102,12 @@ updateChannelMarkerList <- function(experimentName,
     
     # sort out channels and and channel_labels
     channels <- unname(flowCore::colnames(ff)[areSignalCols(ff)])
+    
+    # add time channel
+    timeCh <- findTimeChannel(ff)
+    
+    channels <- c(channels, timeCh)
+    
     chLabels <- lapply(channels,
                        FUN = function(ch){
                          chMk <- flowCore::getChannelMarker(ff, ch)
