@@ -10,7 +10,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details (<http://www.gnu.org/licenses/>).
 
-#dir <- "C:/CBIO/2021-phd-philippe-hauchamps/Analyses/OMIP-021"
+#dir <- "C:/CBIO/2021-phd-philippe-hauchamps/Analyses/MDSC_Clinical"
 dir <- "."
 
 CytoPipelineCheckApp(dir = dir)

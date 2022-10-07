@@ -140,6 +140,7 @@ plotSelectedFlowFrame <- function(experimentName,
                                   path,
                                   xChannelLabel,
                                   yChannelLabel,
+                                  useAllCells,
                                   nDisplayCells,
                                   useMaxValueLinearRange,
                                   maxValueLinearRange
@@ -184,6 +185,10 @@ plotSelectedFlowFrame <- function(experimentName,
       yLinearRange = NULL
     }
     
+    if (useAllCells) {
+      nDisplayCells = Inf
+    }
+        
     p <- ggplotEvents(obj = ff,
                       xChannel = xChannel,
                       yChannel = yChannel,
@@ -220,6 +225,7 @@ plotDiffFlowFrame <- function(experimentNameFrom,
                               yChannelLabelFrom,
                               yChannelLabelTo,
                               interactive = FALSE,
+                              useAllCells,
                               nDisplayCells,
                               useMaxValueLinearRange,
                               maxValueLinearRange) {
@@ -275,6 +281,11 @@ plotDiffFlowFrame <- function(experimentNameFrom,
     } else {
       xLinearRange = NULL
       yLinearRange = NULL
+    }
+    
+    
+    if (useAllCells) {
+      nDisplayCells = Inf
     }
     
     # used to prevent shiny app being frozen by plotly plot

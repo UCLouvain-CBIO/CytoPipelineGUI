@@ -156,20 +156,27 @@ CytoPipelineCheckApp <-  function(dir = ".") {
       navbarMenu("More",
          tabPanel("flowframe plots settings", 
                   fluidPage(
-                    numericInput(inputId = "nSubSampleEvents",
-                                 label = "Max nb of displayed events:",
-                                 value = 10000,
-                                 min = 100,
-                                 max = NA),
+                    checkboxInput(inputId = "useAllSampleEvents",
+                                  label = "Use all sample events:",
+                                  value = FALSE),
+                    conditionalPanel(
+                      condition = "!input.useAllSampleEvents",
+                      numericInput(inputId = "nSubSampleEvents",
+                                   label = "Max nb of displayed events:",
+                                   value = 10000,
+                                   min = 100,
+                                   max = NA)),
                     checkboxInput(inputId = "useMaxValueLinearRange",
                                   label = "Use maximum value for linear range:",
                                   value = FALSE),
-                    numericInput(inputId = "maxValueLinearRange",
-                                 label = "Maximum value for linear range:",
-                                 value = 262144,
-                                 min = 100,
-                                 max = NA)
-                    
+                    conditionalPanel(
+                      condition = "input.useMaxValueLinearRange",
+                      numericInput(inputId = "maxValueLinearRange",
+                                   label = "Maximum value for linear range:",
+                                   value = 262144,
+                                   min = 100,
+                                   max = NA)
+                    )
                   )),
       #   "------",
       #   tabPanel("About", "About page")
@@ -389,7 +396,12 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                           selected = input$ychannelFrom)
         message(paste0("end obs event: ychannelFrom"))
       })
-
+      
+      observeEvent(input$useAllSampleEvents, {
+        message(paste0("obs event: useAllSampleEvents"))
+        message(paste0("value observed: ", input$useAllSampleEvents))
+      })
+      
       output$workflowPlotFrom <- renderPlot({
         pipL <- buildCytoPipelineFromCache(input$experimentFrom,
                                            path = path)
@@ -432,6 +444,7 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                               flowFrameName = input$flowFrameFrom,
                               xChannelLabel = input$xchannelFrom,
                               yChannelLabel = input$ychannelFrom,
+                              useAllCells = input$useAllSampleEvents,
                               nDisplayCells = input$nSubSampleEvents,
                               useMaxValueLinearRange =
                                 input$useMaxValueLinearRange,
@@ -446,6 +459,7 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                               flowFrameName = input$flowFrameTo,
                               xChannelLabel = input$xchannelTo,
                               yChannelLabel = input$ychannelTo,
+                              useAllCells = input$useAllSampleEvents,
                               nDisplayCells = input$nSubSampleEvents,
                               useMaxValueLinearRange =
                                 input$useMaxValueLinearRange,
@@ -468,6 +482,7 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                           yChannelLabelFrom = input$ychannelFrom,
                           yChannelLabelTo = input$ychannelTo,
                           interactive = TRUE,
+                          useAllCells = input$useAllSampleEvents,
                           nDisplayCells = input$nSubSampleEvents,
                           useMaxValueLinearRange =
                             input$useMaxValueLinearRange,
