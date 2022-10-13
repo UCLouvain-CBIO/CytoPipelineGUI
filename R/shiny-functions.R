@@ -142,9 +142,8 @@ plotSelectedFlowFrame <- function(experimentName,
                                   yChannelLabel,
                                   useAllCells,
                                   nDisplayCells,
-                                  useMaxValueLinearRange,
-                                  maxValueLinearRange
-) {
+                                  useFixedLinearRange,
+                                  linearRange) {
   if (xChannelLabel != " ") {
     message("displaying flow frame plot...")
     #browser()
@@ -177,16 +176,16 @@ plotSelectedFlowFrame <- function(experimentName,
       }
     }
     
-    if (useMaxValueLinearRange) {
-      xLinearRange = c(0, maxValueLinearRange)
-      yLinearRange = c(0, maxValueLinearRange)
+    if (useFixedLinearRange) {
+      xLinearRange <- linearRange
+      yLinearRange <- linearRange
     } else {
-      xLinearRange = NULL
-      yLinearRange = NULL
+      xLinearRange <- NULL
+      yLinearRange <- NULL
     }
     
     if (useAllCells) {
-      nDisplayCells = Inf
+      nDisplayCells <- Inf
     }
         
     p <- ggplotEvents(obj = ff,
@@ -227,8 +226,8 @@ plotDiffFlowFrame <- function(experimentNameFrom,
                               interactive = FALSE,
                               useAllCells,
                               nDisplayCells,
-                              useMaxValueLinearRange,
-                              maxValueLinearRange) {
+                              useFixedLinearRange,
+                              linearRange) {
   
   if (xChannelLabelFrom != " " &&
       yChannelLabelFrom != " " &&
@@ -275,12 +274,12 @@ plotDiffFlowFrame <- function(experimentNameFrom,
       }
     }
     
-    if (useMaxValueLinearRange) {
-      xLinearRange = c(0, maxValueLinearRange)
-      yLinearRange = c(0, maxValueLinearRange)
+    if (useFixedLinearRange) {
+      xLinearRange <- linearRange
+      yLinearRange <- linearRange
     } else {
-      xLinearRange = NULL
-      yLinearRange = NULL
+      xLinearRange <- NULL
+      yLinearRange <- NULL
     }
     
     

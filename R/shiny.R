@@ -166,13 +166,18 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                                    value = 10000,
                                    min = 100,
                                    max = NA)),
-                    checkboxInput(inputId = "useMaxValueLinearRange",
-                                  label = "Use maximum value for linear range:",
+                    checkboxInput(inputId = "useFixedLinearRange",
+                                  label = "Use fixed linear range:",
                                   value = FALSE),
                     conditionalPanel(
-                      condition = "input.useMaxValueLinearRange",
+                      condition = "input.useFixedLinearRange",
+                      numericInput(inputId = "minValueLinearRange",
+                                   label = "Min:",
+                                   value = -100,
+                                   min = -50000,
+                                   max = 262143),
                       numericInput(inputId = "maxValueLinearRange",
-                                   label = "Maximum value for linear range:",
+                                   label = "Max:",
                                    value = 262144,
                                    min = 100,
                                    max = NA)
@@ -446,9 +451,10 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                               yChannelLabel = input$ychannelFrom,
                               useAllCells = input$useAllSampleEvents,
                               nDisplayCells = input$nSubSampleEvents,
-                              useMaxValueLinearRange =
-                                input$useMaxValueLinearRange,
-                              maxValueLinearRange = input$maxValueLinearRange)
+                              useFixedLinearRange =
+                                input$useFixedLinearRange,
+                              linearRange = c(input$minValueLinearRange,
+                                              input$maxValueLinearRange))
       })
 
       output$ffPlotTo <- renderPlot({
@@ -461,9 +467,10 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                               yChannelLabel = input$ychannelTo,
                               useAllCells = input$useAllSampleEvents,
                               nDisplayCells = input$nSubSampleEvents,
-                              useMaxValueLinearRange =
-                                input$useMaxValueLinearRange,
-                              maxValueLinearRange = input$maxValueLinearRange)
+                              useFixedLinearRange =
+                                input$useFixedLinearRange,
+                              linearRange = c(input$minValueLinearRange,
+                                              input$maxValueLinearRange))
       })
 
       output$ffDiffPlotly <- plotly::renderPlotly({
@@ -484,9 +491,10 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                           interactive = TRUE,
                           useAllCells = input$useAllSampleEvents,
                           nDisplayCells = input$nSubSampleEvents,
-                          useMaxValueLinearRange =
-                            input$useMaxValueLinearRange,
-                          maxValueLinearRange = input$maxValueLinearRange)
+                          useFixedLinearRange =
+                            input$useFixedLinearRange,
+                          linearRange = c(input$minValueLinearRange,
+                                          input$maxValueLinearRange))
       })
       
       scaleTransformServer(id = "scaleTransformUI",
