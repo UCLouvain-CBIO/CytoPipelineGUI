@@ -143,8 +143,6 @@ CytoPipelineCheckApp <-  function(dir = ".") {
         
         div(plotly::plotlyOutput("ffDiffPlotly", width = "50%"), 
             align = "center")
-
-
       ),
       tabPanel("scale transforms",
                scaleTransformUI(id = "scaleTransformUI",
@@ -181,7 +179,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                                    value = 262144,
                                    min = 100,
                                    max = NA)
-                    )
+                    ),
+                    checkboxInput(inputId = "useSelectedTransfo",
+                                  label = 
+                                    "Use scale transformation list object:",
+                                  value = FALSE)
                   )),
       #   "------",
       #   tabPanel("About", "About page")
@@ -440,8 +442,14 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                                           box.prop = 0.3))
         }
       })
+      
 
       output$ffPlotFrom <- renderPlot({
+        #browser()
+        transfoListName <- " "
+        if (input$useSelectedTransfo){
+          transfoListName <- input[[NS("scaleTransformUI", "scaleTransfoList")]]
+        }
         plotSelectedFlowFrame(experimentName = input$experimentFrom,
                               whichQueue = input$whichQueueFrom,
                               sampleFile = input$sampleFrom,
@@ -454,10 +462,16 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                               useFixedLinearRange =
                                 input$useFixedLinearRange,
                               linearRange = c(input$minValueLinearRange,
-                                              input$maxValueLinearRange))
+                                              input$maxValueLinearRange),
+                              transfoListName = transfoListName)
       })
 
       output$ffPlotTo <- renderPlot({
+        #browser()
+        transfoListName <- " "
+        if (input$useSelectedTransfo){
+          transfoListName <- input[[NS("scaleTransformUI", "scaleTransfoList")]]
+        }
         plotSelectedFlowFrame(experimentName = input$experimentTo,
                               whichQueue = input$whichQueueTo,
                               sampleFile = input$sampleTo,
@@ -470,11 +484,16 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                               useFixedLinearRange =
                                 input$useFixedLinearRange,
                               linearRange = c(input$minValueLinearRange,
-                                              input$maxValueLinearRange))
+                                              input$maxValueLinearRange),
+                              transfoListName = transfoListName)
       })
 
       output$ffDiffPlotly <- plotly::renderPlotly({
         #browser()
+        transfoListName <- " "
+        if (input$useSelectedTransfo){
+          transfoListName <- input[[NS("scaleTransformUI", "scaleTransfoList")]]
+        }
         plotDiffFlowFrame(experimentNameFrom = input$experimentFrom,
                           experimentNameTo = input$experimentTo,
                           whichQueueFrom = input$whichQueueFrom,
@@ -494,7 +513,8 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                           useFixedLinearRange =
                             input$useFixedLinearRange,
                           linearRange = c(input$minValueLinearRange,
-                                          input$maxValueLinearRange))
+                                          input$maxValueLinearRange),
+                          transfoListName = transfoListName)
       })
       
       scaleTransformServer(id = "scaleTransformUI",

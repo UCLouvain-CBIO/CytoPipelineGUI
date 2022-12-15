@@ -143,7 +143,8 @@ plotSelectedFlowFrame <- function(experimentName,
                                   useAllCells,
                                   nDisplayCells,
                                   useFixedLinearRange,
-                                  linearRange) {
+                                  linearRange,
+                                  transfoListName = " ") {
   if (xChannelLabel != " ") {
     message("displaying flow frame plot...")
     #browser()
@@ -160,6 +161,15 @@ plotSelectedFlowFrame <- function(experimentName,
     
     fluoChannels <- flowCore::colnames(ff)[areFluoCols(ff)]
     
+    #browser()
+    transList <- NULL
+    if (transfoListName != " ") {
+      transList <- getCytoPipelineScaleTransform(pipL,
+                                                 whichQueue = "scale transform",
+                                                 objectName = transfoListName,
+                                                 path = path)
+    } 
+    
     xScale = "linear"
     if (xChannel %in% fluoChannels) {
       xScale = "logicle"
@@ -175,6 +185,7 @@ plotSelectedFlowFrame <- function(experimentName,
         yScale = "logicle"
       }
     }
+    
     
     if (useFixedLinearRange) {
       xLinearRange <- linearRange
@@ -199,7 +210,8 @@ plotSelectedFlowFrame <- function(experimentName,
                       xScale = xScale,
                       yScale = yScale,
                       xLinearRange = xLinearRange,
-                      yLinearRange = yLinearRange)
+                      yLinearRange = yLinearRange,
+                      transList = transList)
     
     
     theSubtitle <- paste0("nb of events: ", flowCore::nrow(ff))
@@ -227,7 +239,8 @@ plotDiffFlowFrame <- function(experimentNameFrom,
                               useAllCells,
                               nDisplayCells,
                               useFixedLinearRange,
-                              linearRange) {
+                              linearRange,
+                              transfoListName = " ") {
   
   if (xChannelLabelFrom != " " &&
       yChannelLabelFrom != " " &&
@@ -252,6 +265,15 @@ plotDiffFlowFrame <- function(experimentNameFrom,
                                      sampleFile = sampleFileTo,
                                      objectName = flowFrameNameTo,
                                      path = path)
+    
+    #browser()
+    transList <- NULL
+    if (transfoListName != " ") {
+      transList <- getCytoPipelineScaleTransform(pipLFrom,
+                                                 whichQueue = "scale transform",
+                                                 objectName = transfoListName,
+                                                 path = path)
+    } 
     
     xChannel <- channelLabel2Name(xChannelLabelFrom, ffFrom)
     if (length(xChannel) == 0) return()
@@ -301,6 +323,7 @@ plotDiffFlowFrame <- function(experimentNameFrom,
                             yScale = yScale,
                             xLinearRange = xLinearRange,
                             yLinearRange = yLinearRange,
+                            transList = transList,
                             interactive = interactive)
     
     nEventFrom <- flowCore::nrow(ffFrom)
