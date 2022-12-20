@@ -44,6 +44,7 @@ updateFFList <- function(experimentName,
   if (noFF) {
     newChoices = " "
   } else {
+    #browser()
     pipL <- buildCytoPipelineFromCache(experimentName,
                                        path = path)
     df <- getCytoPipelineObjectInfos(pipL,

@@ -329,12 +329,13 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
     observeEvent(input$experimentTransfo, {
       message(paste0("obs event: experimentTransfo"))
       # update list of available transList objects for scale transfo display
-      # browser()
+      # message("updateTransList")
       updateTransList(experimentName = input$experimentTransfo,
                       path = path,
                       inputId = "scaleTransfoList")
       
       # update list of available FF objects for scale transfo display
+      #message("updateFFList")
       updateFFList(experimentName = input$experimentTransfo,
                    whichQueue = "scale transform",
                    sampleFile = NULL,

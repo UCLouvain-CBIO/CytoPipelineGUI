@@ -305,7 +305,7 @@ CytoPipelineCheckApp <-  function(dir = ".") {
 
       observeEvent(input$whichQueueFrom, {
         message(paste0("obs event: whichQueueFrom"))
-        message(paste0("selected sample file: ", input$sampleFrom))
+        #message(paste0("selected sample file: ", input$sampleFrom))
         
         # update list of available FF objects
         #browser()
@@ -324,7 +324,7 @@ CytoPipelineCheckApp <-  function(dir = ".") {
 
       observeEvent(input$whichQueueTo, {
         message(paste0("obs event: whichQueueTo"))
-        message(paste0("selected sample file: ", input$sampleTo))
+        #message(paste0("selected sample file: ", input$sampleTo))
         
         # update list of available FF objects
         
@@ -406,7 +406,7 @@ CytoPipelineCheckApp <-  function(dir = ".") {
       
       observeEvent(input$useAllSampleEvents, {
         message(paste0("obs event: useAllSampleEvents"))
-        message(paste0("value observed: ", input$useAllSampleEvents))
+        #message(paste0("value observed: ", input$useAllSampleEvents))
       })
       
       output$workflowPlotFrom <- renderPlot({
@@ -522,7 +522,6 @@ CytoPipelineCheckApp <-  function(dir = ".") {
       
       
     } # end main server
-
     shinyApp(ui, server)
   }
 
