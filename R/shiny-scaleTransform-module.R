@@ -332,7 +332,8 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
       # message("updateTransList")
       updateTransList(experimentName = input$experimentTransfo,
                       path = path,
-                      inputId = "scaleTransfoList")
+                      inputId = "scaleTransfoList",
+                      currentValue = input$scaleTransfoList)
       
       # update list of available FF objects for scale transfo display
       #message("updateFFList")
@@ -340,7 +341,8 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
                    whichQueue = "scale transform",
                    sampleFile = NULL,
                    path = path,
-                   inputId = "flowFrameTransfo")
+                   inputId = "flowFrameTransfo",
+                   currentValue = input$flowFrameTransfo)
       message(paste0("end obs event: experimentTransfo"))
     })
     
@@ -352,7 +354,8 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
                               sampleFile = NULL,
                               path = path,
                               flowFrameName = input$flowFrameTransfo,
-                              inputIds = c("transfoChannel"))
+                              inputIds = c("transfoChannel"),
+                              currentValues = c(input$transfoChannel))
       message(paste0("end obs event: flowFrameTransfo"))
     })
     

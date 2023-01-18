@@ -28,8 +28,10 @@ updateFFList <- function(experimentName,
                          whichQueue,
                          sampleFile,
                          path,
-                         inputId){
+                         inputId,
+                         currentValue){
   #browser()
+  
   noFF <- FALSE
   if (!is.null(sampleFile)){
     if (sampleFile == " ") {
@@ -56,15 +58,21 @@ updateFFList <- function(experimentName,
          "ObjectName"]
     newChoices = c(" ", FFNames)
   }
+  
+  newSelection <- currentValue
+  if (!(newSelection %in% newChoices)) {
+    newSelection = " "
+  }
   updateSelectInput(inputId = inputId, 
                       choices = newChoices,
-                      selected = " ")
+                      selected = newSelection)
   
 }
 
 updateTransList <- function(experimentName,
                             path,
-                            inputId){
+                            inputId,
+                            currentValue){
   #browser()
   if (experimentName != " ") {
     pipL <- buildCytoPipelineFromCache(experimentName,
@@ -75,11 +83,17 @@ updateTransList <- function(experimentName,
                                      path = path)
     scaleTransfoNames <-
       df[df$ObjectClass == "transformList", "ObjectName"]
-    if (length(scaleTransfoNames) == 0)
-      scaleTransfoNames <- " "
+    
+    newChoices = c(" ", scaleTransfoNames)
+    
+    newSelection <- currentValue
+    if (!(newSelection %in% newChoices)) {
+      newSelection = " "
+    }
+    
     updateSelectInput(inputId = inputId, 
-                      choices = c(" ", scaleTransfoNames),
-                      selected = " ")
+                      choices = newChoices,
+                      selected = newSelection)
   }
 }
 
@@ -88,7 +102,8 @@ updateChannelMarkerList <- function(experimentName,
                                     sampleFile,
                                     path,
                                     flowFrameName,
-                                    inputIds){
+                                    inputIds,
+                                    currentValues){
   #browser()
   if (flowFrameName != " ") {
     pipL <- buildCytoPipelineFromCache(experimentName,
@@ -113,10 +128,17 @@ updateChannelMarkerList <- function(experimentName,
                          lab <- paste0(chMk$name, " : ", chMk$desc)
                          lab
                        })
-    for (inputId in inputIds) {
-      updateSelectInput(inputId = inputId,
-                        choices = c(" ", chLabels),
-                        selected = " ")
+    for (i in seq_along(inputIds)) {
+      newChoices <- c(" ", chLabels)
+      
+      newSelection <- currentValues[i]
+      if (!(newSelection %in% newChoices)) {
+        newSelection = " "
+      }
+      
+      updateSelectInput(inputId = inputIds[i],
+                        choices = newChoices,
+                        selected = newSelection)
     }
     
   } else {

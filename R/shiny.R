@@ -218,10 +218,16 @@ CytoPipelineCheckApp <-  function(dir = ".") {
         }
         
         if (length(whichQueueChoices) == 0)
-          stop("experiment without any processing step selected => inconsistency")
+          stop("experiment without any processing step selected => ",
+               "inconsistency")
         
+        newSelection = input$whichQueueFrom
+        if (!(newSelection %in% whichQueueChoices)) {
+          newSelection = NULL 
+        }
         updateSelectInput(inputId = "whichQueueFrom",
-                          choices = whichQueueChoices)
+                          choices = whichQueueChoices,
+                          selected = newSelection)
         
         
         samples <- sampleFiles(pipL)
@@ -233,17 +239,23 @@ CytoPipelineCheckApp <-  function(dir = ".") {
           newChoices <- c(" ", samples)
         }
         
+        newSelection = input$sampleFrom
+        if (!(newSelection %in% newChoices)) {
+          newSelection = " " 
+        }
         updateSelectInput(inputId = "sampleFrom",
-                          choices = newChoices)
+                          choices = newChoices,
+                          selected = newSelection)
 
         # update list of available FF objects for FF comparison
         # note we force sampleFile to be " ", because it is automatically
         # the current choice, and to avoid ghost sample file flowing
         updateFFList(experimentName = input$experimentFrom,
                      whichQueue = input$whichQueueFrom,
-                     sampleFile = " ",
+                     sampleFile = newSelection,
                      path = path,
-                     inputId = "flowFrameFrom")
+                     inputId = "flowFrameFrom",
+                     currentValue = input$flowFrameFrom)
 
         # update experiment for comparison (by default)
         updateSelectInput(inputId = "experimentTo",
@@ -273,10 +285,17 @@ CytoPipelineCheckApp <-  function(dir = ".") {
         }
         
         if (length(whichQueueChoices) == 0)
-          stop("experiment without any processing step selected => inconsistency")
+          stop("experiment without any processing step selected ",
+               "=> inconsistency")
+        
+        newSelection = input$whichQueueTo
+        if (!(newSelection %in% whichQueueChoices)) {
+          newSelection = NULL 
+        }
         
         updateSelectInput(inputId = "whichQueueTo",
-                          choices = whichQueueChoices)
+                          choices = whichQueueChoices,
+                          selected = newSelection)
         
         samples <- sampleFiles(pipL)
         
@@ -288,17 +307,23 @@ CytoPipelineCheckApp <-  function(dir = ".") {
           newChoices <- c(" ", samples)
         }
 
+        newSelection = input$sampleTo
+        if (!(newSelection %in% newChoices)) {
+          newSelection = " " 
+        }
         updateSelectInput(inputId = "sampleTo",
-                          choices = newChoices)
+                          choices = newChoices,
+                          selected = newSelection)
         
         # update list of available FF objects
         # note we force sampleFile to be " ", because it is automatically
         # the current choice, and to avoid ghost sample file flowing
         updateFFList(experimentName = input$experimentTo,
                      whichQueue = input$whichQueueTo,
-                     sampleFile = " ",
+                     sampleFile = newSelection,
                      path = path,
-                     inputId = "flowFrameTo")
+                     inputId = "flowFrameTo",
+                     currentValue = input$flowFrameTo)
         
         message(paste0("end obs event: experimentTo"))
       })
@@ -314,7 +339,8 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                      whichQueue = input$whichQueueFrom,
                      sampleFile = input$sampleFrom,
                      path = path,
-                     inputId = "flowFrameFrom")
+                     inputId = "flowFrameFrom",
+                     currentValue = input$flowFrameFrom)
         
         # update which queue for comparison (default)
         updateSelectInput(inputId = "whichQueueTo",
@@ -332,7 +358,8 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                      whichQueue = input$whichQueueTo,
                      sampleFile = input$sampleTo,
                      path = path,
-                     inputId = "flowFrameTo")
+                     inputId = "flowFrameTo",
+                     currentValue = input$flowFrameTo)
         message(paste0("end obs event: whichQueueTo"))
       })
 
@@ -343,7 +370,8 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                      whichQueue = input$whichQueueFrom,
                      sampleFile = input$sampleFrom,
                      path = path,
-                     inputId = "flowFrameFrom")
+                     inputId = "flowFrameFrom",
+                     currentValue = input$flowFrameFrom)
 
         # update sample for comparison (default)
         updateSelectInput(inputId = "sampleTo",
@@ -358,7 +386,8 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                      whichQueue = input$whichQueueTo,
                      sampleFile = input$sampleTo,
                      path = path,
-                     inputId = "flowFrameTo")
+                     inputId = "flowFrameTo",
+                     currentValue = input$flowFrameTo)
         message(paste0("end obs event: sampleTo"))
       })
 
@@ -371,7 +400,9 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                                 path = path,
                                 flowFrameName = input$flowFrameFrom,
                                 inputIds = c("xchannelFrom",
-                                             "ychannelFrom"))
+                                             "ychannelFrom"),
+                                currentValues = c(input$xchannelFrom,
+                                                  input$ychannelFrom))
         message(paste0("end obs event: flowFrameFrom"))
       })
 
@@ -384,7 +415,9 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                                 path = path,
                                 flowFrameName = input$flowFrameTo,
                                 inputIds = c("xchannelTo",
-                                             "ychannelTo"))
+                                             "ychannelTo"),
+                                currentValues = c(input$xchannelTo,
+                                                  input$ychannelTo))
         message(paste0("end obs event: flowFrameTo"))
       })
 
