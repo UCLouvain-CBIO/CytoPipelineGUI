@@ -54,8 +54,6 @@ updateFFList <- function(experimentName,
     FFNames <-
       df[df$ObjectClass == "flowFrame" | df$ObjectClass == "cytoframe",
          "ObjectName"]
-    if (length(FFNames) == 0)
-      stop("no flow frame objects attached to selected (experiment;queue;sample")
     newChoices = c(" ", FFNames)
   }
   updateSelectInput(inputId = inputId, 
