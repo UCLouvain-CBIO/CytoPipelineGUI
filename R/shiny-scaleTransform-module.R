@@ -141,27 +141,86 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
     
     currentFFFull <- reactive({
       #message("firing currentFFFull")
+      ### Warning: activating messages in reactive disturbs the process!!
       if (!is.null(ff)) {
         ff
       } else {
-        if (input$flowFrameTransfo != " ") {
+        if (input$flowFrameTransfo == " ") {
+          NULL
+        } else if (grepl(pattern = "Synth. agg. - ", 
+                         x = input$flowFrameTransfo)) {
+          # no flow frame in the scale transform queue
+          # => build synthetic one from pre-processing queue
+          # => sample 10,000 events from max. 5 flow frames
+          nTotalEvents = 10000
+          nFilesMax = 5
+          
+          objectName <- sub(pattern = "Synth. agg. - ", 
+                            replacement = "",
+                            x = input$flowFrameTransfo)
+          
+          pipL <- buildCytoPipelineFromCache(input$experimentTransfo,
+                                             path = path)
+          samples <- sampleFiles(pipL)
+          nSamples <- length(samples)
+          if (nSamples >= nFilesMax) {
+            samples = samples[sample.int(nSamples, size = nFilesMax)]
+          }
+          ffList <- list()
+          for (s in samples) {
+            df <- getCytoPipelineObjectInfos(pipL,
+                                             whichQueue = "pre-processing",
+                                             sampleFile = s,
+                                             path = path)
+            if (nrow(df[(df$ObjectClass == "flowFrame" | 
+                     df$ObjectClass == "cytoframe") & 
+                     df$ObjectName == objectName,]) > 0) {
+              myff <- getCytoPipelineFlowFrame(pipL,
+                                               whichQueue = "pre-processing",
+                                               sampleFile = s,
+                                               objectName = objectName,
+                                               path = path)
+                                             
+              ffList <- c(ffList, myff)
+            }
+          }
+          if (length(ffList) == 0)
+            NULL
+          
+          fs <- flowCore::flowSet(ffList)
+          ff <- CytoPipeline::aggregateAndSample(fs,
+                                                 nTotalEvents = nTotalEvents,
+                                                 seed = 0)
+          ff
+        } else {
           pipL <- buildCytoPipelineFromCache(input$experimentTransfo,
                                              path = path)
           
-          ff <- getCytoPipelineFlowFrame(pipL,
-                                         whichQueue = "scale transform",
-                                         sampleFile = NULL,
-                                         objectName = input$flowFrameTransfo,
-                                         path = path)
-          ff
-        } else {
-          NULL
-        }
+          df <- getCytoPipelineObjectInfos(pipL,
+                                           whichQueue = "scale transform",
+                                           sampleFile = NULL,
+                                           path = path)
+          if (nrow(df[(df$ObjectClass == "flowFrame" | 
+                       df$ObjectClass == "cytoframe") & 
+                      df$ObjectName == input$flowFrameTransfo,]) > 0) {
+            ff <- getCytoPipelineFlowFrame(pipL,
+                                           whichQueue = "scale transform",
+                                           sampleFile = NULL,
+                                           objectName = input$flowFrameTransfo,
+                                           path = path)
+            
+            ff
+          } else {
+            NULL
+          }
+        } 
       }
+      ### Warning: activating messages in reactive disturbs the process!!
       #message("end firing currentFFFull")
     })
     
     currentFF <- reactive({
+      ### Warning: activating messages in reactive disturbs the process!!
       #message("firing currentFF")
       if (is.null(currentFFFull)) {
         NULL
@@ -171,8 +230,8 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
       } else {
         NULL
       }
+      ### Warning: activating messages in reactive disturbs the process!!
       #message("end firing currentFF")
-        
       })
     
     r <- reactiveValues(transfoType = "linear",
@@ -232,10 +291,17 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
     
     updateTransfoParams <- function(transfoList,
                                     ff) {
+      #browser()
       if (!is.null(transfoList) && !is.null(ff)) {
-        #browser()
         tPars <- getTransfoParams(transfoList,
                                   channel = flowCore::colnames(ff)[1])
+        
+        if (is.null(tPars)) {
+          # trial with "Comp-"
+          tPars <- getTransfoParams(transfoList,
+                                    channel = paste0("Comp-",
+                                                     flowCore::colnames(ff)[1]))
+        }
         
         if (!is.null(tPars)) {
           updateSelectInput(inputId = "transfoType",
@@ -336,26 +402,43 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
                       currentValue = input$scaleTransfoList)
       
       # update list of available FF objects for scale transfo display
-      #message("updateFFList")
-      updateFFList(experimentName = input$experimentTransfo,
-                   whichQueue = "scale transform",
-                   sampleFile = NULL,
-                   path = path,
-                   inputId = "flowFrameTransfo",
-                   currentValue = input$flowFrameTransfo)
+      #message("updateFFListForTransDisplay")
+      updateFFListForTransDisplay(
+        experimentName = input$experimentTransfo,
+        path = path,
+        inputId = "flowFrameTransfo",
+        currentValue = input$flowFrameTransfo)
+                   
       message(paste0("end obs event: experimentTransfo"))
     })
     
     observeEvent(input$flowFrameTransfo, {
       message(paste0("obs event: flowFrameTransfo"))
       # update list of channels
-      updateChannelMarkerList(experimentName = input$experimentTransfo,
-                              whichQueue = "scale transform",
-                              sampleFile = NULL,
-                              path = path,
-                              flowFrameName = input$flowFrameTransfo,
-                              inputIds = c("transfoChannel"),
-                              currentValues = c(input$transfoChannel))
+      ffName <- input$flowFrameTransfo
+      if (grepl(pattern = "Synth. agg. - ", 
+                x = ffName)) {
+        ffName <- sub(pattern = "Synth. agg. - ", 
+                      replacement = "",
+                      x = ffName)  
+        updateChannelMarkerList(experimentName = input$experimentTransfo,
+                                whichQueue = "pre-processing",
+                                sampleFile = 1,
+                                path = path,
+                                flowFrameName = ffName,
+                                inputIds = c("transfoChannel"),
+                                currentValues = c(input$transfoChannel))
+        
+      } else {
+        updateChannelMarkerList(experimentName = input$experimentTransfo,
+                                whichQueue = "scale transform",
+                                sampleFile = NULL,
+                                path = path,
+                                flowFrameName = ffName,
+                                inputIds = c("transfoChannel"),
+                                currentValues = c(input$transfoChannel))
+      }
+      
       message(paste0("end obs event: flowFrameTransfo"))
     })
     

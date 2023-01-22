@@ -69,6 +69,47 @@ updateFFList <- function(experimentName,
   
 }
 
+updateFFListForTransDisplay <- function(experimentName,
+                                        path,
+                                        inputId,
+                                        currentValue){
+  #browser()
+
+  pipL <- buildCytoPipelineFromCache(experimentName,
+                                     path = path)
+  df <- getCytoPipelineObjectInfos(pipL,
+                                   whichQueue = "scale transform",
+                                   sampleFile = NULL,
+                                   path = path)
+  FFNames <-
+    df[df$ObjectClass == "flowFrame" | df$ObjectClass == "cytoframe",
+       "ObjectName"]
+  
+  if (length(FFNames) == 0) {
+    # no flow frame in the scale transform queue
+    # => build synthetic one from pre-processing queue
+    df <- getCytoPipelineObjectInfos(pipL,
+                                     whichQueue = "pre-processing",
+                                     sampleFile = 1,
+                                     path = path)
+    FFNames <- 
+      df[df$ObjectClass == "flowFrame" | df$ObjectClass == "cytoframe",
+         "ObjectName"]
+    FFNames <- paste0("Synth. agg. - ", FFNames)
+  }
+  newChoices = c(" ", FFNames)
+  
+  
+  newSelection <- currentValue
+  if (!(newSelection %in% newChoices)) {
+    newSelection = " "
+  }
+  updateSelectInput(inputId = inputId, 
+                    choices = newChoices,
+                    selected = newSelection)
+}
+
+
 updateTransList <- function(experimentName,
                             path,
                             inputId,
