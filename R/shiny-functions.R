@@ -404,7 +404,7 @@ plotDiffFlowFrame <- function(experimentNameFrom,
     } else {
       theSubtitle <- paste0("nb events left: ", nEventFrom,
                             ", nb events right: ", nEventTo,
-                            "ndiff: ", round(abs(removedEvents), 2), "%")
+                            ", diff: ", round(abs(removedEvents), 2), "%")
     }
     
     if (interactive) {
