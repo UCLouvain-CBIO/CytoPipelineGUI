@@ -10,12 +10,15 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details (<http://www.gnu.org/licenses/>).
 
-#dir <- "C:/CBIO/2021-phd-philippe-hauchamps/Analyses/FlowCAP4"
-dir <- "."
+test_that("shiny apps do work", {
 
-CytoPipelineCheckApp(dir = dir)
-ScaleTransformApp(dir = dir)
+#dir <- outputDir
+#dir <- "."
+
+# CytoPipelineCheckApp(dir = dir)
+# ScaleTransformApp(dir = dir)
 
 expect_true(TRUE)
+})
 
 

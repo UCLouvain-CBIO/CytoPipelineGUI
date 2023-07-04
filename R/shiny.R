@@ -22,6 +22,33 @@
 #' @import shiny
 #' @import CytoPipeline
 #' @export
+#' @examples
+#' 
+#' # run CytoPipeline object first
+#' 
+#' outputDir <- base::tempdir()
+#' 
+#' 
+#' rawDataDir <-
+#'   system.file("extdata", package = "CytoPipeline")
+#' experimentName <- "OMIP021_PeacoQC"
+#' sampleFiles <- file.path(rawDataDir, list.files(rawDataDir,
+#'                                                 pattern = "Donor"))
+#' jsonDir <- system.file("extdata", package = "CytoPipeline")
+#' jsonPath <- file.path(jsonDir, "pipelineParams.json")
+#' 
+#' pipL2 <- CytoPipeline(jsonPath,
+#'                       experimentName = experimentName,
+#'                       sampleFiles = sampleFiles)
+#' 
+#' suppressWarnings(execute(pipL2,
+#'                          rmCache = TRUE,
+#'                          path = outputDir))
+#'
+#' # run shiny app
+#'
+#' #ScaleTransformApp(dir = outputDir)                     
+#'                          
 ScaleTransformApp <- function(dir = ".") {
   if (interactive()) {
     path = dir
@@ -61,6 +88,33 @@ ScaleTransformApp <- function(dir = ".") {
 #' @import shiny
 #' @import CytoPipeline
 #' @export
+#' @examples
+#' 
+#' # run CytoPipeline object first
+#' 
+#' outputDir <- base::tempdir()
+#' 
+#' 
+#' rawDataDir <-
+#'   system.file("extdata", package = "CytoPipeline")
+#' experimentName <- "OMIP021_PeacoQC"
+#' sampleFiles <- file.path(rawDataDir, list.files(rawDataDir,
+#'                                                 pattern = "Donor"))
+#' jsonDir <- system.file("extdata", package = "CytoPipeline")
+#' jsonPath <- file.path(jsonDir, "pipelineParams.json")
+#' 
+#' pipL2 <- CytoPipeline(jsonPath,
+#'                       experimentName = experimentName,
+#'                       sampleFiles = sampleFiles)
+#' 
+#' suppressWarnings(execute(pipL2,
+#'                          rmCache = TRUE,
+#'                          path = outputDir))
+#'
+#' # run shiny app
+#'
+#' # CytoPipelineCheckApp(dir = outputDir)                           
+#'                          
 CytoPipelineCheckApp <-  function(dir = ".") {
   if (interactive()) {
     path = dir

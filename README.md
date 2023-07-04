@@ -16,7 +16,7 @@ transformation objects. It is launched using the following statement:
 
 ### License
 
-The `CytoPipeline` code is provided under [GPL license version 3.0 or 
+The `CytoPipelineGUI` code is provided under [GPL license version 3.0 or 
 higher](https://opensource.org/licenses/GPL-3.0). The documentation, 
 including the manual pages and the vignettes, are distributed under a [CC BY-SA 
 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/).

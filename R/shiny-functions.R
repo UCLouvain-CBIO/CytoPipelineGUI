@@ -11,7 +11,7 @@
 # GNU General Public License for more details (<http://www.gnu.org/licenses/>).
 
 channelLabel2Name <- function(channelLabel, ff) {
-  channels <- unname(flowCore::colnames(ff))#[areSignalCols(ff)])
+  channels <- unname(flowCore::colnames(ff))
   chLabels <- lapply(channels,
                      FUN = function(ch){
                        chMk <- flowCore::getChannelMarker(ff, ch)
@@ -22,7 +22,6 @@ channelLabel2Name <- function(channelLabel, ff) {
   channel <- channels[which(chLabels == channelLabel)]
   return(channel)
 }
-
 
 updateFFList <- function(experimentName,
                          whichQueue,
@@ -195,6 +194,100 @@ updateChannelMarkerList <- function(experimentName,
 
 
 
+#' @title Plot a flow frame from a CytoPipeline run
+#' @description Based on an experiment name, this function will gather the
+#' required flowFrame from the CytoPipeline disk cache and display it using 
+#' the user chosen 1D or 2D view.
+#' @param experimentName the experiment name (representing a pipeline run) 
+#' from which to extract the flow frame
+#' @param whichQueue "pre-processing" or "scale transform"
+#' @param sampleFile in case 'whichQueue' is set to 'pre-processing, which
+#' sample file to look at. This can be a number or a character.
+#' - if whichQueue == "scale transform", the sampleFile is ignored
+#' - if NULL and whichQueue == "pre-processing", the sampleFile is defaulted
+#' to the first one belonging to the experiment
+#' @param flowFrameName 
+#' the name of the object to fetch (as referenced in the pipeline workflow)
+#' @param path the root path to look for the CytoPipeline experiment cache
+#' @param xChannelLabel the label of the channel to be displayed on the x axis:
+#' the conventional syntax is : `channelName` + " - " + `channelMarker`
+#' @param yChannelLabel the label of the channel to be displayed on the y axis:
+#' the conventional syntax is : `channelName` + " - " + `channelMarker`
+#' @param useAllCells if TRUE, no subsampling will be done
+#' @param nDisplayCells if useAllCells == FALSE, the number of subsampled cells
+#' @param useFixedLinearRange if TRUE, all channels using a linear scale will
+#' use a fixed range set by linearRange
+#' @param linearRange set for all channels using a linear scale,
+#' if useFixedLinearRange == TRUE
+#' @param transfoListName if not set to " ", the transformation list 
+#' (as an object name ending with "_obj", as referenced in the pipeline 
+#' workflow) to be used for for display. 
+#' @return a ggplot object
+#' @export
+#'
+#' @examples
+#' 
+#' # run CytoPipeline object first
+#' 
+#' outputDir <- base::tempdir()
+#' 
+#' 
+#' rawDataDir <-
+#'   system.file("extdata", package = "CytoPipeline")
+#' experimentName <- "OMIP021_PeacoQC"
+#' sampleFiles <- file.path(rawDataDir, list.files(rawDataDir,
+#'                                                 pattern = "Donor"))
+#' jsonDir <- system.file("extdata", package = "CytoPipeline")
+#' jsonPath <- file.path(jsonDir, "pipelineParams.json")
+#' 
+#' pipL2 <- CytoPipeline(jsonPath,
+#'                       experimentName = experimentName,
+#'                       sampleFiles = sampleFiles)
+#' 
+#' suppressWarnings(execute(pipL2,
+#'                          rmCache = TRUE,
+#'                          path = outputDir))
+#' 
+#' plotSelectedFlowFrame(
+#'   experimentName = experimentName,
+#'   whichQueue = "pre-processing",
+#'   sampleFile = 1,
+#'   flowFrameName = "remove_debris_obj",
+#'   path = outputDir,
+#'   xChannelLabel = "FSC-A : NA",
+#'   yChannelLabel = "SSC-A : NA",
+#'   useAllCells = TRUE,
+#'   nDisplayCells = 0,
+#'   useFixedLinearRange = TRUE,
+#'   linearRange = c(-100, 262144))
+#' 
+#' plotSelectedFlowFrame(
+#'   experimentName = experimentName,
+#'   whichQueue = "pre-processing",
+#'   sampleFile = 1,
+#'   flowFrameName = "remove_debris_obj",
+#'   path = outputDir,
+#'   xChannelLabel = "FSC-A : NA",
+#'   yChannelLabel = "SSC-A : NA",
+#'   useAllCells = FALSE,
+#'   nDisplayCells = 100,
+#'   useFixedLinearRange = FALSE,
+#'   linearRange = NULL)
+#' 
+#' plotSelectedFlowFrame(
+#'   experimentName = experimentName,
+#'   whichQueue = "pre-processing",
+#'   sampleFile = 1,
+#'   flowFrameName = "remove_debris_obj",
+#'   path = outputDir,
+#'   xChannelLabel = "Comp-670/30Violet-A : BV785 - CD3",
+#'   yChannelLabel = "Comp-780/60Red-A : APCCy7 - CD4",
+#'   useAllCells = TRUE,
+#'   nDisplayCells = 0,
+#'   useFixedLinearRange = FALSE,
+#'   linearRange = NULL,
+#'   transfoListName = "scale_transform_estimate_obj")
+#' 
 plotSelectedFlowFrame <- function(experimentName,
                                   whichQueue,
                                   sampleFile,
@@ -284,6 +377,78 @@ plotSelectedFlowFrame <- function(experimentName,
   }
 }
 
+#' @title Plot the difference plot between two flow frames 
+#' from a CytoPipeline run
+#' @description Based on an experiment name, this function will gather the
+#' required flowFrames from the CytoPipeline disk cache and display 
+#' a difference plot using the user chosen 1D or 2D view.
+#' @param experimentNameFrom the experiment name (representing a pipeline run) 
+#' from which to extract the flow frame ('from' situation)
+#' @param experimentNameTo the experiment name (representing a pipeline run) 
+#' from which to extract the flow frame ('to' situation)
+#' @param whichQueueFrom "pre-processing" or "scale transform" 
+#' ('from' situation)
+#' @param whichQueueTo "pre-processing" or "scale transform" 
+#' ('to' situation)
+#' @param sampleFileFrom in case 'whichQueueFrom' is set to 'pre-processing, 
+#' which sample file to look at for the 'from' situation. 
+#' This can be a number or a character.
+#' - if whichQueueFrom == "scale transform", the sampleFileFrom is ignored
+#' - if NULL and whihQueueFrom == "pre-processing", the sampleFileFrom 
+#' is defaulted to the first one belonging to the experiment
+#' @param sampleFileTo same as sampleFileFrom, but for the 'to' situation
+#' @param path the root path to look for the CytoPipeline experiment cache
+#' @param flowFrameNameFrom for the 'from' situation, 
+#' the name of the object to fetch (as referenced in the pipeline workflow)
+#' @param flowFrameNameTo for the 'to' situation, 
+#' the name of the object to fetch (as referenced in the pipeline workflow)
+#' @param xChannelLabelFrom the label of the channel 
+#' to be displayed on the x axis:
+#' the conventional syntax is : `channelName` + " - " + `channelMarker`
+#' @param xChannelLabelTo should be equal to xChannelLabelFrom
+#' (otherwise no plot is returned but NULL)
+#' @param yChannelLabelFrom the label of the channel 
+#' to be displayed on the y axis:
+#' the conventional syntax is : `channelName` + " - " + `channelMarker`
+#' @param yChannelLabelTo should be equal to yChannelLabelFrom
+#' (otherwise no plot is returned but NULL) 
+#' @param interactive if TRUE, uses ggplot_shiny
+#' @param useAllCells if TRUE, no subsampling will be done
+#' @param nDisplayCells if useAllCells == FALSE, the number of subsampled cells
+#' @param useFixedLinearRange if TRUE, all channels using a linear scale will
+#' use a fixed range set by linearRange
+#' @param linearRange set for all channels using a linear scale,
+#' if useFixedLinearRange == TRUE
+#' @param transfoListName if not set to " ", the transformation list 
+#' (as an object name ending with "_obj", as referenced in the pipeline 
+#' workflow) to be used for for display. 
+#' @return a ggplot (or plotly if interactive = TRUE) object
+#' @export
+#'
+#' @examples
+#' 
+#' # run CytoPipeline object first
+#' 
+#' outputDir <- base::tempdir()
+#' 
+#' 
+#' rawDataDir <-
+#'   system.file("extdata", package = "CytoPipeline")
+#' experimentName <- "OMIP021_PeacoQC"
+#' sampleFiles <- file.path(rawDataDir, list.files(rawDataDir,
+#'                                                 pattern = "Donor"))
+#' jsonDir <- system.file("extdata", package = "CytoPipeline")
+#' jsonPath <- file.path(jsonDir, "pipelineParams.json")
+#' 
+#' pipL2 <- CytoPipeline(jsonPath,
+#'                       experimentName = experimentName,
+#'                       sampleFiles = sampleFiles)
+#' 
+#' suppressWarnings(execute(pipL2,
+#'                          rmCache = TRUE,
+#'                          path = outputDir))
+#'                          
+#'                          
 plotDiffFlowFrame <- function(experimentNameFrom,
                               experimentNameTo,
                               whichQueueFrom,
