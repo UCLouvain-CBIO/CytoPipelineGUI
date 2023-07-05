@@ -5,18 +5,18 @@
 \title{Plot a flow frame from a CytoPipeline run}
 \usage{
 plotSelectedFlowFrame(
-  experimentName,
-  whichQueue,
-  sampleFile,
-  flowFrameName,
-  path,
-  xChannelLabel,
-  yChannelLabel,
-  useAllCells,
-  nDisplayCells,
-  useFixedLinearRange,
-  linearRange,
-  transfoListName = " "
+    experimentName,
+    whichQueue,
+    sampleFile,
+    flowFrameName,
+    path,
+    xChannelLabel,
+    yChannelLabel,
+    useAllCells,
+    nDisplayCells,
+    useFixedLinearRange,
+    linearRange,
+    transfoListName = " "
 )
 }
 \arguments{
@@ -33,7 +33,8 @@ sample file to look at. This can be a number or a character.
 to the first one belonging to the experiment
 }}
 
-\item{flowFrameName}{the name of the object to fetch (as referenced in the pipeline workflow)}
+\item{flowFrameName}{the name of the object to fetch
+(as referenced in the pipeline workflow)}
 
 \item{path}{the root path to look for the CytoPipeline experiment cache}
 
@@ -73,59 +74,63 @@ outputDir <- base::tempdir()
 
 
 rawDataDir <-
-  system.file("extdata", package = "CytoPipeline")
+    system.file("extdata", package = "CytoPipeline")
 experimentName <- "OMIP021_PeacoQC"
-sampleFiles <- file.path(rawDataDir, list.files(rawDataDir,
-                                                pattern = "Donor"))
+sampleFiles <- 
+    file.path(
+        rawDataDir, 
+        list.files(rawDataDir, pattern = "Donor"))
 jsonDir <- system.file("extdata", package = "CytoPipeline")
 jsonPath <- file.path(jsonDir, "pipelineParams.json")
 
-pipL2 <- CytoPipeline(jsonPath,
-                      experimentName = experimentName,
-                      sampleFiles = sampleFiles)
+pipL2 <- CytoPipeline(
+    jsonPath,
+    experimentName = experimentName,
+    sampleFiles = sampleFiles)
 
-suppressWarnings(execute(pipL2,
-                         rmCache = TRUE,
-                         path = outputDir))
-
-plotSelectedFlowFrame(
-  experimentName = experimentName,
-  whichQueue = "pre-processing",
-  sampleFile = 1,
-  flowFrameName = "remove_debris_obj",
-  path = outputDir,
-  xChannelLabel = "FSC-A : NA",
-  yChannelLabel = "SSC-A : NA",
-  useAllCells = TRUE,
-  nDisplayCells = 0,
-  useFixedLinearRange = TRUE,
-  linearRange = c(-100, 262144))
+suppressWarnings(execute(
+    pipL2,
+    rmCache = TRUE,
+    path = outputDir))
 
 plotSelectedFlowFrame(
-  experimentName = experimentName,
-  whichQueue = "pre-processing",
-  sampleFile = 1,
-  flowFrameName = "remove_debris_obj",
-  path = outputDir,
-  xChannelLabel = "FSC-A : NA",
-  yChannelLabel = "SSC-A : NA",
-  useAllCells = FALSE,
-  nDisplayCells = 100,
-  useFixedLinearRange = FALSE,
-  linearRange = NULL)
+    experimentName = experimentName,
+    whichQueue = "pre-processing",
+    sampleFile = 1,
+    flowFrameName = "remove_debris_obj",
+    path = outputDir,
+    xChannelLabel = "FSC-A : NA",
+    yChannelLabel = "SSC-A : NA",
+    useAllCells = TRUE,
+    nDisplayCells = 0,
+    useFixedLinearRange = TRUE,
+    linearRange = c(-100, 262144))
 
 plotSelectedFlowFrame(
-  experimentName = experimentName,
-  whichQueue = "pre-processing",
-  sampleFile = 1,
-  flowFrameName = "remove_debris_obj",
-  path = outputDir,
-  xChannelLabel = "Comp-670/30Violet-A : BV785 - CD3",
-  yChannelLabel = "Comp-780/60Red-A : APCCy7 - CD4",
-  useAllCells = TRUE,
-  nDisplayCells = 0,
-  useFixedLinearRange = FALSE,
-  linearRange = NULL,
-  transfoListName = "scale_transform_estimate_obj")
+    experimentName = experimentName,
+    whichQueue = "pre-processing",
+    sampleFile = 1,
+    flowFrameName = "remove_debris_obj",
+    path = outputDir,
+    xChannelLabel = "FSC-A : NA",
+    yChannelLabel = "SSC-A : NA",
+    useAllCells = FALSE,
+    nDisplayCells = 100,
+    useFixedLinearRange = FALSE,
+    linearRange = NULL)
+
+plotSelectedFlowFrame(
+    experimentName = experimentName,
+    whichQueue = "pre-processing",
+    sampleFile = 1,
+    flowFrameName = "remove_debris_obj",
+    path = outputDir,
+    xChannelLabel = "Comp-670/30Violet-A : BV785 - CD3",
+    yChannelLabel = "Comp-780/60Red-A : APCCy7 - CD4",
+    useAllCells = TRUE,
+    nDisplayCells = 0,
+    useFixedLinearRange = FALSE,
+    linearRange = NULL,
+    transfoListName = "scale_transform_estimate_obj")
 
 }

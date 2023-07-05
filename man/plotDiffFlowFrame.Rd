@@ -6,25 +6,25 @@
 from a CytoPipeline run}
 \usage{
 plotDiffFlowFrame(
-  experimentNameFrom,
-  experimentNameTo,
-  whichQueueFrom,
-  whichQueueTo,
-  sampleFileFrom,
-  sampleFileTo,
-  path,
-  flowFrameNameFrom,
-  flowFrameNameTo,
-  xChannelLabelFrom,
-  xChannelLabelTo,
-  yChannelLabelFrom,
-  yChannelLabelTo,
-  interactive = FALSE,
-  useAllCells,
-  nDisplayCells,
-  useFixedLinearRange,
-  linearRange,
-  transfoListName = " "
+    experimentNameFrom,
+    experimentNameTo,
+    whichQueueFrom,
+    whichQueueTo,
+    sampleFileFrom,
+    sampleFileTo,
+    path,
+    flowFrameNameFrom,
+    flowFrameNameTo,
+    xChannelLabelFrom,
+    xChannelLabelTo,
+    yChannelLabelFrom,
+    yChannelLabelTo,
+    interactive = FALSE,
+    useAllCells,
+    nDisplayCells,
+    useFixedLinearRange,
+    linearRange,
+    transfoListName = " "
 )
 }
 \arguments{
@@ -105,20 +105,82 @@ outputDir <- base::tempdir()
 
 
 rawDataDir <-
-  system.file("extdata", package = "CytoPipeline")
+    system.file("extdata", package = "CytoPipeline")
 experimentName <- "OMIP021_PeacoQC"
-sampleFiles <- file.path(rawDataDir, list.files(rawDataDir,
-                                                pattern = "Donor"))
+sampleFiles <- 
+    file.path(
+        rawDataDir, 
+        list.files(rawDataDir, pattern = "Donor"))
 jsonDir <- system.file("extdata", package = "CytoPipeline")
 jsonPath <- file.path(jsonDir, "pipelineParams.json")
 
-pipL2 <- CytoPipeline(jsonPath,
-                      experimentName = experimentName,
-                      sampleFiles = sampleFiles)
+pipL2 <- CytoPipeline(
+    jsonPath,
+    experimentName = experimentName,
+    sampleFiles = sampleFiles)
 
-suppressWarnings(execute(pipL2,
-                         rmCache = TRUE,
-                         path = outputDir))
-                         
-                         
+suppressWarnings(execute(
+    pipL2,
+    rmCache = TRUE,
+    path = outputDir))
+
+
+plotDiffFlowFrame(
+    experimentNameFrom = experimentName,
+    whichQueueFrom = "pre-processing",
+    sampleFileFrom = 1,
+    flowFrameNameFrom = "remove_doublets_obj",
+    xChannelLabelFrom = "FSC-A : NA",
+    yChannelLabelFrom = "SSC-A : NA",
+    path = outputDir,
+    experimentNameTo = experimentName,
+    whichQueueTo = "pre-processing",
+    sampleFileTo = 1,
+    flowFrameNameTo = "remove_debris_obj",
+    xChannelLabelTo = "FSC-A : NA",
+    yChannelLabelTo = "SSC-A : NA",
+    useAllCells = TRUE,
+    nDisplayCells = 0,
+    useFixedLinearRange = TRUE,
+    linearRange = c(-100, 262144))
+
+plotDiffFlowFrame(
+    experimentNameFrom = experimentName,
+    whichQueueFrom = "pre-processing",
+    sampleFileFrom = 1,
+    flowFrameNameFrom = "remove_doublets_obj",
+    xChannelLabelFrom = "FSC-A : NA",
+    yChannelLabelFrom = "SSC-A : NA",
+    path = outputDir,
+    experimentNameTo = experimentName,
+    whichQueueTo = "pre-processing",
+    sampleFileTo = 1,
+    flowFrameNameTo = "remove_debris_obj",
+    xChannelLabelTo = "FSC-A : NA",
+    yChannelLabelTo = "SSC-A : NA",
+    useAllCells = FALSE,
+    nDisplayCells = 100,
+    useFixedLinearRange = FALSE,
+    linearRange = NULL)
+
+plotDiffFlowFrame(
+    experimentNameFrom = experimentName,
+    whichQueueFrom = "pre-processing",
+    sampleFileFrom = 1,
+    flowFrameNameFrom = "remove_debris_obj",
+    xChannelLabelFrom = "Comp-670/30Violet-A : BV785 - CD3",
+    yChannelLabelFrom = "Comp-525/50Violet-A : L/D Aqua - Viability",
+    path = outputDir,
+    experimentNameTo = experimentName,
+    whichQueueTo = "pre-processing",
+    sampleFileTo = 1,
+    flowFrameNameTo = "remove_dead_cells_obj",
+    xChannelLabelTo = "Comp-670/30Violet-A : BV785 - CD3",
+    yChannelLabelTo = "Comp-525/50Violet-A : L/D Aqua - Viability",
+    useAllCells = TRUE,
+    nDisplayCells = 0,
+    useFixedLinearRange = FALSE,
+    linearRange = NULL,
+    transfoListName = "scale_transform_estimate_obj")   
+
 }

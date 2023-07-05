@@ -5,7 +5,10 @@ author:
     - name: Laurent Gatto
 package: CytoPipelineGUI
 abstract: >
- This vignette provides links to videos demonstrating some of the functionalities of CytoPipeline R package suite. It is distributed, as well as the accompanying videos, under a CC BY-SA license.
+ This vignette provides links to videos demonstrating 
+ some of the functionalities of CytoPipeline R package suite. 
+ It is distributed, as well as the accompanying videos, 
+ under a CC BY-SA license.
 output:
   BiocStyle::html_document:
     toc_float: true
@@ -16,45 +19,64 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+# Foreword
+`CytoPipelineGUI` is the companion package of `CytoPipeline`.
+The current vignette contains links to videos that show interactive demos 
+of using the `CytoPipeline` R package suite, and in particular 
+`CytoPipelineGUI` shiny applications.  
+
+For a more conventional vignette, please have a look at the `CytoPipeline`
+package vignette.
+
 # Introduction
 
-<iframe src="https://www.youtube.com/embed/IB832cQkXdg" width="533" height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed/IB832cQkXdg" width="533" 
+height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
 
 # Background information
 
-<iframe src="https://www.youtube.com/embed/0AmO9ZaxJoE" width="533" height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed/0AmO9ZaxJoE" width="533" 
+height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
 
 # Illustrating dataset
 
-<iframe src="https://www.youtube.com/embed/D8Jkf_bhrfQ" width="533" height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed/D8Jkf_bhrfQ" width="533" 
+height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
 
 # Specifying the pipeline
 
-<iframe src="https://www.youtube.com/embed/z25TcU39Bqc" width="533" height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed/z25TcU39Bqc" width="533" 
+height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
 
 # Running the pipeline
 
-<iframe src="https://www.youtube.com/embed/6q4MTZi_Hvw" width="533" height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed/6q4MTZi_Hvw" width="533" 
+height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
 
 # Visualizing the results
 
-<iframe src="https://www.youtube.com/embed/NAtwhr7UQW4" width="533" height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed/NAtwhr7UQW4" width="533" 
+height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
 
 # Comparing pipelines
 
-<iframe src="https://www.youtube.com/embed/F2gdPr-_zi0" width="533" height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed/F2gdPr-_zi0" width="533" 
+height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
 
 # Example with two different QC methods
 
-<iframe src="https://www.youtube.com/embed/uLGeARGGxR8" width="533" height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed/uLGeARGGxR8" width="533" 
+height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
 
 # Visualizing scale transformations
 
-<iframe src="https://www.youtube.com/embed/b3htJsbn3Ag" width="533" height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed/b3htJsbn3Ag" width="533" 
+height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
 
 # Defining technical run parameters
 
-<iframe src="https://www.youtube.com/embed/-jPp_aNnA_U" width="533" height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed/-jPp_aNnA_U" width="533" 
+height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
 
 # Session information {-}
 
