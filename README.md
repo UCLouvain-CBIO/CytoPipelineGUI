@@ -1,6 +1,7 @@
 ## Automation and visualization of flow cytometry data analysis pipelines
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![R-CMD-check-bioc](https://github.com/UCLouvain-CBIO/CytoPipelineGUI/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/UCLouvain-CBIO/CytoPipelineGUI/actions?query=workflow%3AR-CMD-check-bioc)
 [![license](https://img.shields.io/badge/license-GPL3.0-blue)](https://opensource.org/licenses/GPL-3.0)
 
 ### What is CytoPipelineGUI?
