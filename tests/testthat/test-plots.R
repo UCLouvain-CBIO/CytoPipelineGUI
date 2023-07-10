@@ -140,14 +140,14 @@ test_that("plotSelectedDiffFlowFrame works", {
         whichQueueFrom = "pre-processing",
         sampleFileFrom = 1,
         flowFrameNameFrom = "remove_debris_obj",
-        xChannelLabelFrom = "Comp-670/30Violet-A : BV785 - CD3",
+        xChannelLabelFrom = "FSC-A : NA",
         yChannelLabelFrom = "Comp-525/50Violet-A : L/D Aqua - Viability",
         path = outputDir,
         experimentNameTo = experimentName,
         whichQueueTo = "pre-processing",
         sampleFileTo = 1,
         flowFrameNameTo = "remove_dead_cells_obj",
-        xChannelLabelTo = "Comp-670/30Violet-A : BV785 - CD3",
+        xChannelLabelTo = "FSC-A : NA",
         yChannelLabelTo = "Comp-525/50Violet-A : L/D Aqua - Viability",
         useAllCells = TRUE,
         nDisplayCells = 0,
@@ -157,5 +157,54 @@ test_that("plotSelectedDiffFlowFrame works", {
     
     suppressWarnings(vdiffr::expect_doppelganger(
         "pltDiffFF-allc-tran", fig = p3))
+    
+})
+
+test_that("plotScaleTransformedChannel works", {
+    
+    ff <- CytoPipeline::getCytoPipelineFlowFrame(
+        pipL2,
+        path = outputDir,
+        whichQueue = "scale transform",
+        objectName = "flowframe_aggregate_obj"
+    )
+    
+    p1 <- plotScaleTransformedChannel(
+        ff,
+        channel = "FSC-A",
+        transfoType = "linear",
+        linA = 0.0002,
+        linB = -0.5)
+    
+    vdiffr::expect_doppelganger(
+        "pltScaleTransCh-linear", fig = p1)
+    
+    p2 <- plotScaleTransformedChannel(
+        ff,
+        channel = "Comp-670/30Violet-A",
+        transfoType = "logicle",
+        negDecades = 1,
+        width = 0.5,
+        posDecades = 4
+    )
+    
+    vdiffr::expect_doppelganger(
+        "pltScaleTransCh-logicle", fig = p2)
+    
+    p3 <- plotScaleTransformedChannel(
+        ff,
+        channel = "CD3",
+        applyTransform = "data",
+        transfoType = "logicle",
+        negDecades = 1,
+        width = 0.5,
+        posDecades = 4
+    )
+    
+    vdiffr::expect_doppelganger(
+        "pltScaleTransCh-logicle-data-mker", fig = p3)  
+    
+    
+    
     
 })

@@ -3,6 +3,7 @@
 export(CytoPipelineCheckApp)
 export(ScaleTransformApp)
 export(plotDiffFlowFrame)
+export(plotScaleTransformedChannel)
 export(plotSelectedFlowFrame)
 import(CytoPipeline)
 import(shiny)

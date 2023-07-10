@@ -291,62 +291,16 @@ CytoPipelineCheckApp <-  function(dir = ".") {
             
             observeEvent(input$experimentFrom, {
                 #message(paste0("obs event: experimentFrom"))
-                # update set of possible samples
-                pipL <- buildCytoPipelineFromCache(
-                    input$experimentFrom,
+                
+                # update available processing queues, as well as
+                # list of samples, based on selected experiment
+                updateExperiment(
+                    newExperimentName = input$experimentFrom,
+                    whichQueueName = "whichQueueFrom",
+                    currentWhichQueueValue = input$whichQueueFrom,
+                    sampleListName = "sampleFrom",
+                    currentSampleValue = input$sampleFrom,
                     path = path)
-                
-                whichQueueChoices <- character()
-                
-                nPreProcessingSteps <- 
-                    getNbProcessingSteps(
-                        pipL, 
-                        whichQueue = "pre-processing")
-                if (nPreProcessingSteps > 0) {
-                    whichQueueChoices <- 
-                        c(whichQueueChoices, "pre-processing")
-                }
-                
-                nScaleTransfoSteps <- 
-                    getNbProcessingSteps(
-                        pipL,
-                        whichQueue = "scale transform")
-                if (nScaleTransfoSteps > 0) {
-                    whichQueueChoices <- 
-                        c(whichQueueChoices, "scale transform")
-                }
-                
-                if (length(whichQueueChoices) == 0)
-                    stop(
-                        "experiment without any processing step selected => ",
-                        "inconsistency")
-                
-                newSelection <- input$whichQueueFrom
-                if (!(newSelection %in% whichQueueChoices)) {
-                    newSelection <- NULL 
-                }
-                updateSelectInput(
-                    inputId = "whichQueueFrom",
-                    choices = whichQueueChoices,
-                    selected = newSelection)
-                
-                samples <- sampleFiles(pipL)
-                if (length(samples) == 0) {
-                    # specific case when no sample has been found in the cache
-                    # e.g. scale transform only experiment
-                    newChoices <- " "
-                } else {
-                    newChoices <- c(" ", samples)
-                }
-                
-                newSelection <- input$sampleFrom
-                if (!(newSelection %in% newChoices)) {
-                    newSelection <- " " 
-                }
-                updateSelectInput(
-                    inputId = "sampleFrom",
-                    choices = newChoices,
-                    selected = newSelection)
                 
                 # update list of available FF objects for FF comparison
                 # note we force sampleFile to be " ", 
@@ -355,77 +309,34 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                 updateFFList(
                     experimentName = input$experimentFrom,
                     whichQueue = input$whichQueueFrom,
-                    sampleFile = newSelection,
+                    sampleFile = input$sampleFrom,
                     path = path,
                     inputId = "flowFrameFrom",
                     currentValue = input$flowFrameFrom)
                 
-                # update experiment for comparison (by default)
-                updateSelectInput(
-                    inputId = "experimentTo",
-                    selected = input$experimentFrom)
+                # update experiment for comparison 
+                # (by default, but only if no currently selected experiment)
+                if(input$experimentTo == " ") {
+                    updateSelectInput(
+                        inputId = "experimentTo",
+                        selected = input$experimentFrom)
+                }
+                
                 #message(paste0("end obs event: experimentFrom"))
             })
             
             observeEvent(input$experimentTo, {
                 #message(paste0("obs event: experimentTo"))
-                pipL <- buildCytoPipelineFromCache(
-                    input$experimentTo,
+
+                # update available processing queues, as well as
+                # list of samples, based on selected experiment
+                updateExperiment(
+                    newExperimentName = input$experimentTo,
+                    whichQueueName = "whichQueueTo",
+                    currentWhichQueueValue = input$whichQueueTo,
+                    sampleListName = "sampleTo",
+                    currentSampleValue = input$sampleTo,
                     path = path)
-                
-                whichQueueChoices <- character()
-                
-                nPreProcessingSteps <- 
-                    getNbProcessingSteps(
-                        pipL, 
-                        whichQueue = "pre-processing")
-                if (nPreProcessingSteps > 0) {
-                    whichQueueChoices <- 
-                        c(whichQueueChoices, "pre-processing")
-                }
-                
-                nScaleTransfoSteps <- 
-                    getNbProcessingSteps(
-                        pipL,
-                        whichQueue = "scale transform")
-                if (nScaleTransfoSteps > 0) {
-                    whichQueueChoices <- 
-                        c(whichQueueChoices, "scale transform")
-                }
-                
-                if (length(whichQueueChoices) == 0)
-                    stop(
-                        "experiment without any processing step selected ",
-                        "=> inconsistency")
-                
-                newSelection <- input$whichQueueTo
-                if (!(newSelection %in% whichQueueChoices)) {
-                    newSelection <- NULL 
-                }
-                
-                updateSelectInput(
-                    inputId = "whichQueueTo",
-                    choices = whichQueueChoices,
-                    selected = newSelection)
-                
-                samples <- sampleFiles(pipL)
-                
-                if (length(samples) == 0) {
-                    # specific case when no sample has been found in the cache
-                    # e.g. scale transform only experiment
-                    newChoices <- " "
-                } else {
-                    newChoices <- c(" ", samples)
-                }
-                
-                newSelection <- input$sampleTo
-                if (!(newSelection %in% newChoices)) {
-                    newSelection <- " " 
-                }
-                updateSelectInput(
-                    inputId = "sampleTo",
-                    choices = newChoices,
-                    selected = newSelection)
                 
                 # update list of available FF objects
                 # note we force sampleFile to be " ", 
@@ -434,7 +345,7 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                 updateFFList(
                     experimentName = input$experimentTo,
                     whichQueue = input$whichQueueTo,
-                    sampleFile = newSelection,
+                    sampleFile = input$sampleTo,
                     path = path,
                     inputId = "flowFrameTo",
                     currentValue = input$flowFrameTo)
