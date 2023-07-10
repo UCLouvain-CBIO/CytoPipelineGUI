@@ -55,25 +55,25 @@ a difference plot using the user chosen 1D or 2D view.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plotDiffFlowFrame</span><span class="op">(</span></span>
-<span>    <span class="va">experimentNameFrom</span>,</span>
-<span>    <span class="va">experimentNameTo</span>,</span>
-<span>    <span class="va">whichQueueFrom</span>,</span>
-<span>    <span class="va">whichQueueTo</span>,</span>
-<span>    <span class="va">sampleFileFrom</span>,</span>
-<span>    <span class="va">sampleFileTo</span>,</span>
-<span>    <span class="va">path</span>,</span>
-<span>    <span class="va">flowFrameNameFrom</span>,</span>
-<span>    <span class="va">flowFrameNameTo</span>,</span>
-<span>    <span class="va">xChannelLabelFrom</span>,</span>
-<span>    <span class="va">xChannelLabelTo</span>,</span>
-<span>    <span class="va">yChannelLabelFrom</span>,</span>
-<span>    <span class="va">yChannelLabelTo</span>,</span>
-<span>    interactive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>    <span class="va">useAllCells</span>,</span>
-<span>    <span class="va">nDisplayCells</span>,</span>
-<span>    <span class="va">useFixedLinearRange</span>,</span>
-<span>    <span class="va">linearRange</span>,</span>
-<span>    transfoListName <span class="op">=</span> <span class="st">" "</span></span>
+<span>  <span class="va">experimentNameFrom</span>,</span>
+<span>  <span class="va">experimentNameTo</span>,</span>
+<span>  <span class="va">whichQueueFrom</span>,</span>
+<span>  <span class="va">whichQueueTo</span>,</span>
+<span>  <span class="va">sampleFileFrom</span>,</span>
+<span>  <span class="va">sampleFileTo</span>,</span>
+<span>  <span class="va">path</span>,</span>
+<span>  <span class="va">flowFrameNameFrom</span>,</span>
+<span>  <span class="va">flowFrameNameTo</span>,</span>
+<span>  <span class="va">xChannelLabelFrom</span>,</span>
+<span>  <span class="va">xChannelLabelTo</span>,</span>
+<span>  <span class="va">yChannelLabelFrom</span>,</span>
+<span>  <span class="va">yChannelLabelTo</span>,</span>
+<span>  interactive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">useAllCells</span>,</span>
+<span>  <span class="va">nDisplayCells</span>,</span>
+<span>  <span class="va">useFixedLinearRange</span>,</span>
+<span>  <span class="va">linearRange</span>,</span>
+<span>  transfoListName <span class="op">=</span> <span class="st">" "</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -319,14 +319,14 @@ workflow) to be used for for display.</p></dd>
 <span class="r-in"><span>    whichQueueFrom <span class="op">=</span> <span class="st">"pre-processing"</span>,</span></span>
 <span class="r-in"><span>    sampleFileFrom <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>    flowFrameNameFrom <span class="op">=</span> <span class="st">"remove_debris_obj"</span>,</span></span>
-<span class="r-in"><span>    xChannelLabelFrom <span class="op">=</span> <span class="st">"Comp-670/30Violet-A : BV785 - CD3"</span>,</span></span>
+<span class="r-in"><span>    xChannelLabelFrom <span class="op">=</span> <span class="st">"FSC-A : NA"</span>,</span></span>
 <span class="r-in"><span>    yChannelLabelFrom <span class="op">=</span> <span class="st">"Comp-525/50Violet-A : L/D Aqua - Viability"</span>,</span></span>
 <span class="r-in"><span>    path <span class="op">=</span> <span class="va">outputDir</span>,</span></span>
 <span class="r-in"><span>    experimentNameTo <span class="op">=</span> <span class="va">experimentName</span>,</span></span>
 <span class="r-in"><span>    whichQueueTo <span class="op">=</span> <span class="st">"pre-processing"</span>,</span></span>
 <span class="r-in"><span>    sampleFileTo <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>    flowFrameNameTo <span class="op">=</span> <span class="st">"remove_dead_cells_obj"</span>,</span></span>
-<span class="r-in"><span>    xChannelLabelTo <span class="op">=</span> <span class="st">"Comp-670/30Violet-A : BV785 - CD3"</span>,</span></span>
+<span class="r-in"><span>    xChannelLabelTo <span class="op">=</span> <span class="st">"FSC-A : NA"</span>,</span></span>
 <span class="r-in"><span>    yChannelLabelTo <span class="op">=</span> <span class="st">"Comp-525/50Violet-A : L/D Aqua - Viability"</span>,</span></span>
 <span class="r-in"><span>    useAllCells <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>    nDisplayCells <span class="op">=</span> <span class="fl">0</span>,</span></span>
@@ -334,7 +334,6 @@ workflow) to be used for for display.</p></dd>
 <span class="r-in"><span>    linearRange <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>    transfoListName <span class="op">=</span> <span class="st">"scale_transform_estimate_obj"</span><span class="op">)</span>   </span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> displaying flow frame comparison plot...</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing missing values (`geom_point()`).</span>
 <span class="r-plt img"><img src="plotDiffFlowFrame-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
