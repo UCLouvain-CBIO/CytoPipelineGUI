@@ -52,7 +52,7 @@ objects stored in cache</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CytoPipelineCheckApp</span><span class="op">(</span>dir <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CytoPipelineCheckApp</span><span class="op">(</span>dir <span class="op">=</span> <span class="st">"."</span>, debug <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -60,6 +60,11 @@ objects stored in cache</p>
     <dl><dt>dir</dt>
 <dd><p>the root directory into which the engine will look for existing
 CytoPipeline experiments</p></dd>
+
+
+<dt>debug</dt>
+<dd><p>if TRUE, will output messages on the console tracking the
+shiny events, for debugging purposes</p></dd>
 
 </dl></div>
     <div id="value">
