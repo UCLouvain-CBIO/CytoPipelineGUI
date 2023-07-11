@@ -539,6 +539,7 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
         })
         
         output$distPlot <- renderPlot({
+            message("Rendering scale transformed channel...")
             channel <- flowCore::colnames(currentFF())[1]
             plotScaleTransformedChannel(
                 ff = currentFF(),

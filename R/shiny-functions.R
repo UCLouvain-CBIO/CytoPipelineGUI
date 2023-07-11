@@ -31,10 +31,12 @@ updateExperiment <- function(
         newExperimentName,
         whichQueueName,
         currentWhichQueueValue,
-        sampleListName,
+        sampleInputId,
         currentSampleValue,
+        FFInputId,
+        currentFFValue,
         path) {
-    #browser()
+    #browser()    
     pipL <- buildCytoPipelineFromCache(
         newExperimentName,
         path = path)
@@ -64,34 +66,46 @@ updateExperiment <- function(
             "experiment without any processing step selected ",
             "=> inconsistency")
     
-    newSelection <- currentWhichQueueValue
-    if (!(newSelection %in% whichQueueChoices)) {
-        newSelection <- NULL
+    newWQSelection <- currentWhichQueueValue
+    if (!(newWQSelection %in% whichQueueChoices)) {
+        newWQSelection <- whichQueueChoices[1]
     }
     
     updateSelectInput(
         inputId = whichQueueName,
         choices = whichQueueChoices,
-        selected = newSelection)
+        selected = newWQSelection)
     
     samples <- sampleFiles(pipL)
     
     if (length(samples) == 0) {
         # specific case when no sample has been found in the cache
         # e.g. scale transform only experiment
-        newChoices <- " "
+        newSampleChoices <- " "
     } else {
-        newChoices <- c(" ", samples)
+        newSampleChoices <- c(" ", samples)
     }
     
-    newSelection <- currentSampleValue
-    if (!(newSelection %in% newChoices)) {
-        newSelection <- " "
+    newSampleSelection <- currentSampleValue
+    if (!(newSampleSelection %in% newSampleChoices)) {
+        newSampleSelection <- " "
     }
     updateSelectInput(
-        inputId = sampleListName,
-        choices = newChoices,
-        selected = newSelection)
+        inputId = sampleInputId,
+        choices = newSampleChoices,
+        selected = newSampleSelection)
+    
+    # update list of available FF objects
+    # note we force sampleFile the new selection
+    # because it is automatically the current choice, 
+    # and to avoid ghost sample file flowing
+    updateFFList(
+        experimentName = newExperimentName,
+        whichQueue = newWQSelection,
+        sampleFile = newSampleSelection,
+        path = path,
+        inputId = FFInputId,
+        currentValue = currentFFValue)
 }
 
 updateFFList <- function(
@@ -101,6 +115,7 @@ updateFFList <- function(
         path,
         inputId,
         currentValue){
+    #message("Updating FF list...")
     noFF <- FALSE
     if (!is.null(sampleFile)){
         if (sampleFile == " ") {
@@ -146,6 +161,7 @@ updateFFListForTransDisplay <- function(
         path,
         inputId,
         currentValue){
+    #message("Updating FF list for trans list display...")
     pipL <- buildCytoPipelineFromCache(
         experimentName,
         path = path)
@@ -193,6 +209,7 @@ updateTransList <- function(
         inputId,
         currentValue){
     if (experimentName != " ") {
+        #message("Updating trans list...")
         pipL <- buildCytoPipelineFromCache(
             experimentName,
             path = path)
@@ -227,6 +244,7 @@ updateChannelMarkerList <- function(
         inputIds,
         currentValues){
     if (flowFrameName != " ") {
+        #message("Updating channel marker list")
         pipL <- buildCytoPipelineFromCache(
             experimentName,
             path = path)

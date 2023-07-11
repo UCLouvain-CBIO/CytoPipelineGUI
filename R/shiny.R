@@ -92,6 +92,8 @@ ScaleTransformApp <- function(dir = ".") {
 #'
 #' @param dir the root directory into which the engine will look for existing
 #' CytoPipeline experiments
+#' @param debug if TRUE, will output messages on the console tracking the
+#' shiny events, for debugging purposes
 #' @return no return value
 #' @import shiny
 #' @import CytoPipeline
@@ -129,7 +131,7 @@ ScaleTransformApp <- function(dir = ".") {
 #'
 #' # CytoPipelineCheckApp(dir = outputDir)                    
 #'
-CytoPipelineCheckApp <-  function(dir = ".") {
+CytoPipelineCheckApp <-  function(dir = ".", debug = FALSE) {
     if (interactive()) {
         path <- dir
         # initialize input lists
@@ -137,6 +139,12 @@ CytoPipelineCheckApp <-  function(dir = ".") {
             getCytoPipelineExperimentNames(path = path)
         if (length(experimentNames) == 0) {
             stop("no experiment found in current directory!")
+        }
+        debugFlag <- debug
+        debugMessage <- function(msg){
+            if (debugFlag) {
+                message(msg)
+            }
         }
         
         ui <- 
@@ -290,7 +298,7 @@ CytoPipelineCheckApp <-  function(dir = ".") {
         server <- function(input, output, session) {
             
             observeEvent(input$experimentFrom, {
-                #message(paste0("obs event: experimentFrom"))
+                debugMessage("obs event: experimentFrom")
                 
                 # update available processing queues, as well as
                 # list of samples, based on selected experiment
@@ -298,21 +306,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                     newExperimentName = input$experimentFrom,
                     whichQueueName = "whichQueueFrom",
                     currentWhichQueueValue = input$whichQueueFrom,
-                    sampleListName = "sampleFrom",
+                    sampleInputId = "sampleFrom",
                     currentSampleValue = input$sampleFrom,
+                    FFInputId = "flowFrameFrom",
+                    currentFFValue = input$flowFrameFrom,
                     path = path)
-                
-                # update list of available FF objects for FF comparison
-                # note we force sampleFile to be " ", 
-                # because it is automatically the current choice, 
-                # and to avoid ghost sample file flowing
-                updateFFList(
-                    experimentName = input$experimentFrom,
-                    whichQueue = input$whichQueueFrom,
-                    sampleFile = input$sampleFrom,
-                    path = path,
-                    inputId = "flowFrameFrom",
-                    currentValue = input$flowFrameFrom)
                 
                 # update experiment for comparison 
                 # (by default, but only if no currently selected experiment)
@@ -322,11 +320,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                         selected = input$experimentFrom)
                 }
                 
-                #message(paste0("end obs event: experimentFrom"))
+                debugMessage("end obs event: experimentFrom")
             })
             
             observeEvent(input$experimentTo, {
-                #message(paste0("obs event: experimentTo"))
+                debugMessage("obs event: experimentTo")
 
                 # update available processing queues, as well as
                 # list of samples, based on selected experiment
@@ -334,27 +332,17 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                     newExperimentName = input$experimentTo,
                     whichQueueName = "whichQueueTo",
                     currentWhichQueueValue = input$whichQueueTo,
-                    sampleListName = "sampleTo",
+                    sampleInputId = "sampleTo",
                     currentSampleValue = input$sampleTo,
+                    FFInputId = "flowFrameTo",
+                    currentFFValue = input$flowFrameTo,
                     path = path)
                 
-                # update list of available FF objects
-                # note we force sampleFile to be " ", 
-                # because it is automatically the current choice, 
-                # and to avoid ghost sample file flowing
-                updateFFList(
-                    experimentName = input$experimentTo,
-                    whichQueue = input$whichQueueTo,
-                    sampleFile = input$sampleTo,
-                    path = path,
-                    inputId = "flowFrameTo",
-                    currentValue = input$flowFrameTo)
-                
-                #message(paste0("end obs event: experimentTo"))
+                debugMessage("end obs event: experimentTo")
             })
             
             observeEvent(input$whichQueueFrom, {
-                #message(paste0("obs event: whichQueueFrom"))
+                debugMessage("obs event: whichQueueFrom")
                 
                 # update list of available FF objects
                 
@@ -370,11 +358,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                 updateSelectInput(
                     inputId = "whichQueueTo",
                     selected = input$whichQueueFrom)
-                #message(paste0("end obs event: whichQueueFrom"))
+                debugMessage("end obs event: whichQueueFrom")
             })
             
             observeEvent(input$whichQueueTo, {
-                #message(paste0("obs event: whichQueueTo"))
+                debugMessage("obs event: whichQueueTo")
                 
                 # update list of available FF objects
                 
@@ -385,11 +373,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                     path = path,
                     inputId = "flowFrameTo",
                     currentValue = input$flowFrameTo)
-                #message(paste0("end obs event: whichQueueTo"))
+                debugMessage("end obs event: whichQueueTo")
             })
             
             observeEvent(input$sampleFrom, {
-                #message(paste0("obs event: sampleFrom"))
+                debugMessage("obs event: sampleFrom")
                 # update list of available FF objects
                 updateFFList(
                     experimentName = input$experimentFrom,
@@ -403,11 +391,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                 updateSelectInput(
                     inputId = "sampleTo",
                     selected = input$sampleFrom)
-                #message(paste0("end obs event: sampleFrom"))
+                debugMessage("end obs event: sampleFrom")
             })
             
             observeEvent(input$sampleTo, {
-                #message(paste0("obs event: sampleTo"))
+                debugMessage("obs event: sampleTo")
                 # update list of available FF objects
                 updateFFList(
                     experimentName = input$experimentTo,
@@ -416,11 +404,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                     path = path,
                     inputId = "flowFrameTo",
                     currentValue = input$flowFrameTo)
-                #message(paste0("end obs event: sampleTo"))
+                debugMessage("end obs event: sampleTo")
             })
             
             observeEvent(input$flowFrameFrom, {
-                #message(paste0("obs event: flowFrameFrom"))
+                debugMessage("obs event: flowFrameFrom")
                 # update list of channels
                 updateChannelMarkerList(
                     experimentName = input$experimentFrom,
@@ -434,11 +422,11 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                     currentValues = c(
                         input$xchannelFrom,
                         input$ychannelFrom))
-                #message(paste0("end obs event: flowFrameFrom"))
+                debugMessage("end obs event: flowFrameFrom")
             })
             
             observeEvent(input$flowFrameTo, {
-                #message(paste0("obs event: flowFrameTo"))
+                debugMessage("obs event: flowFrameTo")
                 # update list of channels
                 updateChannelMarkerList(
                     experimentName = input$experimentTo,
@@ -452,70 +440,51 @@ CytoPipelineCheckApp <-  function(dir = ".") {
                     currentValues = c(
                         input$xchannelTo,
                         input$ychannelTo))
-                #message(paste0("end obs event: flowFrameTo"))
+                debugMessage("end obs event: flowFrameTo")
             })
             
             observeEvent(input$xchannelFrom, {
-                #message(paste0("obs event: xchannelFrom"))
+                debugMessage("obs event: xchannelFrom")
                 # update xchannel for comparison (default)
                 updateSelectInput(
                     inputId = "xchannelTo",
                     selected = input$xchannelFrom)
-                #message(paste0("end obs event: xchannelFrom"))
+                debugMessage("end obs event: xchannelFrom")
             })
             
             observeEvent(input$ychannelFrom, {
-                #message(paste0("obs event: ychannelFrom"))
+                debugMessage("obs event: ychannelFrom")
                 # update ychannel for comparison (default)
                 updateSelectInput(
                     inputId = "ychannelTo",
                     selected = input$ychannelFrom)
-                #message(paste0("end obs event: ychannelFrom"))
+                debugMessage("end obs event: ychannelFrom")
             })
             
             observeEvent(input$useAllSampleEvents, {
-                #message(paste0("obs event: useAllSampleEvents"))
+                debugMessage(paste0("obs event: useAllSampleEvents"))
             })
             
             output$workflowPlotFrom <- renderPlot({
-                pipL <- buildCytoPipelineFromCache(
-                    input$experimentFrom,
-                    path = path)
-                #message("rendering from workflow plot")
-                sampleFile <- input$sampleFrom
-                if (sampleFile != " " || 
-                    input$whichQueueFrom == "scale transform") {
-                    try(
-                        plotCytoPipelineProcessingQueue(
-                            pipL,
-                            whichQueue = input$whichQueueFrom,
-                            sampleFile = sampleFile,
-                            path = path,
-                            title = FALSE,
-                            box.size = 0.15,
-                            box.prop = 0.3))
-                    
-                }
+                debugMessage("rendering workflow plot (from)")
+                try(
+                    plotSelectedWorkflow(
+                        experimentName = input$experimentFrom,
+                        whichQueue = input$whichQueueFrom,
+                        sampleFile = input$sampleFrom,
+                        path = path)
+                )
             })
             
             output$workflowPlotTo <- renderPlot({
-                pipL <- buildCytoPipelineFromCache(
-                    input$experimentTo,
-                    path = path)
-                #message("rendering to workflow plot")
-                sampleFile <- input$sampleTo
-                if (sampleFile != " " || 
-                    input$whichQueueTo == "scale transform") {
-                    try(
-                        plotCytoPipelineProcessingQueue(
-                            pipL,
-                            whichQueue = input$whichQueueTo,
-                            sampleFile = sampleFile,
-                            path = path,
-                            title = FALSE,
-                            box.size = 0.15,
-                            box.prop = 0.3))
-                }
+                debugMessage("rendering workflow plot (to)")
+                try(
+                    plotSelectedWorkflow(
+                        experimentName = input$experimentTo,
+                        whichQueue = input$whichQueueTo,
+                        sampleFile = input$sampleTo,
+                        path = path)
+                )
             })
             
             

@@ -19,7 +19,7 @@ test_that("shiny apps do work", {
     
 dir <- "C:/CBIO/2021-phd-philippe-hauchamps/Analyses/MDSC_Clinical"
 
-# CytoPipelineCheckApp(dir = dir)
+CytoPipelineCheckApp(dir = dir, debug = FALSE)
 # ScaleTransformApp(dir = dir)
 
 expect_true(TRUE)

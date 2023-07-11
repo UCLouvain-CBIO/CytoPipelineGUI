@@ -36,6 +36,49 @@ suppressWarnings(execute(pipL2,
                          rmCache = TRUE,
                          path = outputDir))
 
+test_that("plotSelectedWorkflow works", {
+    # pre-processing, existing sample file
+    expect_no_error(
+        plotSelectedWorkflow(
+            experimentName = experimentName,
+            whichQueue = "pre-processing",
+            sampleFile = sampleFiles[1],
+            path = outputDir))
+    
+    # pre-processing, existing sample file, by index
+    expect_no_error(
+        plotSelectedWorkflow(
+            experimentName = experimentName,
+            whichQueue = "pre-processing",
+            sampleFile = 1,
+            path = outputDir))
+    
+    # pre-processing, defaulted sample file
+    expect_no_error(
+        plotSelectedWorkflow(
+            experimentName = experimentName,
+            whichQueue = "pre-processing",
+            sampleFile = NULL,
+            path = outputDir))
+        
+    # scale transform => no comment for sample file not used
+    expect_no_error(
+        plotSelectedWorkflow(
+            experimentName = experimentName,
+            whichQueue = "scale transform",
+            sampleFile = "any",
+            path = outputDir))
+    
+    # pre-processing, sample file not found => no error message
+    expect_no_error(
+        plotSelectedWorkflow(
+            experimentName = experimentName,
+            whichQueue = "pre-processing",
+            sampleFile = "any",
+            path = outputDir))
+        
+})
+
 test_that("plotSelectedFlowFrame works", {
     
     p1 <- plotSelectedFlowFrame(

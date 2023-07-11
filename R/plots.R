@@ -1,3 +1,107 @@
+# CytoPipelineGUI - 
+# Copyright (C) <2022> <Université catholique de Louvain (UCLouvain), Belgique>
+#   
+#   Description and complete License: see LICENSE file.
+# 
+# This program (CytoPipelineGUI) is free software: 
+#   you can redistribute it and/or modify it under the terms of the GNU 
+#   General Public License as published by the Free Software Foundation, 
+#   either version 3 of the License, or (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details (<http://www.gnu.org/licenses/>).
+
+#' @title Plot a pipeline workflow from a CytoPipeline run
+#'
+#' @param experimentName the experiment name (representing a pipeline run) 
+#' from which to extract the workflow
+#' @param whichQueue "pre-processing" or "scale transform"
+#' @param sampleFile in case 'whichQueue' is set to 'pre-processing, which
+#' sample file to look at. This can be a number or a character.
+#' - if whichQueue == "scale transform", the sampleFile is ignored
+#' - if NULL and whichQueue == "pre-processing", the sampleFile is defaulted
+#' to the first one belonging to the experiment
+#' @param path the root path to look for the CytoPipeline experiment cache
+#'
+#' @return nothing, but displays the plot as a side effect
+#' @export
+#'
+#' @examples
+#' 
+#' # run CytoPipeline object first
+#' 
+#' outputDir <- base::tempdir()
+#' 
+#' 
+#' rawDataDir <-
+#'     system.file("extdata", package = "CytoPipeline")
+#' experimentName <- "OMIP021_PeacoQC"
+#' sampleFiles <- 
+#'     file.path(
+#'         rawDataDir, 
+#'         list.files(rawDataDir, pattern = "Donor"))
+#' jsonDir <- system.file("extdata", package = "CytoPipeline")
+#' jsonPath <- file.path(jsonDir, "pipelineParams.json")
+#' 
+#' pipL2 <- CytoPipeline(
+#'     jsonPath,
+#'     experimentName = experimentName,
+#'     sampleFiles = sampleFiles)
+#' 
+#' suppressWarnings(execute(
+#'     pipL2,
+#'     rmCache = TRUE,
+#'     path = outputDir))
+#' 
+#' plotSelectedWorkflow(
+#'     experimentName = experimentName,
+#'     whichQueue = "pre-processing",
+#'     sampleFile = sampleFiles[1],
+#'     path = outputDir)
+#'     
+#' plotSelectedWorkflow(
+#'     experimentName = experimentName,
+#'     whichQueue = "scale transform",
+#'     sampleFile = NULL,
+#'     path = outputDir)
+#' 
+#' 
+plotSelectedWorkflow <- function(
+    experimentName,
+    whichQueue,
+    sampleFile,
+    path = path) {
+    pipL <- buildCytoPipelineFromCache(
+        experimentName,
+        path = path)
+    
+    
+    if (whichQueue == "scale transform") {
+        plotCytoPipelineProcessingQueue(
+                pipL,
+                whichQueue = whichQueue,
+                sampleFile = NULL,
+                path = path,
+                title = FALSE,
+                box.size = 0.15,
+                box.prop = 0.3)
+    } else if (is.null(sampleFile) ||
+               is.numeric(sampleFile) ||
+               is.character(sampleFile) &&
+               basename(sampleFile) %in% basename(sampleFiles(pipL))) {
+        plotCytoPipelineProcessingQueue(
+                pipL,
+                whichQueue = whichQueue,
+                sampleFile = sampleFile,
+                path = path,
+                title = FALSE,
+                box.size = 0.15,
+                box.prop = 0.3)
+    }
+}
+
 #' @title Plot a flow frame from a CytoPipeline run
 #' @description Based on an experiment name, this function will gather the
 #' required flowFrame from the CytoPipeline disk cache and display it using 
@@ -575,8 +679,6 @@ plotScaleTransformedChannel <- function(
     applyTransform <- match.arg(applyTransform)
     transfoType <- match.arg(transfoType)
     if (!is.null(ff)) {
-        message("displaying scale transformed channel plot...")
-        
         if (transfoType == "linear") {
             theTrans <- flowCore::linearTransform(
                 a = linA,

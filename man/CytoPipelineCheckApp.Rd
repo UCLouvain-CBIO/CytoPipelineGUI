@@ -5,11 +5,14 @@
 \title{interactive visualization of flow cytometry data analysis pipeline
 objects stored in cache}
 \usage{
-CytoPipelineCheckApp(dir = ".")
+CytoPipelineCheckApp(dir = ".", debug = FALSE)
 }
 \arguments{
 \item{dir}{the root directory into which the engine will look for existing
 CytoPipeline experiments}
+
+\item{debug}{if TRUE, will output messages on the console tracking the
+shiny events, for debugging purposes}
 }
 \value{
 no return value
