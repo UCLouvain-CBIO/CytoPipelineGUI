@@ -1,85 +1,311 @@
 ---
-title: "Demonstration of the CytoPipeline R package suite functionalities"
+title: "CytoPipelineGUI : visualization of Flow Cytometry Data Analysis Pipelines run with CytoPipeline"
 author:
     - name: Philippe Hauchamps
     - name: Laurent Gatto
 package: CytoPipelineGUI
 abstract: >
- This vignette provides links to videos demonstrating 
- some of the functionalities of CytoPipeline R package suite. 
- It is distributed, as well as the accompanying videos, 
- under a CC BY-SA license.
+ This vignette gives a short introduction to CytoPipelineGUI, which is the companion package of CytoPipeline for interactive visualization of flow cytometry data pre-processing pipeline results.
+ This vignette is distributed under a CC BY-SA license.
 output:
   BiocStyle::html_document:
     toc_float: true
+bibliography: CytoPipeline.bib    
 vignette: >
-  %\VignetteIndexEntry{Demonstration of the CytoPipeline R package suite functionalities}
+  %\VignetteIndexEntry{CytoPipelineGUI : visualization of Flow Cytometry Data Analysis Pipelines run with CytoPipeline}
   %\VignetteEngine{knitr::rmarkdown}
   %%\VignetteKeywords{FlowCytometry, Preprocessing, QualityControl, WorkflowStep, Software, Visualization}
   %\VignetteEncoding{UTF-8}
 ---
 
-# Foreword
-`CytoPipelineGUI` is the companion package of `CytoPipeline`.
-The current vignette contains links to videos that show interactive demos 
-of using the `CytoPipeline` R package suite, and in particular 
-`CytoPipelineGUI` shiny applications.  
+# Installation
 
-For a more conventional vignette, please have a look at the `CytoPipeline`
-package vignette.
+To install this package, start R and enter (uncommented):
+
+```{r}
+# if (!require("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# 
+# BiocManager::install("CytoPipelineGUI")
+
+```
+
+# Foreword - Preparation of pipeline results to be visualized
+
+`CytoPipelineGUI` is the companion package of `CytoPipeline`, and is used for
+interactive visualization of flow cytometry data pre-processing pipeline 
+results. It implements two shiny applications :  
+
+- a shiny app for interactive comparison of flow frames that are the results 
+of CytoProcessingSteps of the same or different CytoPipeline experiments.  
+It is launched using the following statement: `CytoPipelineCheckApp()` 
+(see below);  
+
+- a shiny app for interactive visualization and manual adjustments of scale 
+transformation objects. It is launched using the following statement: 
+`ScaleTransformApp()` (see below).
+
+In order to be able to show `CytoPipelineGUI` in action, as a pre-requisite 
+we need to have created a `CytoPipeline` object, 
+defined the different pipeline steps, and run the pipeline until completion,
+so that all intermediate results can be found on a cache. 
+These preliminary steps are performed by the preparation code below. 
+
+```{r pkg, include = FALSE}
+library(CytoPipeline)
+library(CytoPipelineGUI)
+library(patchwork)
+```
+
+```{r preparation, message=FALSE, warning=FALSE}
+# raw data
+rawDataDir <- system.file("extdata", package = "CytoPipeline")
+sampleFiles <- file.path(rawDataDir, list.files(rawDataDir,
+                                                pattern = "Donor"))
+# output files
+workDir <- suppressMessages(base::tempdir())
+# pipeline configuration files (in json)
+jsonDir <- rawDataDir
+
+# creation of CytoPipeline objects
+
+pipL_PeacoQC <-
+  CytoPipeline(file.path(jsonDir, "OMIP021_PeacoQC_pipeline.json"),
+               experimentName = "OMIP021_PeacoQC",
+               sampleFiles = sampleFiles)
+
+pipL_flowAI <-
+  CytoPipeline(file.path(jsonDir, "OMIP021_flowAI_pipeline.json"),
+               experimentName = "OMIP021_flowAI",
+               sampleFiles = sampleFiles)
+
+# execute PeacoQC pipeline
+suppressWarnings(execute(pipL_PeacoQC, rmCache = TRUE, path = workDir))
+
+# execute flowAI pipeline
+suppressWarnings(execute(pipL_flowAI, rmCache = TRUE, path = workDir))
+```
+
+
+If you are unfamiliar with `CytoPipeline` package, and you would like to 
+know more about these steps, it is advised that you read 
+the `CytoPipeline` vignette, and/or that you watch the videos illustrating 
+the `CytoPipeline` suite, which are accessible 
+through links included in the `Demo.Rmd` vignette.
+
+
 
 # Introduction
 
-<iframe src="https://www.youtube.com/embed/IB832cQkXdg" width="533" 
-height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+The visualization tools shown here are demonstrated on the results 
+of two different previously run `CytoPipeline` objects. 
+These flow cytometry pre-processing pipeline are described in details
+in the `CytoPipeline` vignette. Here below is a short summary 
+of the illustrating dataset, as well as the pipeline steps.
 
-# Background information
 
-<iframe src="https://www.youtube.com/embed/0AmO9ZaxJoE" width="533" 
-height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+## Example dataset (more details in CytoPipeline vignette)
+The example dataset that will be used throughout this vignette is derived from 
+a reference public dataset accompanying the OMIP-021 (Optimized Multicolor 
+Immunofluorescence Panel 021) article [@Gherardin2014-pj].  
 
-# Illustrating dataset
+A sub-sample of this public dataset is built-in in the `CytoPipeline` 
+package, as the OMIP021 dataset. 
+See the `MakeOMIP021Samples.R` script for more details 
+on how the `OMIP021` dataset was created. This script is to be found 
+in the `script` subdirectory in the `CytoPipeline` package installation path.
 
-<iframe src="https://www.youtube.com/embed/D8Jkf_bhrfQ" width="533" 
-height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+## Example of pre-processing and QC pipelines (more details in CytoPipeline vignette)
+In our example pipeline, we assumed that we wanted to pre-process 
+the two samples of the `OMIP021` dataset, and that we wanted to compare 
+what we would obtain when pre-processing these files 
+using two different QC methods.    
 
-# Specifying the pipeline
+In the first pre-processing pipeline, we used the `flowAI` QC method 
+[@Monaco2016-vo], while in the second pipeline, we used the `PeacoQC` method 
+[@Emmaneel2021-xy]. 
 
-<iframe src="https://www.youtube.com/embed/z25TcU39Bqc" width="533" 
-height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+In both pipelines, the first part consisted in estimating appropriate scale
+transformation functions for all channels present in the sample `flowFrame`.
+For this, we ran the following steps (Fig. 1):   
 
-# Running the pipeline
+- reading the two samples `.fcs` files
+- removing the margin events from each file
+- applying compensation for each file
+- aggregating and sub-sampling from each file
+- estimating the scale transformations from the aggregated 
+and sub-sampled data   
 
-<iframe src="https://www.youtube.com/embed/6q4MTZi_Hvw" width="533" 
-height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+```{r scaleTransformQueueDisplay, results='markup', fig.cap="Scale transform processing queue", echo=FALSE, out.width='75%', fig.align='center', fig.wide = TRUE}
+knitr::include_graphics("figs/scaleTransformQueue.png", error = FALSE)
+```
 
-# Visualizing the results
+After this first part, pre-processing for each file, one by one, was performed.  
+However, depending on the choice of QC method, the order of steps
+needed to be slightly different (see Fig. 2) : 
 
-<iframe src="https://www.youtube.com/embed/NAtwhr7UQW4" width="533" 
-height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+```{r preProcessingQueueDisplay, results='markup', fig.cap="Pre-processing queue for two different pipeline settings", echo=FALSE, out.width='100%', fig.align='center', fig.wide = TRUE}
+knitr::include_graphics("figs/preProcessingQueues.png", error = FALSE)
+```
 
-# Comparing pipelines
 
-<iframe src="https://www.youtube.com/embed/F2gdPr-_zi0" width="533" 
-height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+# Interactive visualizations
 
-# Example with two different QC methods
+## Visualizing pipeline runs at different steps
 
-<iframe src="https://www.youtube.com/embed/uLGeARGGxR8" width="533" 
-height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+Using the `CytoPipelineGUI` package, it is possible to interactively inspect
+intermediate results produced during the pipeline execution.  
 
-# Visualizing scale transformations
+This is done through the `CytoPipelineCheckApp`, which can provide 
+a view of the data structure, i.e. the `flowFrame`, 
+at any step of any pipeline, as well as a comparison between any the pair of 
+`flowFrame` state.
 
-<iframe src="https://www.youtube.com/embed/b3htJsbn3Ag" width="533" 
-height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+```{r flowframe_viz}
+if (interactive()) {
+    CytoPipelineGUI::CytoPipelineCheckApp(dir = workDir)    
+}
+```
 
-# Defining technical run parameters
+It is difficult to extensively demonstrate specific user interactions 
+ in a vignette, therefore live demo videos can be found from the `Demo.Rmd` 
+ vignette.
 
-<iframe src="https://www.youtube.com/embed/-jPp_aNnA_U" width="533" 
-height="300" frameborder="0" allowfullscreen data-external="1"></iframe>
+However, it is possible to mimic the call to some of the shiny application 
+features, by using some specific `CytoPipelineGUI` exported functions. 
+
+A first example below is a function call which retrieves 
+the visuals of the workflow of a previously run pipeline:
+
+```{r workflow_viz_prog, out.height=450, out.width=600, fig.height=4.5, fig.width=6, fig.align='center'}
+# pre-processing workflow
+expName <- "OMIP021_PeacoQC"
+CytoPipelineGUI::plotSelectedWorkflow(
+            experimentName = expName,
+            whichQueue = "pre-processing",
+            sampleFile = sampleFiles[1],
+            path = workDir)
+```
+
+It is also possible to programmatically obtain comparison plots that 
+are displayed within the shiny application.  
+Here below is an example, where one is comparing the two pipelines 
+(*PeacoQC* vs *flowAI*) after the QC step:
+
+```{r flowframe_viz_prog, out.height=300, out.width=900, fig.height=6, fig.width=18, fig.align='center', message = FALSE}
+expName1 <- "OMIP021_PeacoQC"
+expName2 <- "OMIP021_flowAI"
+
+p1 <- CytoPipelineGUI::plotSelectedFlowFrame(
+    experimentName = expName1,
+    whichQueue = "pre-processing",
+    sampleFile = 2,
+    flowFrameName = "perform_QC_obj",
+    path = workDir,
+    xChannelLabel = "Time : NA",
+    yChannelLabel = "FSC-A : NA",
+    useAllCells = TRUE,
+    useFixedLinearRange = FALSE)
+
+p2 <- CytoPipelineGUI::plotSelectedFlowFrame(
+    experimentName = expName2,
+    whichQueue = "pre-processing",
+    sampleFile = 2, 
+    flowFrameName = "perform_QC_obj",
+    path = workDir,
+    xChannelLabel = "Time : NA",
+    yChannelLabel = "FSC-A : NA",
+    useAllCells = TRUE,
+    useFixedLinearRange = FALSE)
+
+p3 <- CytoPipelineGUI::plotDiffFlowFrame(
+    path = workDir,
+    experimentNameFrom = expName1,
+    whichQueueFrom = "pre-processing",
+    sampleFileFrom = 2, 
+    flowFrameNameFrom = "perform_QC_obj",
+    xChannelLabelFrom = "Time : NA",
+    yChannelLabelFrom = "FSC-A : NA",
+    experimentNameTo = expName2,
+    whichQueueTo = "pre-processing",
+    sampleFileTo = 2,
+    flowFrameNameTo = "perform_QC_obj",
+    xChannelLabelTo = "Time : NA",
+    yChannelLabelTo = "FSC-A : NA",
+    useAllCells = TRUE,
+    useFixedLinearRange = FALSE)
+
+print(p1+p2+p3)
+
+```
+
+## Visualization of scale transformations
+
+Besides the flowFrame comparison tool, `CytoPipelineGUI` provides another 
+shiny app, which allows to interactively visualize and manage 
+the scale transformations that are generated as part of our prep-processing 
+pipelines.  
+
+If the shape of the scale transformations that were automatically set by the
+chosen algorithm appears to be non satisfactory, it is possible, using this
+shiny application, to manually adjust the parameters of the transformation,
+and save the results in a RDS object. This object can then be re-used in another
+pipeline instance.
+
+```{r scale_transform_viz}
+# 5. show scale transformations
+if (interactive()){
+    CytoPipelineGUI::ScaleTransformApp(dir = workDir)    
+}
+```
+
+Note that here also, it is possible to obtain the visuals 
+of the scale transformations programmatically, 
+although this is a bit more evolved, as one has to use `CytoPipeline` functions 
+for this.
+
+```{r scale_transform_viz_prog, out.height=300, out.width=600, fig.height=6, fig.width=12, fig.align='center', message = FALSE}
+expName <- "OMIP021_PeacoQC"
+pipL <- CytoPipeline::buildCytoPipelineFromCache(
+    experimentName = expName,
+    path = workDir
+)
+
+    ff <- CytoPipeline::getCytoPipelineFlowFrame(
+        pipL,
+        path = workDir,
+        whichQueue = "scale transform",
+        objectName = "flowframe_aggregate_obj"
+    )
+    
+    p1 <- plotScaleTransformedChannel(
+        ff,
+        channel = "FSC-A",
+        transfoType = "linear",
+        linA = 0.0002,
+        linB = -0.5)
+    
+    p2 <- plotScaleTransformedChannel(
+        ff,
+        channel = "CD3",
+        applyTransform = "data",
+        transfoType = "logicle",
+        negDecades = 1,
+        width = 0.5,
+        posDecades = 4
+    )
+    
+    p1+p2
+```
+
+
 
 # Session information {-}
 
 ```{r sessioninfo, echo=FALSE}
 sessionInfo()
 ```
+
+# References {-}
+
+

@@ -14,6 +14,7 @@
 # GNU General Public License for more details (<http://www.gnu.org/licenses/>).
 
 #' @title interactive display and modification of scale transform list
+#' @rdname CytoPipelineGUI
 #' @description this application allows the user to visualize a scale 
 #' transformation list, possibly amending it channel after channel, 
 #' and save the results on disk. 
@@ -21,9 +22,9 @@
 #' to be read from a CytoPipeline experiments stored in cache.
 #' @param dir the root directory into which the engine will look for existing
 #' CytoPipeline experiments
-#' @return nothing
 #' @import shiny
 #' @import CytoPipeline
+#' @return - for `ScaleTransformApp`: no return value
 #' @export
 #' @examples
 #' 
@@ -53,7 +54,8 @@
 #'
 #' # run shiny app
 #'
-#' #ScaleTransformApp(dir = outputDir)                     
+#' if (interactive())
+#'     ScaleTransformApp(dir = outputDir)                     
 #' 
 ScaleTransformApp <- function(dir = ".") {
     if (interactive()) {
@@ -89,12 +91,13 @@ ScaleTransformApp <- function(dir = ".") {
 
 #' @title interactive visualization of flow cytometry data analysis pipeline 
 #' objects stored in cache
+#' @rdname CytoPipelineGUI
 #'
 #' @param dir the root directory into which the engine will look for existing
 #' CytoPipeline experiments
 #' @param debug if TRUE, will output messages on the console tracking the
 #' shiny events, for debugging purposes
-#' @return no return value
+#' @return - for `CytoPipelineCheckApp`: no return value
 #' @import shiny
 #' @import CytoPipeline
 #' @export
@@ -129,7 +132,8 @@ ScaleTransformApp <- function(dir = ".") {
 #'
 #' # run shiny app
 #'
-#' # CytoPipelineCheckApp(dir = outputDir)                    
+#' if (interactive())
+#'     CytoPipelineCheckApp(dir = outputDir)                    
 #'
 CytoPipelineCheckApp <-  function(dir = ".", debug = FALSE) {
     if (interactive()) {
