@@ -54,7 +54,7 @@ These preliminary steps are performed by the preparation code below.
 ```{r pkg, include = FALSE}
 library(CytoPipeline)
 library(CytoPipelineGUI)
-#library(patchwork)
+library(patchwork)
 ```
 
 ```{r preparation, message=FALSE, warning=FALSE}
@@ -235,8 +235,7 @@ p3 <- CytoPipelineGUI::plotDiffFlowFrame(
     useAllCells = TRUE,
     useFixedLinearRange = FALSE)
 
-#p1+p2+p3
-p1
+p1+p2+p3
 
 ```
 
@@ -296,7 +295,7 @@ pipL <- CytoPipeline::buildCytoPipelineFromCache(
         posDecades = 4
     )
     
-    p1#+p2
+    p1+p2
 ```
 
 
