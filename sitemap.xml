@@ -10,6 +10,9 @@
     <loc>/articles/CytoPipelineGUI.html</loc>
   </url>
   <url>
+    <loc>/articles/Demo.html</loc>
+  </url>
+  <url>
     <loc>/articles/index.html</loc>
   </url>
   <url>
@@ -22,10 +25,7 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/CytoPipelineCheckApp.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ScaleTransformApp.html</loc>
+    <loc>/reference/CytoPipelineGUI.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>

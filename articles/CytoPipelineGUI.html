@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demonstration of the CytoPipeline R package suite functionalities • CytoPipelineGUI</title>
+<title>CytoPipelineGUI : visualization of Flow Cytometry Data Analysis Pipelines run with CytoPipeline • CytoPipelineGUI</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Demonstration of the CytoPipeline R package suite functionalities">
+<script src="../pkgdown.js"></script><meta property="og:title" content="CytoPipelineGUI : visualization of Flow Cytometry Data Analysis Pipelines run with CytoPipeline">
 <meta property="og:description" content="CytoPipelineGUI">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CytoPipelineGUI</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.1</span>
       </span>
     </div>
 
@@ -44,6 +44,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/Demo.html">Demonstration of the CytoPipeline R package suite functionalities</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -62,8 +74,8 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Demonstration of the CytoPipeline R package
-suite functionalities</h1>
+      <h1 data-toc-skip>CytoPipelineGUI : visualization of Flow
+Cytometry Data Analysis Pipelines run with CytoPipeline</h1>
                         <h4 data-toc-skip class="author">Philippe
 Hauchamps</h4>
                                     <h4 data-toc-skip class="author">Laurent
@@ -78,89 +90,293 @@ Gatto</h4>
     
         <div class="abstract">
       <p class="abstract">Abstract</p>
-      <p>This vignette provides links to videos demonstrating some of
-      the functionalities of CytoPipeline R package suite. It is
-      distributed, as well as the accompanying videos, under a CC BY-SA
+      <p>This vignette gives a short introduction to CytoPipelineGUI,
+      which is the companion package of CytoPipeline for interactive
+      visualization of flow cytometry data pre-processing pipeline
+      results. This vignette is distributed under a CC BY-SA
       license.</p>
     </div>
     
 <div class="section level2">
-<h2 id="foreword">Foreword<a class="anchor" aria-label="anchor" href="#foreword"></a>
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>To install this package, start R and enter (uncommented):</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># if (!require("BiocManager", quietly = TRUE))</span></span>
+<span><span class="co">#     install.packages("BiocManager")</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># BiocManager::install("CytoPipelineGUI")</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="foreword---preparation-of-pipeline-results-to-be-visualized">Foreword - Preparation of pipeline results to be visualized<a class="anchor" aria-label="anchor" href="#foreword---preparation-of-pipeline-results-to-be-visualized"></a>
 </h2>
 <p><code>CytoPipelineGUI</code> is the companion package of
-<code>CytoPipeline</code>. The current vignette contains links to videos
-that show interactive demos of using the <code>CytoPipeline</code> R
-package suite, and in particular <code>CytoPipelineGUI</code> shiny
-applications.</p>
-<p>For a more conventional vignette, please have a look at the
-<code>CytoPipeline</code> package vignette.</p>
+<code>CytoPipeline</code>, and is used for interactive visualization of
+flow cytometry data pre-processing pipeline results. It implements two
+shiny applications :</p>
+<ul>
+<li><p>a shiny app for interactive comparison of flow frames that are
+the results of CytoProcessingSteps of the same or different CytoPipeline
+experiments.<br>
+It is launched using the following statement:
+<code><a href="../reference/CytoPipelineGUI.html">CytoPipelineCheckApp()</a></code> (see below);</p></li>
+<li><p>a shiny app for interactive visualization and manual adjustments
+of scale transformation objects. It is launched using the following
+statement: <code><a href="../reference/CytoPipelineGUI.html">ScaleTransformApp()</a></code> (see below).</p></li>
+</ul>
+<p>In order to be able to show <code>CytoPipelineGUI</code> in action,
+as a pre-requisite we need to have created a <code>CytoPipeline</code>
+object, defined the different pipeline steps, and run the pipeline until
+completion, so that all intermediate results can be found on a cache.
+These preliminary steps are performed by the preparation code below.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># raw data</span></span>
+<span><span class="va">rawDataDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"CytoPipeline"</span><span class="op">)</span></span>
+<span><span class="va">sampleFiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">rawDataDir</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">rawDataDir</span>,</span>
+<span>                                                pattern <span class="op">=</span> <span class="st">"Donor"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># output files</span></span>
+<span><span class="va">workDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="fu">base</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># pipeline configuration files (in json)</span></span>
+<span><span class="va">jsonDir</span> <span class="op">&lt;-</span> <span class="va">rawDataDir</span></span>
+<span></span>
+<span><span class="co"># creation of CytoPipeline objects</span></span>
+<span></span>
+<span><span class="va">pipL_PeacoQC</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">CytoPipeline</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">jsonDir</span>, <span class="st">"OMIP021_PeacoQC_pipeline.json"</span><span class="op">)</span>,</span>
+<span>               experimentName <span class="op">=</span> <span class="st">"OMIP021_PeacoQC"</span>,</span>
+<span>               sampleFiles <span class="op">=</span> <span class="va">sampleFiles</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pipL_flowAI</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">CytoPipeline</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">jsonDir</span>, <span class="st">"OMIP021_flowAI_pipeline.json"</span><span class="op">)</span>,</span>
+<span>               experimentName <span class="op">=</span> <span class="st">"OMIP021_flowAI"</span>,</span>
+<span>               sampleFiles <span class="op">=</span> <span class="va">sampleFiles</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># execute PeacoQC pipeline</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu">execute</span><span class="op">(</span><span class="va">pipL_PeacoQC</span>, rmCache <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="va">workDir</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># execute flowAI pipeline</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu">execute</span><span class="op">(</span><span class="va">pipL_flowAI</span>, rmCache <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="va">workDir</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Quality control for the file: Donor1</span></span>
+<span><span class="co">## 3.18% of anomalous cells detected in the flow rate check. </span></span>
+<span><span class="co">## 0% of anomalous cells detected in signal acquisition check. </span></span>
+<span><span class="co">## 0.12% of anomalous cells detected in the dynamic range check. </span></span>
+<span><span class="co">## Quality control for the file: Donor2</span></span>
+<span><span class="co">## 4.52% of anomalous cells detected in the flow rate check. </span></span>
+<span><span class="co">## 0% of anomalous cells detected in signal acquisition check. </span></span>
+<span><span class="co">## 0.1% of anomalous cells detected in the dynamic range check.</span></span></code></pre>
+<p>If you are unfamiliar with <code>CytoPipeline</code> package, and you
+would like to know more about these steps, it is advised that you read
+the <code>CytoPipeline</code> vignette, and/or that you watch the videos
+illustrating the <code>CytoPipeline</code> suite, which are accessible
+through links included in the <code>Demo.Rmd</code> vignette.</p>
 </div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<iframe src="https://www.youtube.com/embed/IB832cQkXdg" width="533" height="300" frameborder="0" allowfullscreen data-external="1">
-</iframe>
+<p>The visualization tools shown here are demonstrated on the results of
+two different previously run <code>CytoPipeline</code> objects. These
+flow cytometry pre-processing pipeline are described in details in the
+<code>CytoPipeline</code> vignette. Here below is a short summary of the
+illustrating dataset, as well as the pipeline steps.</p>
+<div class="section level3">
+<h3 id="example-dataset-more-details-in-cytopipeline-vignette">Example dataset (more details in CytoPipeline vignette)<a class="anchor" aria-label="anchor" href="#example-dataset-more-details-in-cytopipeline-vignette"></a>
+</h3>
+<p>The example dataset that will be used throughout this vignette is
+derived from a reference public dataset accompanying the OMIP-021
+(Optimized Multicolor Immunofluorescence Panel 021) article <span class="citation">(Gherardin et al. 2014)</span>.</p>
+<p>A sub-sample of this public dataset is built-in in the
+<code>CytoPipeline</code> package, as the OMIP021 dataset. See the
+<code>MakeOMIP021Samples.R</code> script for more details on how the
+<code>OMIP021</code> dataset was created. This script is to be found in
+the <code>script</code> subdirectory in the <code>CytoPipeline</code>
+package installation path.</p>
+</div>
+<div class="section level3">
+<h3 id="example-of-pre-processing-and-qc-pipelines-more-details-in-cytopipeline-vignette">Example of pre-processing and QC pipelines (more details in
+CytoPipeline vignette)<a class="anchor" aria-label="anchor" href="#example-of-pre-processing-and-qc-pipelines-more-details-in-cytopipeline-vignette"></a>
+</h3>
+<p>In our example pipeline, we assumed that we wanted to pre-process the
+two samples of the <code>OMIP021</code> dataset, and that we wanted to
+compare what we would obtain when pre-processing these files using two
+different QC methods.</p>
+<p>In the first pre-processing pipeline, we used the <code>flowAI</code>
+QC method <span class="citation">(Monaco et al. 2016)</span>, while in
+the second pipeline, we used the <code>PeacoQC</code> method <span class="citation">(Emmaneel et al. 2021)</span>.</p>
+<p>In both pipelines, the first part consisted in estimating appropriate
+scale transformation functions for all channels present in the sample
+<code>flowFrame</code>. For this, we ran the following steps (Fig.
+1):</p>
+<ul>
+<li>reading the two samples <code>.fcs</code> files</li>
+<li>removing the margin events from each file</li>
+<li>applying compensation for each file</li>
+<li>aggregating and sub-sampling from each file</li>
+<li>estimating the scale transformations from the aggregated and
+sub-sampled data</li>
+</ul>
+<div class="figure" style="text-align: center">
+<img src="figs/scaleTransformQueue.png" alt="Scale transform processing queue" width="75%"><p class="caption">
+Scale transform processing queue
+</p>
+</div>
+<p>After this first part, pre-processing for each file, one by one, was
+performed.<br>
+However, depending on the choice of QC method, the order of steps needed
+to be slightly different (see Fig. 2) :</p>
+<div class="figure" style="text-align: center">
+<img src="figs/preProcessingQueues.png" alt="Pre-processing queue for two different pipeline settings" width="100%"><p class="caption">
+Pre-processing queue for two different pipeline settings
+</p>
+</div>
+</div>
 </div>
 <div class="section level2">
-<h2 id="background-information">Background information<a class="anchor" aria-label="anchor" href="#background-information"></a>
+<h2 id="interactive-visualizations">Interactive visualizations<a class="anchor" aria-label="anchor" href="#interactive-visualizations"></a>
 </h2>
-<iframe src="https://www.youtube.com/embed/0AmO9ZaxJoE" width="533" height="300" frameborder="0" allowfullscreen data-external="1">
-</iframe>
+<div class="section level3">
+<h3 id="visualizing-pipeline-runs-at-different-steps">Visualizing pipeline runs at different steps<a class="anchor" aria-label="anchor" href="#visualizing-pipeline-runs-at-different-steps"></a>
+</h3>
+<p>Using the <code>CytoPipelineGUI</code> package, it is possible to
+interactively inspect intermediate results produced during the pipeline
+execution.</p>
+<p>This is done through the <code>CytoPipelineCheckApp</code>, which can
+provide a view of the data structure, i.e. the <code>flowFrame</code>,
+at any step of any pipeline, as well as a comparison between any the
+pair of <code>flowFrame</code> state.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">CytoPipelineGUI</span><span class="fu">::</span><span class="fu"><a href="../reference/CytoPipelineGUI.html">CytoPipelineCheckApp</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="va">workDir</span><span class="op">)</span>    </span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>It is difficult to extensively demonstrate specific user interactions
+in a vignette, therefore live demo videos can be found from the
+<code>Demo.Rmd</code> vignette.</p>
+<p>However, it is possible to mimic the call to some of the shiny
+application features, by using some specific
+<code>CytoPipelineGUI</code> exported functions.</p>
+<p>A first example below is a function call which retrieves the visuals
+of the workflow of a previously run pipeline:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># pre-processing workflow</span></span>
+<span><span class="va">expName</span> <span class="op">&lt;-</span> <span class="st">"OMIP021_PeacoQC"</span></span>
+<span><span class="fu">CytoPipelineGUI</span><span class="fu">::</span><span class="fu"><a href="../reference/plotSelectedWorkflow.html">plotSelectedWorkflow</a></span><span class="op">(</span></span>
+<span>            experimentName <span class="op">=</span> <span class="va">expName</span>,</span>
+<span>            whichQueue <span class="op">=</span> <span class="st">"pre-processing"</span>,</span>
+<span>            sampleFile <span class="op">=</span> <span class="va">sampleFiles</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>            path <span class="op">=</span> <span class="va">workDir</span><span class="op">)</span></span></code></pre></div>
+<p><img src="CytoPipelineGUI_files/figure-html/workflow_viz_prog-1.png" width="600" height="450" style="display: block; margin: auto;"></p>
+<p>It is also possible to programmatically obtain comparison plots that
+are displayed within the shiny application.<br>
+Here below is an example, where one is comparing the two pipelines
+(<em>PeacoQC</em> vs <em>flowAI</em>) after the QC step:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">expName1</span> <span class="op">&lt;-</span> <span class="st">"OMIP021_PeacoQC"</span></span>
+<span><span class="va">expName2</span> <span class="op">&lt;-</span> <span class="st">"OMIP021_flowAI"</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">CytoPipelineGUI</span><span class="fu">::</span><span class="fu"><a href="../reference/plotSelectedFlowFrame.html">plotSelectedFlowFrame</a></span><span class="op">(</span></span>
+<span>    experimentName <span class="op">=</span> <span class="va">expName1</span>,</span>
+<span>    whichQueue <span class="op">=</span> <span class="st">"pre-processing"</span>,</span>
+<span>    sampleFile <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    flowFrameName <span class="op">=</span> <span class="st">"perform_QC_obj"</span>,</span>
+<span>    path <span class="op">=</span> <span class="va">workDir</span>,</span>
+<span>    xChannelLabel <span class="op">=</span> <span class="st">"Time : NA"</span>,</span>
+<span>    yChannelLabel <span class="op">=</span> <span class="st">"FSC-A : NA"</span>,</span>
+<span>    useAllCells <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    useFixedLinearRange <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">CytoPipelineGUI</span><span class="fu">::</span><span class="fu"><a href="../reference/plotSelectedFlowFrame.html">plotSelectedFlowFrame</a></span><span class="op">(</span></span>
+<span>    experimentName <span class="op">=</span> <span class="va">expName2</span>,</span>
+<span>    whichQueue <span class="op">=</span> <span class="st">"pre-processing"</span>,</span>
+<span>    sampleFile <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>    flowFrameName <span class="op">=</span> <span class="st">"perform_QC_obj"</span>,</span>
+<span>    path <span class="op">=</span> <span class="va">workDir</span>,</span>
+<span>    xChannelLabel <span class="op">=</span> <span class="st">"Time : NA"</span>,</span>
+<span>    yChannelLabel <span class="op">=</span> <span class="st">"FSC-A : NA"</span>,</span>
+<span>    useAllCells <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    useFixedLinearRange <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">CytoPipelineGUI</span><span class="fu">::</span><span class="fu"><a href="../reference/plotDiffFlowFrame.html">plotDiffFlowFrame</a></span><span class="op">(</span></span>
+<span>    path <span class="op">=</span> <span class="va">workDir</span>,</span>
+<span>    experimentNameFrom <span class="op">=</span> <span class="va">expName1</span>,</span>
+<span>    whichQueueFrom <span class="op">=</span> <span class="st">"pre-processing"</span>,</span>
+<span>    sampleFileFrom <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>    flowFrameNameFrom <span class="op">=</span> <span class="st">"perform_QC_obj"</span>,</span>
+<span>    xChannelLabelFrom <span class="op">=</span> <span class="st">"Time : NA"</span>,</span>
+<span>    yChannelLabelFrom <span class="op">=</span> <span class="st">"FSC-A : NA"</span>,</span>
+<span>    experimentNameTo <span class="op">=</span> <span class="va">expName2</span>,</span>
+<span>    whichQueueTo <span class="op">=</span> <span class="st">"pre-processing"</span>,</span>
+<span>    sampleFileTo <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    flowFrameNameTo <span class="op">=</span> <span class="st">"perform_QC_obj"</span>,</span>
+<span>    xChannelLabelTo <span class="op">=</span> <span class="st">"Time : NA"</span>,</span>
+<span>    yChannelLabelTo <span class="op">=</span> <span class="st">"FSC-A : NA"</span>,</span>
+<span>    useAllCells <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    useFixedLinearRange <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#p1+p2+p3</span></span>
+<span><span class="va">p1</span></span></code></pre></div>
+<p><img src="CytoPipelineGUI_files/figure-html/flowframe_viz_prog-1.png" width="900" height="300" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level2">
-<h2 id="illustrating-dataset">Illustrating dataset<a class="anchor" aria-label="anchor" href="#illustrating-dataset"></a>
-</h2>
-<iframe src="https://www.youtube.com/embed/D8Jkf_bhrfQ" width="533" height="300" frameborder="0" allowfullscreen data-external="1">
-</iframe>
+<div class="section level3">
+<h3 id="visualization-of-scale-transformations">Visualization of scale transformations<a class="anchor" aria-label="anchor" href="#visualization-of-scale-transformations"></a>
+</h3>
+<p>Besides the flowFrame comparison tool, <code>CytoPipelineGUI</code>
+provides another shiny app, which allows to interactively visualize and
+manage the scale transformations that are generated as part of our
+prep-processing pipelines.</p>
+<p>If the shape of the scale transformations that were automatically set
+by the chosen algorithm appears to be non satisfactory, it is possible,
+using this shiny application, to manually adjust the parameters of the
+transformation, and save the results in a RDS object. This object can
+then be re-used in another pipeline instance.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># 5. show scale transformations</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="fu">CytoPipelineGUI</span><span class="fu">::</span><span class="fu"><a href="../reference/CytoPipelineGUI.html">ScaleTransformApp</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="va">workDir</span><span class="op">)</span>    </span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Note that here also, it is possible to obtain the visuals of the
+scale transformations programmatically, although this is a bit more
+evolved, as one has to use <code>CytoPipeline</code> functions for
+this.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">expName</span> <span class="op">&lt;-</span> <span class="st">"OMIP021_PeacoQC"</span></span>
+<span><span class="va">pipL</span> <span class="op">&lt;-</span> <span class="fu">CytoPipeline</span><span class="fu">::</span><span class="fu"><a href="https://uclouvain-cbio.github.io/CytoPipeline/reference/interactingWithCytoPipelineCache.html" class="external-link">buildCytoPipelineFromCache</a></span><span class="op">(</span></span>
+<span>    experimentName <span class="op">=</span> <span class="va">expName</span>,</span>
+<span>    path <span class="op">=</span> <span class="va">workDir</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">ff</span> <span class="op">&lt;-</span> <span class="fu">CytoPipeline</span><span class="fu">::</span><span class="fu"><a href="https://uclouvain-cbio.github.io/CytoPipeline/reference/inspectCytoPipelineObjects.html" class="external-link">getCytoPipelineFlowFrame</a></span><span class="op">(</span></span>
+<span>        <span class="va">pipL</span>,</span>
+<span>        path <span class="op">=</span> <span class="va">workDir</span>,</span>
+<span>        whichQueue <span class="op">=</span> <span class="st">"scale transform"</span>,</span>
+<span>        objectName <span class="op">=</span> <span class="st">"flowframe_aggregate_obj"</span></span>
+<span>    <span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotScaleTransformedChannel.html">plotScaleTransformedChannel</a></span><span class="op">(</span></span>
+<span>        <span class="va">ff</span>,</span>
+<span>        channel <span class="op">=</span> <span class="st">"FSC-A"</span>,</span>
+<span>        transfoType <span class="op">=</span> <span class="st">"linear"</span>,</span>
+<span>        linA <span class="op">=</span> <span class="fl">0.0002</span>,</span>
+<span>        linB <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotScaleTransformedChannel.html">plotScaleTransformedChannel</a></span><span class="op">(</span></span>
+<span>        <span class="va">ff</span>,</span>
+<span>        channel <span class="op">=</span> <span class="st">"CD3"</span>,</span>
+<span>        applyTransform <span class="op">=</span> <span class="st">"data"</span>,</span>
+<span>        transfoType <span class="op">=</span> <span class="st">"logicle"</span>,</span>
+<span>        negDecades <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>        width <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>        posDecades <span class="op">=</span> <span class="fl">4</span></span>
+<span>    <span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="va">p1</span><span class="co">#+p2</span></span></code></pre></div>
+<p><img src="CytoPipelineGUI_files/figure-html/scale_transform_viz_prog-1.png" width="600" height="300" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level2">
-<h2 id="specifying-the-pipeline">Specifying the pipeline<a class="anchor" aria-label="anchor" href="#specifying-the-pipeline"></a>
-</h2>
-<iframe src="https://www.youtube.com/embed/z25TcU39Bqc" width="533" height="300" frameborder="0" allowfullscreen data-external="1">
-</iframe>
-</div>
-<div class="section level2">
-<h2 id="running-the-pipeline">Running the pipeline<a class="anchor" aria-label="anchor" href="#running-the-pipeline"></a>
-</h2>
-<iframe src="https://www.youtube.com/embed/6q4MTZi_Hvw" width="533" height="300" frameborder="0" allowfullscreen data-external="1">
-</iframe>
-</div>
-<div class="section level2">
-<h2 id="visualizing-the-results">Visualizing the results<a class="anchor" aria-label="anchor" href="#visualizing-the-results"></a>
-</h2>
-<iframe src="https://www.youtube.com/embed/NAtwhr7UQW4" width="533" height="300" frameborder="0" allowfullscreen data-external="1">
-</iframe>
-</div>
-<div class="section level2">
-<h2 id="comparing-pipelines">Comparing pipelines<a class="anchor" aria-label="anchor" href="#comparing-pipelines"></a>
-</h2>
-<iframe src="https://www.youtube.com/embed/F2gdPr-_zi0" width="533" height="300" frameborder="0" allowfullscreen data-external="1">
-</iframe>
-</div>
-<div class="section level2">
-<h2 id="example-with-two-different-qc-methods">Example with two different QC methods<a class="anchor" aria-label="anchor" href="#example-with-two-different-qc-methods"></a>
-</h2>
-<iframe src="https://www.youtube.com/embed/uLGeARGGxR8" width="533" height="300" frameborder="0" allowfullscreen data-external="1">
-</iframe>
-</div>
-<div class="section level2">
-<h2 id="visualizing-scale-transformations">Visualizing scale transformations<a class="anchor" aria-label="anchor" href="#visualizing-scale-transformations"></a>
-</h2>
-<iframe src="https://www.youtube.com/embed/b3htJsbn3Ag" width="533" height="300" frameborder="0" allowfullscreen data-external="1">
-</iframe>
-</div>
-<div class="section level2">
-<h2 id="defining-technical-run-parameters">Defining technical run parameters<a class="anchor" aria-label="anchor" href="#defining-technical-run-parameters"></a>
-</h2>
-<iframe src="https://www.youtube.com/embed/-jPp_aNnA_U" width="533" height="300" frameborder="0" allowfullscreen data-external="1">
-</iframe>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
 <pre><code><span><span class="co">## R version 4.3.1 (2023-06-16)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
-<span><span class="co">## Running under: Ubuntu 22.04.2 LTS</span></span>
+<span><span class="co">## Running under: Ubuntu 22.04.3 LTS</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
 <span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
@@ -181,21 +397,72 @@ applications.</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] BiocStyle_2.29.0</span></span>
+<span><span class="co">## [1] CytoPipelineGUI_0.99.1 CytoPipeline_1.1.3     BiocStyle_2.29.1      </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] vctrs_0.6.3         cli_3.6.1           knitr_1.43         </span></span>
-<span><span class="co">##  [4] rlang_1.1.1         xfun_0.39           stringi_1.7.12     </span></span>
-<span><span class="co">##  [7] purrr_1.0.1         textshaping_0.3.6   jsonlite_1.8.7     </span></span>
-<span><span class="co">## [10] glue_1.6.2          rprojroot_2.0.3     htmltools_0.5.5    </span></span>
-<span><span class="co">## [13] ragg_1.2.5          sass_0.4.6          rmarkdown_2.23     </span></span>
-<span><span class="co">## [16] evaluate_0.21       jquerylib_0.1.4     fastmap_1.1.1      </span></span>
-<span><span class="co">## [19] lifecycle_1.0.3     yaml_2.3.7          memoise_2.0.1      </span></span>
-<span><span class="co">## [22] bookdown_0.34       BiocManager_1.30.21 stringr_1.5.0      </span></span>
-<span><span class="co">## [25] compiler_4.3.1      fs_1.6.2            systemfonts_1.0.4  </span></span>
-<span><span class="co">## [28] digest_0.6.33       R6_2.5.1            magrittr_2.0.3     </span></span>
-<span><span class="co">## [31] bslib_0.5.0         tools_4.3.1         pkgdown_2.0.7.9000 </span></span>
-<span><span class="co">## [34] cachem_1.0.8        desc_1.4.2</span></span></code></pre>
+<span><span class="co">##   [1] DBI_1.1.3             gridExtra_2.3         rlang_1.1.1          </span></span>
+<span><span class="co">##   [4] magrittr_2.0.3        clue_0.3-64           GetoptLong_1.0.5     </span></span>
+<span><span class="co">##   [7] matrixStats_1.0.0     compiler_4.3.1        RSQLite_2.3.1        </span></span>
+<span><span class="co">##  [10] reshape2_1.4.4        png_0.1-8             systemfonts_1.0.4    </span></span>
+<span><span class="co">##  [13] vctrs_0.6.3           stringr_1.5.0         pkgconfig_2.0.3      </span></span>
+<span><span class="co">##  [16] shape_1.4.6           crayon_1.5.2          fastmap_1.1.1        </span></span>
+<span><span class="co">##  [19] dbplyr_2.3.3          ellipsis_0.3.2        labeling_0.4.3       </span></span>
+<span><span class="co">##  [22] utf8_1.2.3            promises_1.2.1        ncdfFlow_2.47.0      </span></span>
+<span><span class="co">##  [25] rmarkdown_2.24        graph_1.79.0          ragg_1.2.5           </span></span>
+<span><span class="co">##  [28] purrr_1.0.2           bit_4.0.5             xfun_0.40            </span></span>
+<span><span class="co">##  [31] zlibbioc_1.47.0       cachem_1.0.8          jsonlite_1.8.7       </span></span>
+<span><span class="co">##  [34] flowWorkspace_4.13.2  blob_1.2.4            highr_0.10           </span></span>
+<span><span class="co">##  [37] later_1.3.1           parallel_4.3.1        cluster_2.1.4        </span></span>
+<span><span class="co">##  [40] R6_2.5.1              bslib_0.5.1           stringi_1.7.12       </span></span>
+<span><span class="co">##  [43] RColorBrewer_1.1-3    jquerylib_0.1.4       Rcpp_1.0.11          </span></span>
+<span><span class="co">##  [46] bookdown_0.35         iterators_1.0.14      knitr_1.43           </span></span>
+<span><span class="co">##  [49] zoo_1.8-12            IRanges_2.35.2        flowCore_2.13.1      </span></span>
+<span><span class="co">##  [52] httpuv_1.6.11         tidyselect_1.2.0      yaml_2.3.7           </span></span>
+<span><span class="co">##  [55] doParallel_1.0.17     codetools_0.2-19      curl_5.0.2           </span></span>
+<span><span class="co">##  [58] lattice_0.21-8        tibble_3.2.1          plyr_1.8.8           </span></span>
+<span><span class="co">##  [61] Biobase_2.61.0        shiny_1.7.5           withr_2.5.0          </span></span>
+<span><span class="co">##  [64] evaluate_0.21         desc_1.4.2            BiocFileCache_2.9.1  </span></span>
+<span><span class="co">##  [67] circlize_0.4.15       pillar_1.9.0          BiocManager_1.30.22  </span></span>
+<span><span class="co">##  [70] filelock_1.0.2        flowAI_1.31.0         foreach_1.5.2        </span></span>
+<span><span class="co">##  [73] stats4_4.3.1          generics_0.1.3        diagram_1.6.5        </span></span>
+<span><span class="co">##  [76] rprojroot_2.0.3       S4Vectors_0.39.1      ggplot2_3.4.3        </span></span>
+<span><span class="co">##  [79] munsell_0.5.0         ggcyto_1.29.1         scales_1.2.1         </span></span>
+<span><span class="co">##  [82] xtable_1.8-4          PeacoQC_1.11.2        changepoint_2.2.4    </span></span>
+<span><span class="co">##  [85] glue_1.6.2            tools_4.3.1           hexbin_1.28.3        </span></span>
+<span><span class="co">##  [88] data.table_1.14.8     fs_1.6.3              XML_3.99-0.14        </span></span>
+<span><span class="co">##  [91] grid_4.3.1            RProtoBufLib_2.13.1   colorspace_2.1-0     </span></span>
+<span><span class="co">##  [94] cli_3.6.1             textshaping_0.3.6     fansi_1.0.4          </span></span>
+<span><span class="co">##  [97] cytolib_2.13.1        ComplexHeatmap_2.17.0 dplyr_1.1.3          </span></span>
+<span><span class="co">## [100] Rgraphviz_2.45.0      gtable_0.3.4          sass_0.4.7           </span></span>
+<span><span class="co">## [103] digest_0.6.33         BiocGenerics_0.47.0   farver_2.1.1         </span></span>
+<span><span class="co">## [106] rjson_0.2.21          memoise_2.0.1         htmltools_0.5.6      </span></span>
+<span><span class="co">## [109] pkgdown_2.0.7.9000    lifecycle_1.0.3       httr_1.4.7           </span></span>
+<span><span class="co">## [112] GlobalOptions_0.1.2   mime_0.12             bit64_4.0.5</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Emmaneel2021-xy" class="csl-entry">
+Emmaneel, Annelies, Katrien Quintelier, Dorine Sichien, Paulina
+Rybakowska, Concepción Marañón, Marta E Alarcón-Riquelme, Gert Van
+Isterdael, Sofie Van Gassen, and Yvan Saeys. 2021.
+<span>“<span>PeacoQC</span>: <span>Peak-Based</span> Selection of High
+Quality Cytometry Data.”</span> <em>Cytometry A</em>, September.
+</div>
+<div id="ref-Gherardin2014-pj" class="csl-entry">
+Gherardin, Nicholas A, David S Ritchie, Dale I Godfrey, and Paul J
+Neeson. 2014. <span>“<span>OMIP-021</span>: Simultaneous Quantification
+of Human Conventional and Innate-Like t-Cell Subsets.”</span>
+<em>Cytometry A</em> 85 (7): 573–75.
+</div>
+<div id="ref-Monaco2016-vo" class="csl-entry">
+Monaco, Gianni, Hao Chen, Michael Poidinger, Jinmiao Chen, João Pedro de
+Magalhães, and Anis Larbi. 2016. <span>“<span class="nocase">flowAI</span>: Automatic and Interactive Anomaly
+Discerning Tools for Flow Cytometry Data.”</span>
+<em>Bioinformatics</em> 32 (16): 2473–80.
+</div>
+</div>
 </div>
   </div>
 
