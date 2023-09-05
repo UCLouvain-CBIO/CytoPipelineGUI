@@ -168,6 +168,11 @@ jobs:
         run: |
           BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE)
         shell: Rscript {0}
+        
+      - name: Manually install vdiffr (compilation fails when in dependencies)
+        run: |
+          BiocManager::install("vdiffr")
+        shell: Rscript {0}
 
       - name: Install dependencies
         run: |
