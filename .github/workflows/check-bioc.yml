@@ -163,15 +163,16 @@ jobs:
           message(paste('****', Sys.time(), 'installing BiocManager ****'))
           remotes::install_cran("BiocManager")
         shell: Rscript {0}
+        
+      - name: Manually install vdiffr in version 1.0.5
+        run: |
+          BiocManager::install("remotes")
+          remotes::install_version("vdiffr", version = "1.0.5")
+        shell: Rscript {0}        
 
       - name: Set BiocVersion
         run: |
           BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE)
-        shell: Rscript {0}
-        
-      - name: Manually install vdiffr (compilation fails when in dependencies)
-        run: |
-          BiocManager::install("vdiffr")
         shell: Rscript {0}
 
       - name: Install dependencies
