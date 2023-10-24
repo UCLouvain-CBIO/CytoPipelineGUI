@@ -1,6 +1,6 @@
 Package: CytoPipelineGUI
 Title: GUI's for visualization of flow cytometry data analysis pipelines
-Version: 0.99.2
+Version: 1.0.0
 Authors@R: 
     c(person(given = "Philippe",
              family = "Hauchamps",
