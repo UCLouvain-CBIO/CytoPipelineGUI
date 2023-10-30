@@ -1,3 +1,8 @@
+# CytoPipelineGUI 1.1
+
+## CytoPipelineGUI 1.1.1
+- refactored documentation files
+
 # CytoPipelineGUI 0.99
 
 ## CytoPipelineGUI 0.99.2

@@ -14,7 +14,6 @@
 # GNU General Public License for more details (<http://www.gnu.org/licenses/>).
 
 #' @title interactive display and modification of scale transform list
-#' @rdname CytoPipelineGUI
 #' @description this application allows the user to visualize a scale 
 #' transformation list, possibly amending it channel after channel, 
 #' and save the results on disk. 
@@ -24,7 +23,7 @@
 #' CytoPipeline experiments
 #' @import shiny
 #' @import CytoPipeline
-#' @return - for `ScaleTransformApp`: no return value
+#' @return no return value
 #' @export
 #' @examples
 #' 
@@ -91,13 +90,12 @@ ScaleTransformApp <- function(dir = ".") {
 
 #' @title interactive visualization of flow cytometry data analysis pipeline 
 #' objects stored in cache
-#' @rdname CytoPipelineGUI
 #'
 #' @param dir the root directory into which the engine will look for existing
 #' CytoPipeline experiments
 #' @param debug if TRUE, will output messages on the console tracking the
 #' shiny events, for debugging purposes
-#' @return - for `CytoPipelineCheckApp`: no return value
+#' @return no return value
 #' @import shiny
 #' @import CytoPipeline
 #' @export
