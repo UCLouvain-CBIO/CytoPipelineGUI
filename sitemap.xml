@@ -25,7 +25,13 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/CytoPipelineCheckApp.html</loc>
+  </url>
+  <url>
     <loc>/reference/CytoPipelineGUI.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ScaleTransformApp.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>

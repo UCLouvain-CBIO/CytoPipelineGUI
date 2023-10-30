@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CytoPipelineGUI</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.1</span>
       </span>
     </div>
 
@@ -61,7 +61,14 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/UCLouvain-CBIO/CytoPipelineGUI/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -82,7 +89,7 @@ Hauchamps</h4>
 Gatto</h4>
                         
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/UCLouvain-CBIO/CytoPipelineGUI/blob/HEAD/vignettes/CytoPipelineGUI.Rmd" class="external-link"><code>vignettes/CytoPipelineGUI.Rmd</code></a></small>
       <div class="hidden name"><code>CytoPipelineGUI.Rmd</code></div>
 
     </div>
@@ -119,10 +126,10 @@ shiny applications :</p>
 the results of CytoProcessingSteps of the same or different CytoPipeline
 experiments.<br>
 It is launched using the following statement:
-<code><a href="../reference/CytoPipelineGUI.html">CytoPipelineCheckApp()</a></code> (see below);</p></li>
+<code><a href="../reference/CytoPipelineCheckApp.html">CytoPipelineCheckApp()</a></code> (see below);</p></li>
 <li><p>a shiny app for interactive visualization and manual adjustments
 of scale transformation objects. It is launched using the following
-statement: <code><a href="../reference/CytoPipelineGUI.html">ScaleTransformApp()</a></code> (see below).</p></li>
+statement: <code><a href="../reference/ScaleTransformApp.html">ScaleTransformApp()</a></code> (see below).</p></li>
 </ul>
 <p>In order to be able to show <code>CytoPipelineGUI</code> in action,
 as a pre-requisite we need to have created a <code>CytoPipeline</code>
@@ -245,7 +252,7 @@ at any step of any pipeline, as well as a comparison between any the
 pair of <code>flowFrame</code> state.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu">CytoPipelineGUI</span><span class="fu">::</span><span class="fu"><a href="../reference/CytoPipelineGUI.html">CytoPipelineCheckApp</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="va">workDir</span><span class="op">)</span>    </span>
+<span>    <span class="fu">CytoPipelineGUI</span><span class="fu">::</span><span class="fu"><a href="../reference/CytoPipelineCheckApp.html">CytoPipelineCheckApp</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="va">workDir</span><span class="op">)</span>    </span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>It is difficult to extensively demonstrate specific user interactions
 in a vignette, therefore live demo videos can be found from the
@@ -329,7 +336,7 @@ then be re-used in another pipeline instance.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 5. show scale transformations</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span>    <span class="fu">CytoPipelineGUI</span><span class="fu">::</span><span class="fu"><a href="../reference/CytoPipelineGUI.html">ScaleTransformApp</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="va">workDir</span><span class="op">)</span>    </span>
+<span>    <span class="fu">CytoPipelineGUI</span><span class="fu">::</span><span class="fu"><a href="../reference/ScaleTransformApp.html">ScaleTransformApp</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="va">workDir</span><span class="op">)</span>    </span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Note that here also, it is possible to obtain the visuals of the
 scale transformations programmatically, although this is a bit more
@@ -396,48 +403,48 @@ this.</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] patchwork_1.1.3        CytoPipelineGUI_0.99.2 CytoPipeline_1.1.5    </span></span>
-<span><span class="co">## [4] BiocStyle_2.29.2      </span></span>
+<span><span class="co">## [1] patchwork_1.1.3       CytoPipelineGUI_1.1.1 CytoPipeline_1.2.0   </span></span>
+<span><span class="co">## [4] BiocStyle_2.30.0     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##   [1] DBI_1.1.3             gridExtra_2.3         rlang_1.1.1          </span></span>
-<span><span class="co">##   [4] magrittr_2.0.3        clue_0.3-64           GetoptLong_1.0.5     </span></span>
-<span><span class="co">##   [7] matrixStats_1.0.0     compiler_4.3.1        RSQLite_2.3.1        </span></span>
-<span><span class="co">##  [10] reshape2_1.4.4        png_0.1-8             systemfonts_1.0.4    </span></span>
-<span><span class="co">##  [13] vctrs_0.6.3           stringr_1.5.0         pkgconfig_2.0.3      </span></span>
+<span><span class="co">##   [4] magrittr_2.0.3        clue_0.3-65           GetoptLong_1.0.5     </span></span>
+<span><span class="co">##   [7] matrixStats_1.0.0     compiler_4.3.1        RSQLite_2.3.2        </span></span>
+<span><span class="co">##  [10] reshape2_1.4.4        png_0.1-8             systemfonts_1.0.5    </span></span>
+<span><span class="co">##  [13] vctrs_0.6.4           stringr_1.5.0         pkgconfig_2.0.3      </span></span>
 <span><span class="co">##  [16] shape_1.4.6           crayon_1.5.2          fastmap_1.1.1        </span></span>
-<span><span class="co">##  [19] dbplyr_2.3.3          ellipsis_0.3.2        labeling_0.4.3       </span></span>
-<span><span class="co">##  [22] utf8_1.2.3            promises_1.2.1        ncdfFlow_2.47.0      </span></span>
-<span><span class="co">##  [25] rmarkdown_2.25        graph_1.79.1          ragg_1.2.5           </span></span>
+<span><span class="co">##  [19] dbplyr_2.4.0          ellipsis_0.3.2        labeling_0.4.3       </span></span>
+<span><span class="co">##  [22] utf8_1.2.4            promises_1.2.1        ncdfFlow_2.48.0      </span></span>
+<span><span class="co">##  [25] rmarkdown_2.25        graph_1.80.0          ragg_1.2.6           </span></span>
 <span><span class="co">##  [28] purrr_1.0.2           bit_4.0.5             xfun_0.40            </span></span>
-<span><span class="co">##  [31] zlibbioc_1.47.0       cachem_1.0.8          jsonlite_1.8.7       </span></span>
-<span><span class="co">##  [34] flowWorkspace_4.13.2  blob_1.2.4            later_1.3.1          </span></span>
-<span><span class="co">##  [37] cluster_2.1.4         parallel_4.3.1        R6_2.5.1             </span></span>
-<span><span class="co">##  [40] bslib_0.5.1           stringi_1.7.12        RColorBrewer_1.1-3   </span></span>
-<span><span class="co">##  [43] jquerylib_0.1.4       Rcpp_1.0.11           bookdown_0.35        </span></span>
-<span><span class="co">##  [46] iterators_1.0.14      knitr_1.44            zoo_1.8-12           </span></span>
-<span><span class="co">##  [49] IRanges_2.35.2        flowCore_2.13.1       httpuv_1.6.11        </span></span>
-<span><span class="co">##  [52] tidyselect_1.2.0      yaml_2.3.7            doParallel_1.0.17    </span></span>
-<span><span class="co">##  [55] codetools_0.2-19      curl_5.0.2            lattice_0.21-8       </span></span>
-<span><span class="co">##  [58] tibble_3.2.1          plyr_1.8.8            Biobase_2.61.0       </span></span>
-<span><span class="co">##  [61] shiny_1.7.5           withr_2.5.0           evaluate_0.21        </span></span>
-<span><span class="co">##  [64] desc_1.4.2            BiocFileCache_2.9.1   circlize_0.4.15      </span></span>
-<span><span class="co">##  [67] pillar_1.9.0          BiocManager_1.30.22   filelock_1.0.2       </span></span>
-<span><span class="co">##  [70] flowAI_1.31.0         foreach_1.5.2         stats4_4.3.1         </span></span>
-<span><span class="co">##  [73] generics_0.1.3        diagram_1.6.5         rprojroot_2.0.3      </span></span>
-<span><span class="co">##  [76] S4Vectors_0.39.1      ggplot2_3.4.3         munsell_0.5.0        </span></span>
-<span><span class="co">##  [79] ggcyto_1.29.1         scales_1.2.1          xtable_1.8-4         </span></span>
-<span><span class="co">##  [82] PeacoQC_1.11.2        changepoint_2.2.4     glue_1.6.2           </span></span>
-<span><span class="co">##  [85] tools_4.3.1           hexbin_1.28.3         data.table_1.14.8    </span></span>
-<span><span class="co">##  [88] fs_1.6.3              XML_3.99-0.14         grid_4.3.1           </span></span>
-<span><span class="co">##  [91] RProtoBufLib_2.13.1   colorspace_2.1-0      cli_3.6.1            </span></span>
-<span><span class="co">##  [94] textshaping_0.3.6     fansi_1.0.4           cytolib_2.13.1       </span></span>
-<span><span class="co">##  [97] ComplexHeatmap_2.17.0 dplyr_1.1.3           Rgraphviz_2.45.0     </span></span>
-<span><span class="co">## [100] gtable_0.3.4          sass_0.4.7            digest_0.6.33        </span></span>
-<span><span class="co">## [103] BiocGenerics_0.47.0   farver_2.1.1          rjson_0.2.21         </span></span>
-<span><span class="co">## [106] memoise_2.0.1         htmltools_0.5.6       pkgdown_2.0.7.9000   </span></span>
-<span><span class="co">## [109] lifecycle_1.0.3       httr_1.4.7            GlobalOptions_0.1.2  </span></span>
-<span><span class="co">## [112] mime_0.12             bit64_4.0.5</span></span></code></pre>
+<span><span class="co">##  [31] zlibbioc_1.48.0       cachem_1.0.8          jsonlite_1.8.7       </span></span>
+<span><span class="co">##  [34] flowWorkspace_4.14.0  blob_1.2.4            highr_0.10           </span></span>
+<span><span class="co">##  [37] later_1.3.1           cluster_2.1.4         parallel_4.3.1       </span></span>
+<span><span class="co">##  [40] R6_2.5.1              bslib_0.5.1           stringi_1.7.12       </span></span>
+<span><span class="co">##  [43] RColorBrewer_1.1-3    jquerylib_0.1.4       Rcpp_1.0.11          </span></span>
+<span><span class="co">##  [46] bookdown_0.36         iterators_1.0.14      knitr_1.45           </span></span>
+<span><span class="co">##  [49] zoo_1.8-12            IRanges_2.36.0        flowCore_2.14.0      </span></span>
+<span><span class="co">##  [52] httpuv_1.6.12         tidyselect_1.2.0      yaml_2.3.7           </span></span>
+<span><span class="co">##  [55] doParallel_1.0.17     codetools_0.2-19      curl_5.1.0           </span></span>
+<span><span class="co">##  [58] lattice_0.22-5        tibble_3.2.1          plyr_1.8.9           </span></span>
+<span><span class="co">##  [61] Biobase_2.62.0        shiny_1.7.5.1         withr_2.5.2          </span></span>
+<span><span class="co">##  [64] evaluate_0.22         desc_1.4.2            BiocFileCache_2.10.1 </span></span>
+<span><span class="co">##  [67] circlize_0.4.15       pillar_1.9.0          BiocManager_1.30.22  </span></span>
+<span><span class="co">##  [70] filelock_1.0.2        flowAI_1.32.0         foreach_1.5.2        </span></span>
+<span><span class="co">##  [73] stats4_4.3.1          generics_0.1.3        diagram_1.6.5        </span></span>
+<span><span class="co">##  [76] rprojroot_2.0.3       S4Vectors_0.40.1      ggplot2_3.4.4        </span></span>
+<span><span class="co">##  [79] munsell_0.5.0         ggcyto_1.30.0         scales_1.2.1         </span></span>
+<span><span class="co">##  [82] xtable_1.8-4          PeacoQC_1.12.0        changepoint_2.2.4    </span></span>
+<span><span class="co">##  [85] glue_1.6.2            tools_4.3.1           hexbin_1.28.3        </span></span>
+<span><span class="co">##  [88] data.table_1.14.8     fs_1.6.3              XML_3.99-0.14        </span></span>
+<span><span class="co">##  [91] grid_4.3.1            RProtoBufLib_2.14.0   colorspace_2.1-0     </span></span>
+<span><span class="co">##  [94] cli_3.6.1             textshaping_0.3.7     fansi_1.0.5          </span></span>
+<span><span class="co">##  [97] cytolib_2.14.0        ComplexHeatmap_2.18.0 dplyr_1.1.3          </span></span>
+<span><span class="co">## [100] Rgraphviz_2.46.0      gtable_0.3.4          sass_0.4.7           </span></span>
+<span><span class="co">## [103] digest_0.6.33         BiocGenerics_0.48.0   farver_2.1.1         </span></span>
+<span><span class="co">## [106] rjson_0.2.21          memoise_2.0.1         htmltools_0.5.6.1    </span></span>
+<span><span class="co">## [109] pkgdown_2.0.7.9000    lifecycle_1.0.3       httr_1.4.7           </span></span>
+<span><span class="co">## [112] GlobalOptions_0.1.2   mime_0.12             bit64_4.0.5</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
