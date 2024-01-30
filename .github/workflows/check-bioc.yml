@@ -175,7 +175,7 @@ jobs:
           BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE)
         shell: Rscript {0}
 
-            - name: Install dependencies
+      - name: Install dependencies
         run: |
           ## work around a change in compiler setting, turning some warnings into
           ## errors => deactivate warnings to allow some dependency package to
