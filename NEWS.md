@@ -1,7 +1,10 @@
 # CytoPipelineGUI 1.1
 
+## CytoPipelineGUI 1.1.2
+- added CITATION file
+
 ## CytoPipelineGUI 1.1.1
-- refactored documentation files
+- re-factored documentation files
 
 # CytoPipelineGUI 0.99
 

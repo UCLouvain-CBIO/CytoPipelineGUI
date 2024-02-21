@@ -23,3 +23,17 @@ The `CytoPipelineGUI` code is provided under [GPL license version 3.0 or
 higher](https://opensource.org/licenses/GPL-3.0). The documentation, 
 including the manual pages and the vignettes, are distributed under a [CC BY-SA 
 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/).
+
+### Citation
+
+If you use `CytopipelineGUI` in your research, 
+please use the following citation:
+
+>Hauchamps P, Bayat B, Delandre S, Hamrouni M, Toussaint M, Temmerman S, 
+> Lin D, Gatto L (2024).
+> “CytoPipeline and CytoPipelineGUI: a Bioconductor R package suite 
+> for building and visualizing automated pre-processing pipelines 
+> for flow cytometry data.” _BMC Bioinformatics_, *25*(1), 80. 
+> doi:10.1186/s12859-024-05691-z <https://doi.org/10.1186/s12859-024-05691-z>.
+
+or run `citation("CytoPipelineGUI")` to get the bibtex entry.
