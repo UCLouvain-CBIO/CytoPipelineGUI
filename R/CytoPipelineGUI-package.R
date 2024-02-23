@@ -1,4 +1,4 @@
-# CytoPipelineGUI - Copyright (C) <2022>
+# CytoPipelineGUI - Copyright (C) <2022-2024>
 # <Université catholique de Louvain (UCLouvain), Belgique>
 #
 #   Description and complete License: see LICENSE file.
@@ -13,10 +13,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details (<http://www.gnu.org/licenses/>).
 
-
 #' @title CytoPipelineGUI package
-#' 
-#' @docType package
 #' 
 #' @name CytoPipelineGUI
 #'
@@ -37,4 +34,10 @@
 #' - a shiny app for interactive visualization and manual adjustments of scale 
 #'   transformation objects. It is launched using the following statement: 
 #'   `ScaleTransformApp()` 
+#'   
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
+## usethis namespace: end
 NULL
