@@ -16,4 +16,5 @@
 library(testthat)
 library(CytoPipelineGUI)
 
+# launch CytoPipelineGUI tests
 test_check("CytoPipelineGUI")
