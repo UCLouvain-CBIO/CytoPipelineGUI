@@ -1,19 +1,19 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/404.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/LICENSE-text.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/articles/CytoPipelineGUI.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/articles/Demo.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/articles/index.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/authors.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/index.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/news/index.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/reference/CytoPipelineCheckApp.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/reference/CytoPipelineGUI.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/reference/ScaleTransformApp.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/reference/index.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/reference/plotDiffFlowFrame.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/reference/plotScaleTransformedChannel.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/reference/plotSelectedFlowFrame.html</loc></url>
-<url><loc>https://uclouvain-cbio.github.io/CytoPipeline/reference/plotSelectedWorkflow.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/404.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/LICENSE-text.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/articles/CytoPipelineGUI.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/articles/Demo.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/articles/index.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/authors.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/index.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/news/index.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/reference/CytoPipelineCheckApp.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/reference/CytoPipelineGUI.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/reference/ScaleTransformApp.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/reference/index.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/reference/plotDiffFlowFrame.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/reference/plotScaleTransformedChannel.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/reference/plotSelectedFlowFrame.html</loc></url>
+<url><loc>https://uclouvain-cbio.github.io/CytoPipelineGUI/reference/plotSelectedWorkflow.html</loc></url>
 </urlset>
 
