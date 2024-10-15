@@ -1,4 +1,4 @@
-url: https://uclouvain-cbio.github.io/CytoPipeline/
+url: https://uclouvain-cbio.github.io/CytoPipelineGUI/
 template:
     bootstrap: 5
     bootswatch: flatly
