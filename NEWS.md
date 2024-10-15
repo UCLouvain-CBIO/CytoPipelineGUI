@@ -1,3 +1,8 @@
+# CytoPipelineGUI 1.3
+
+## CytoPipelineGUI 1.3.1
+- implemented `pkgdown` site customization
+
 # CytoPipelineGUI 1.1
 
 ## CytoPipelineGUI 1.1.3

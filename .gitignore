@@ -1,3 +1,4 @@
+.git
 .Rproj.user
 .Rhistory
 .RData
@@ -5,3 +6,4 @@
 *.Rproj
 /doc/
 /Meta/
+docs
