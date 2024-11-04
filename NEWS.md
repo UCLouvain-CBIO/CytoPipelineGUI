@@ -1,3 +1,8 @@
+# CytoPipelineGUI 1.5
+
+### CytoPipelineGUI 1.5.1
+(no devel yet)
+
 # CytoPipelineGUI 1.3
 
 ## CytoPipelineGUI 1.3.1
