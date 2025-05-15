@@ -8,8 +8,8 @@
 <title>CytoPipelineGUI : visualization of Flow Cytometry Data Analysis Pipelines run with CytoPipeline • CytoPipelineGUI</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="CytoPipelineGUI : visualization of Flow Cytometry Data Analysis Pipelines run with CytoPipeline">
 </head>
 <body>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">CytoPipelineGUI</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -196,7 +196,7 @@ scale transformation functions for all channels present in the sample
 sub-sampled data</li>
 </ul>
 <div class="figure" style="text-align: center">
-<img src="figs%2FscaleTransformQueue.png" alt="Scale transform processing queue" width="75%"><p class="caption">
+<img src="figs/scaleTransformQueue.png" alt="Scale transform processing queue" width="75%"><p class="caption">
 Scale transform processing queue
 </p>
 </div>
@@ -205,7 +205,7 @@ performed.<br>
 However, depending on the choice of QC method, the order of steps needed
 to be slightly different (see Fig. 2) :</p>
 <div class="figure" style="text-align: center">
-<img src="figs%2FpreProcessingQueues.png" alt="Pre-processing queue for two different pipeline settings" width="100%"><p class="caption">
+<img src="figs/preProcessingQueues.png" alt="Pre-processing queue for two different pipeline settings" width="100%"><p class="caption">
 Pre-processing queue for two different pipeline settings
 </p>
 </div>
@@ -354,13 +354,13 @@ this.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<pre><code><span><span class="co">## R version 4.4.1 (2024-06-14)</span></span>
+<pre><code><span><span class="co">## R version 4.5.0 (2025-04-11)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
-<span><span class="co">## Running under: Ubuntu 22.04.5 LTS</span></span>
+<span><span class="co">## Running under: Ubuntu 24.04.2 LTS</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
 <span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
+<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## locale:</span></span>
 <span><span class="co">##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
@@ -377,48 +377,47 @@ this.</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] patchwork_1.3.0       CytoPipelineGUI_1.5.1 CytoPipeline_1.6.0   </span></span>
-<span><span class="co">## [4] BiocStyle_2.34.0     </span></span>
+<span><span class="co">## [1] patchwork_1.3.0       CytoPipelineGUI_1.7.1 CytoPipeline_1.9.0   </span></span>
+<span><span class="co">## [4] BiocStyle_2.37.0     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##   [1] DBI_1.2.3             gridExtra_2.3         rlang_1.1.4          </span></span>
-<span><span class="co">##   [4] magrittr_2.0.3        clue_0.3-65           GetoptLong_1.0.5     </span></span>
-<span><span class="co">##   [7] matrixStats_1.4.1     compiler_4.4.1        RSQLite_2.3.7        </span></span>
-<span><span class="co">##  [10] png_0.1-8             systemfonts_1.1.0     vctrs_0.6.5          </span></span>
-<span><span class="co">##  [13] reshape2_1.4.4        stringr_1.5.1         pkgconfig_2.0.3      </span></span>
-<span><span class="co">##  [16] shape_1.4.6.1         crayon_1.5.3          fastmap_1.2.0        </span></span>
-<span><span class="co">##  [19] dbplyr_2.5.0          labeling_0.4.3        utf8_1.2.4           </span></span>
-<span><span class="co">##  [22] promises_1.3.0        ncdfFlow_2.52.0       rmarkdown_2.28       </span></span>
-<span><span class="co">##  [25] graph_1.84.0          ragg_1.3.3            purrr_1.0.2          </span></span>
-<span><span class="co">##  [28] bit_4.5.0             xfun_0.48             zlibbioc_1.52.0      </span></span>
-<span><span class="co">##  [31] cachem_1.1.0          jsonlite_1.8.9        flowWorkspace_4.18.0 </span></span>
-<span><span class="co">##  [34] blob_1.2.4            highr_0.11            later_1.3.2          </span></span>
-<span><span class="co">##  [37] parallel_4.4.1        cluster_2.1.6         R6_2.5.1             </span></span>
-<span><span class="co">##  [40] bslib_0.8.0           stringi_1.8.4         RColorBrewer_1.1-3   </span></span>
-<span><span class="co">##  [43] jquerylib_0.1.4       Rcpp_1.0.13           bookdown_0.41        </span></span>
-<span><span class="co">##  [46] iterators_1.0.14      knitr_1.48            zoo_1.8-12           </span></span>
-<span><span class="co">##  [49] IRanges_2.40.0        flowCore_2.18.0       httpuv_1.6.15        </span></span>
-<span><span class="co">##  [52] tidyselect_1.2.1      yaml_2.3.10           doParallel_1.0.17    </span></span>
-<span><span class="co">##  [55] codetools_0.2-20      curl_5.2.3            lattice_0.22-6       </span></span>
-<span><span class="co">##  [58] tibble_3.2.1          plyr_1.8.9            Biobase_2.66.0       </span></span>
-<span><span class="co">##  [61] shiny_1.9.1           withr_3.0.2           evaluate_1.0.1       </span></span>
-<span><span class="co">##  [64] desc_1.4.3            BiocFileCache_2.14.0  circlize_0.4.16      </span></span>
-<span><span class="co">##  [67] pillar_1.9.0          BiocManager_1.30.25   filelock_1.0.3       </span></span>
-<span><span class="co">##  [70] foreach_1.5.2         flowAI_1.36.0         stats4_4.4.1         </span></span>
-<span><span class="co">##  [73] generics_0.1.3        diagram_1.6.5         S4Vectors_0.44.0     </span></span>
-<span><span class="co">##  [76] ggplot2_3.5.1         munsell_0.5.1         ggcyto_1.34.0        </span></span>
-<span><span class="co">##  [79] scales_1.3.0          xtable_1.8-4          PeacoQC_1.16.0       </span></span>
-<span><span class="co">##  [82] changepoint_2.2.4     glue_1.8.0            tools_4.4.1          </span></span>
-<span><span class="co">##  [85] hexbin_1.28.4         data.table_1.16.2     fs_1.6.4             </span></span>
-<span><span class="co">##  [88] XML_3.99-0.17         grid_4.4.1            RProtoBufLib_2.18.0  </span></span>
-<span><span class="co">##  [91] colorspace_2.1-1      cli_3.6.3             textshaping_0.4.0    </span></span>
-<span><span class="co">##  [94] fansi_1.0.6           cytolib_2.18.0        ComplexHeatmap_2.22.0</span></span>
-<span><span class="co">##  [97] dplyr_1.1.4           Rgraphviz_2.50.0      gtable_0.3.6         </span></span>
-<span><span class="co">## [100] sass_0.4.9            digest_0.6.37         BiocGenerics_0.52.0  </span></span>
-<span><span class="co">## [103] rjson_0.2.23          htmlwidgets_1.6.4     farver_2.1.2         </span></span>
-<span><span class="co">## [106] memoise_2.0.1         htmltools_0.5.8.1     pkgdown_2.1.1.9000   </span></span>
-<span><span class="co">## [109] lifecycle_1.0.4       httr_1.4.7            GlobalOptions_0.1.2  </span></span>
-<span><span class="co">## [112] mime_0.12             bit64_4.5.2</span></span></code></pre>
+<span><span class="co">##   [1] DBI_1.2.3             gridExtra_2.3         httr2_1.1.2          </span></span>
+<span><span class="co">##   [4] rlang_1.1.6           magrittr_2.0.3        clue_0.3-66          </span></span>
+<span><span class="co">##   [7] GetoptLong_1.0.5      matrixStats_1.5.0     compiler_4.5.0       </span></span>
+<span><span class="co">##  [10] RSQLite_2.3.11        png_0.1-8             systemfonts_1.2.3    </span></span>
+<span><span class="co">##  [13] vctrs_0.6.5           reshape2_1.4.4        stringr_1.5.1        </span></span>
+<span><span class="co">##  [16] pkgconfig_2.0.3       shape_1.4.6.1         crayon_1.5.3         </span></span>
+<span><span class="co">##  [19] fastmap_1.2.0         dbplyr_2.5.0          labeling_0.4.3       </span></span>
+<span><span class="co">##  [22] promises_1.3.2        ncdfFlow_2.55.0       rmarkdown_2.29       </span></span>
+<span><span class="co">##  [25] graph_1.87.0          ragg_1.4.0            purrr_1.0.4          </span></span>
+<span><span class="co">##  [28] bit_4.6.0             xfun_0.52             cachem_1.1.0         </span></span>
+<span><span class="co">##  [31] jsonlite_2.0.0        flowWorkspace_4.21.0  blob_1.2.4           </span></span>
+<span><span class="co">##  [34] later_1.4.2           parallel_4.5.0        cluster_2.1.8.1      </span></span>
+<span><span class="co">##  [37] R6_2.6.1              bslib_0.9.0           stringi_1.8.7        </span></span>
+<span><span class="co">##  [40] RColorBrewer_1.1-3    jquerylib_0.1.4       Rcpp_1.0.14          </span></span>
+<span><span class="co">##  [43] bookdown_0.43         iterators_1.0.14      knitr_1.50           </span></span>
+<span><span class="co">##  [46] zoo_1.8-14            IRanges_2.43.0        flowCore_2.21.0      </span></span>
+<span><span class="co">##  [49] httpuv_1.6.16         tidyselect_1.2.1      yaml_2.3.10          </span></span>
+<span><span class="co">##  [52] doParallel_1.0.17     codetools_0.2-20      curl_6.2.2           </span></span>
+<span><span class="co">##  [55] lattice_0.22-7        tibble_3.2.1          plyr_1.8.9           </span></span>
+<span><span class="co">##  [58] Biobase_2.69.0        shiny_1.10.0          withr_3.0.2          </span></span>
+<span><span class="co">##  [61] evaluate_1.0.3        desc_1.4.3            BiocFileCache_2.99.3 </span></span>
+<span><span class="co">##  [64] circlize_0.4.16       pillar_1.10.2         BiocManager_1.30.25  </span></span>
+<span><span class="co">##  [67] filelock_1.0.3        foreach_1.5.2         flowAI_1.39.0        </span></span>
+<span><span class="co">##  [70] stats4_4.5.0          generics_0.1.4        diagram_1.6.5        </span></span>
+<span><span class="co">##  [73] S4Vectors_0.47.0      ggplot2_3.5.2         ggcyto_1.37.0        </span></span>
+<span><span class="co">##  [76] scales_1.4.0          xtable_1.8-4          PeacoQC_1.19.0       </span></span>
+<span><span class="co">##  [79] glue_1.8.0            changepoint_2.3       tools_4.5.0          </span></span>
+<span><span class="co">##  [82] hexbin_1.28.5         data.table_1.17.2     fs_1.6.6             </span></span>
+<span><span class="co">##  [85] XML_3.99-0.18         grid_4.5.0            RProtoBufLib_2.21.0  </span></span>
+<span><span class="co">##  [88] colorspace_2.1-1      cli_3.6.5             rappdirs_0.3.3       </span></span>
+<span><span class="co">##  [91] textshaping_1.0.1     cytolib_2.21.0        ComplexHeatmap_2.25.0</span></span>
+<span><span class="co">##  [94] dplyr_1.1.4           Rgraphviz_2.53.0      gtable_0.3.6         </span></span>
+<span><span class="co">##  [97] sass_0.4.10           digest_0.6.37         BiocGenerics_0.55.0  </span></span>
+<span><span class="co">## [100] rjson_0.2.23          htmlwidgets_1.6.4     farver_2.1.2         </span></span>
+<span><span class="co">## [103] memoise_2.0.1         htmltools_0.5.8.1     pkgdown_2.1.2.9000   </span></span>
+<span><span class="co">## [106] lifecycle_1.0.4       GlobalOptions_0.1.2   mime_0.13            </span></span>
+<span><span class="co">## [109] bit64_4.6.0-1</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -456,7 +455,7 @@ Discerning Tools for Flow Cytometry Data.”</span>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
 </div>
 
     </footer>
