@@ -1,7 +1,10 @@
-# CytoPipelineGUI 1.5
+# CytoPipelineGUI 1.7
 
-### CytoPipelineGUI 1.5.1
-(no devel yet)
+## CytoPipelineGUI 1.7.1
+- migrated to GHA cache v4
+
+# CytoPipelineGUI 1.5
+(no devel)
 
 # CytoPipelineGUI 1.3
 
