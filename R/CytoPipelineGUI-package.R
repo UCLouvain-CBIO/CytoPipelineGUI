@@ -1,4 +1,4 @@
-# CytoPipelineGUI - Copyright (C) <2022-2024>
+# CytoPipelineGUI - Copyright (C) <2022-2025>
 # <Université catholique de Louvain (UCLouvain), Belgique>
 #
 #   Description and complete License: see LICENSE file.
@@ -19,8 +19,9 @@
 #'
 #' @rdname CytoPipelineGUI
 #' 
-#' @seealso [CytoPipeline], [CytoPipelineGUI::CytoPipelineCheckApp], 
-#' [CytoPipelineGUI::ScaleTransformApp]
+#' @seealso \link[CytoPipeline:CytoPipeline-package]{CytoPipeline}
+#' @seealso [CytoPipelineGUI::CytoPipelineCheckApp] 
+#' @seealso [CytoPipelineGUI::ScaleTransformApp]
 #'
 #' @description
 #'
