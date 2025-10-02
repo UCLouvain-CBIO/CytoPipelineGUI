@@ -1,4 +1,4 @@
-# CytoPipelineGUI - Copyright (C) <2022-2024> 
+# CytoPipelineGUI - Copyright (C) <2022-2025> 
 # <Université catholique de Louvain (UCLouvain), Belgique>
 #   
 #   Description and complete License: see LICENSE file.
@@ -76,14 +76,14 @@ updateExperiment <- function(
         choices = whichQueueChoices,
         selected = newWQSelection)
     
-    samples <- sampleFiles(pipL)
+    sampleDisplays <- sampleDisplayNames(pipL)
     
-    if (length(samples) == 0) {
+    if (length(sampleDisplays) == 0) {
         # specific case when no sample has been found in the cache
         # e.g. scale transform only experiment
         newSampleChoices <- " "
     } else {
-        newSampleChoices <- c(" ", samples)
+        newSampleChoices <- c(" ", sampleDisplays)
     }
     
     newSampleSelection <- currentSampleValue
@@ -125,7 +125,7 @@ updateFFList <- function(
                 sampleFile <- NULL
             }
         }
-    }
+    } 
     
     if (noFF) {
         newChoices <- " "
@@ -133,6 +133,9 @@ updateFFList <- function(
         pipL <- buildCytoPipelineFromCache(
             experimentName,
             path = path)
+        if (!is.null(sampleFile)){
+            sampleFile <- sampleNameFromDisplayName(pipL, sampleFile)
+        }
         df <- getCytoPipelineObjectInfos(
             pipL,
             whichQueue = whichQueue,
@@ -248,6 +251,9 @@ updateChannelMarkerList <- function(
         pipL <- buildCytoPipelineFromCache(
             experimentName,
             path = path)
+        if (!is.null(sampleFile)) {
+            sampleFile <- sampleNameFromDisplayName(pipL, sampleFile)
+        }
         ff <- getCytoPipelineFlowFrame(
             pipL,
             whichQueue = whichQueue,

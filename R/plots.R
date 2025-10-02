@@ -1,4 +1,4 @@
-# CytoPipelineGUI - Copyright (C) <2022-2024> 
+# CytoPipelineGUI - Copyright (C) <2022-2025> 
 # <Université catholique de Louvain (UCLouvain), Belgique>
 #   
 #   Description and complete License: see LICENSE file.
@@ -77,7 +77,6 @@ plotSelectedWorkflow <- function(
         experimentName,
         path = path)
     
-    
     if (whichQueue == "scale transform") {
         plotCytoPipelineProcessingQueue(
                 pipL,
@@ -88,10 +87,19 @@ plotSelectedWorkflow <- function(
                 box.size = 0.15,
                 box.prop = 0.3)
     } else if (is.null(sampleFile) ||
-               is.numeric(sampleFile) ||
-               is.character(sampleFile) &&
-               basename(sampleFile) %in% basename(sampleFiles(pipL))) {
+               is.numeric(sampleFile)) {
         plotCytoPipelineProcessingQueue(
+            pipL,
+            whichQueue = whichQueue,
+            sampleFile = sampleFile,
+            path = path,
+            title = FALSE,
+            box.size = 0.15,
+            box.prop = 0.3)
+        
+    } else if (is.character(sampleFile)){
+        if (sampleFile %in% sampleFiles(pipL)){
+            plotCytoPipelineProcessingQueue(
                 pipL,
                 whichQueue = whichQueue,
                 sampleFile = sampleFile,
@@ -99,6 +107,20 @@ plotSelectedWorkflow <- function(
                 title = FALSE,
                 box.size = 0.15,
                 box.prop = 0.3)
+        } else {
+            displayNames <- sampleDisplayNames(pipL)
+            if (sampleFile %in% displayNames) {
+                actualSampleFile <- sampleNameFromDisplayName(pipL, sampleFile)
+                plotCytoPipelineProcessingQueue(
+                    pipL,
+                    whichQueue = whichQueue,
+                    sampleFile = actualSampleFile,
+                    path = path,
+                    title = FALSE,
+                    box.size = 0.15,
+                    box.prop = 0.3)
+            }
+        } # else do nothing
     }
 }
 
@@ -218,33 +240,41 @@ plotSelectedFlowFrame <- function(
         pipL <- buildCytoPipelineFromCache(
             experimentName,
             path = path)
+        if (is.character(sampleFile)){
+            if (!sampleFile %in% sampleFiles(pipL)){
+                displayNames <- sampleDisplayNames(pipL)
+                if (sampleFile %in% displayNames) {
+                    sampleFile <- sampleNameFromDisplayName(pipL, sampleFile)
+                } # else do nothing
+            }
+        }
         ff <- getCytoPipelineFlowFrame(
             pipL,
             whichQueue = whichQueue,
             sampleFile = sampleFile,
             objectName = flowFrameName,
             path = path)
-        
+
         xChannel <- channelLabel2Name(xChannelLabel, ff)
         if (length(xChannel) == 0) return()
-        
+
         fluoChannels <- flowCore::colnames(ff)[areFluoCols(ff)]
-        
+
         transList <- NULL
         if (transfoListName != " ") {
-            transList <- 
+            transList <-
                 getCytoPipelineScaleTransform(
                     pipL,
                     whichQueue = "scale transform",
                     objectName = transfoListName,
                     path = path)
-        } 
-        
+        }
+
         xScale <- "linear"
         if (xChannel %in% fluoChannels) {
             xScale <- "logicle"
         }
-        
+
         yScale <- "linear"
         if (yChannelLabel == " ") {
             yChannel <- NULL
@@ -255,8 +285,8 @@ plotSelectedFlowFrame <- function(
                 yScale <- "logicle"
             }
         }
-        
-        
+
+
         if (useFixedLinearRange) {
             xLinearRange <- linearRange
             yLinearRange <- linearRange
@@ -264,11 +294,11 @@ plotSelectedFlowFrame <- function(
             xLinearRange <- NULL
             yLinearRange <- NULL
         }
-        
+
         if (useAllCells) {
             nDisplayCells <- Inf
         }
-        
+
         p <- ggplotEvents(
             obj = ff,
             xChannel = xChannel,
@@ -283,13 +313,13 @@ plotSelectedFlowFrame <- function(
             xLinearRange = xLinearRange,
             yLinearRange = yLinearRange,
             transList = transList)
-        
-        
+
+
         theSubtitle <- paste0("nb of events: ", flowCore::nrow(ff))
-        
+
         p <- p + ggplot2::labs(subtitle = theSubtitle)
         p
-        
+
     }
 }
 
@@ -447,7 +477,7 @@ plotDiffFlowFrame <- function(
         useFixedLinearRange,
         linearRange,
         transfoListName = " ") {
-    
+
     if (xChannelLabelFrom != " " &&
         yChannelLabelFrom != " " &&
         xChannelLabelTo == xChannelLabelFrom &&
@@ -458,43 +488,69 @@ plotDiffFlowFrame <- function(
         pipLFrom <- buildCytoPipelineFromCache(
             experimentNameFrom,
             path = path)
+
+        if (is.character(sampleFileFrom)){
+            if (!sampleFileFrom %in% sampleFiles(pipLFrom)){
+                displayNames <- sampleDisplayNames(pipLFrom)
+                if (sampleFileFrom %in% displayNames) {
+                    sampleFileFrom <- 
+                        sampleNameFromDisplayName(
+                            pipLFrom,
+                            sampleFileFrom)
+                } # else do nothing
+            }
+        }
+
         ffFrom <- getCytoPipelineFlowFrame(
             pipLFrom,
             whichQueue = whichQueueFrom,
             sampleFile = sampleFileFrom,
             objectName = flowFrameNameFrom,
             path = path)
-        
+
         pipLTo <- buildCytoPipelineFromCache(
             experimentNameTo,
             path = path)
+
+        if (is.character(sampleFileTo)){
+            if (!sampleFileTo %in% sampleFiles(pipLTo)){
+                displayNames <- sampleDisplayNames(pipLTo)
+                if (sampleFileTo %in% displayNames) {
+                    sampleFileTo <- 
+                        sampleNameFromDisplayName(
+                            pipLTo,
+                            sampleFileTo)
+                } # else do nothing
+            }
+        }
+
         ffTo <- getCytoPipelineFlowFrame(
             pipLTo,
             whichQueue = whichQueueTo,
             sampleFile = sampleFileTo,
             objectName = flowFrameNameTo,
             path = path)
-        
+
         transList <- NULL
         if (transfoListName != " ") {
-            transList <- 
+            transList <-
                 getCytoPipelineScaleTransform(
                     pipLFrom,
                     whichQueue = "scale transform",
                     objectName = transfoListName,
                     path = path)
-        } 
-        
+        }
+
         xChannel <- channelLabel2Name(xChannelLabelFrom, ffFrom)
         if (length(xChannel) == 0) return()
-        
+
         fluoChannels <- flowCore::colnames(ffFrom)[areFluoCols(ffFrom)]
         xScale <- "linear"
-        
+
         if (xChannel %in% fluoChannels) {
             xScale <- "logicle"
         }
-        
+
         yScale <- "linear"
         if (yChannelLabelFrom == " ") {
             yChannel <- NULL
@@ -505,7 +561,7 @@ plotDiffFlowFrame <- function(
                 yScale <- "logicle"
             }
         }
-        
+
         if (useFixedLinearRange) {
             xLinearRange <- linearRange
             yLinearRange <- linearRange
@@ -513,15 +569,15 @@ plotDiffFlowFrame <- function(
             xLinearRange <- NULL
             yLinearRange <- NULL
         }
-        
-        
+
+
         if (useAllCells) {
             nDisplayCells <- Inf
         }
-        
+
         # used to prevent shiny app being frozen by plotly plot
         nEffectiveDisplayCells <- min(10000, nDisplayCells)
-        
+
         p <- ggplotFilterEvents(
             ffPre = ffFrom,
             ffPost = ffTo,
@@ -536,10 +592,10 @@ plotDiffFlowFrame <- function(
             yLinearRange = yLinearRange,
             transList = transList,
             interactive = interactive)
-        
+
         nEventFrom <- flowCore::nrow(ffFrom)
         nEventTo <- flowCore::nrow(ffTo)
-        
+
         removedEvents <- 100 *
             (nEventFrom - nEventTo) / max(nEventFrom, nEventTo)
         if (experimentNameFrom == experimentNameTo &&
@@ -557,9 +613,9 @@ plotDiffFlowFrame <- function(
                 ", nb events right: ", nEventTo,
                 ", diff: ", round(abs(removedEvents), 2), "%")
         }
-        
+
         if (interactive) {
-            
+
             if (is.null(p)) {
                 p <- plotly::plotly_empty(type="scatter", mode = "markers")
             } else {
@@ -571,14 +627,14 @@ plotDiffFlowFrame <- function(
                         font = list(
                             size = 10)))
             }
-            
+
         } else {
             p <- p + ggplot2::labs(subtitle = theSubtitle)
         }
-        
-        
+
+
         return(p)
-        
+
     }
     return(NULL)
 }
@@ -672,7 +728,7 @@ plotScaleTransformedChannel <- function(
         channel,
         applyTransform =
             c("axis scale only", "data"),
-        transfoType = 
+        transfoType =
             c("linear", "logicle"),
         linA, linB,
         negDecades, width, posDecades) {
@@ -689,14 +745,14 @@ plotScaleTransformedChannel <- function(
                 m = posDecades + width,
                 a = negDecades)
         }
-        
+
         # find the channel name (can be based on marker name)
         ch <- flowCore::getChannelMarker(ff, channel)$name
-        
+
         theTransList <- flowCore::transformList(
             from = ch,
             tfun = theTrans)
-        
+
         if (applyTransform == "data") {
             runTransforms <- TRUE
             if (transfoType == "logicle") {
@@ -704,12 +760,12 @@ plotScaleTransformedChannel <- function(
             } else {
                 linearRange <- NULL
             }
-            
+
         } else {
             runTransforms <- FALSE
             linearRange <- NULL
         }
-        
+
         ggplotEvents(
             ff,
             xChannel = ch,
@@ -721,5 +777,5 @@ plotScaleTransformedChannel <- function(
             fill = "lightgreen",
             alpha = 0.2)
     }
-    
+
 }

@@ -1,3 +1,15 @@
+# CytoPipelineGUI 1.7
+
+## CytoPipelineGUI 1.7.2
+- using sample display names instead of base names or full paths, 
+as provided from CytoPipeline 1.9.3
+
+## CytoPipelineGUI 1.7.1
+- migrated to GHA cache v4
+
+# CytoPipelineGUI 1.5
+(no devel)
+
 # CytoPipelineGUI 1.3
 
 ## CytoPipelineGUI 1.3.1

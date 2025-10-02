@@ -20,7 +20,10 @@ transformation objects. It is launched using the following statement:
 }
 }
 \seealso{
-\link{CytoPipeline}, \link{CytoPipelineCheckApp},
+\link[CytoPipeline:CytoPipeline-package]{CytoPipeline}
+
+\link{CytoPipelineCheckApp}
+
 \link{ScaleTransformApp}
 }
 \author{

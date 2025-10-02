@@ -1,6 +1,6 @@
 Package: CytoPipelineGUI
 Title: GUI's for visualization of flow cytometry data analysis pipelines
-Version: 1.7.0
+Version: 1.7.2
 Authors@R: 
     c(person(given = "Philippe",
              family = "Hauchamps",
@@ -37,7 +37,7 @@ Collate:
     CytoPipelineGUI-package.R
 Depends: 
     R (>= 4.4),
-    CytoPipeline
+    CytoPipeline (>= 1.9.3)
 Imports:
     shiny,
     plotly,
