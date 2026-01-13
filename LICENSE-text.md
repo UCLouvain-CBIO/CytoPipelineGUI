@@ -7,7 +7,7 @@
 
     CytoPipelineGUI is a R package providing GUI's for visualization of flow cytometry data analysis pipelines.
 
-    Copyright (C) <2022-2025> <Université catholique de Louvain (UCLouvain), Belgique>
+    Copyright (C) <2022-2026> <Université catholique de Louvain (UCLouvain), Belgique>
     The list of the contributors to the development of CytoPipelineGUI is given in the DESCRIPTION file.
 
 
