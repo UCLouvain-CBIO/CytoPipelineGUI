@@ -1,4 +1,4 @@
-# CytoPipelineGUI - Copyright (C) <2022-2025> 
+# CytoPipelineGUI - Copyright (C) <2022-2026> 
 # <Université catholique de Louvain (UCLouvain), Belgique>
 #   
 #   Description and complete License: see LICENSE file.
@@ -36,7 +36,6 @@ updateExperiment <- function(
         FFInputId,
         currentFFValue,
         path) {
-    #browser()    
     pipL <- buildCytoPipelineFromCache(
         newExperimentName,
         path = path)
@@ -133,7 +132,7 @@ updateFFList <- function(
         pipL <- buildCytoPipelineFromCache(
             experimentName,
             path = path)
-        if (!is.null(sampleFile)){
+        if (!is.null(sampleFile) && sampleFile != " "){
             sampleFile <- sampleNameFromDisplayName(pipL, sampleFile)
         }
         df <- getCytoPipelineObjectInfos(
@@ -251,7 +250,7 @@ updateChannelMarkerList <- function(
         pipL <- buildCytoPipelineFromCache(
             experimentName,
             path = path)
-        if (!is.null(sampleFile)) {
+        if (!is.null(sampleFile) && sampleFile != " ") {
             sampleFile <- sampleNameFromDisplayName(pipL, sampleFile)
         }
         ff <- getCytoPipelineFlowFrame(

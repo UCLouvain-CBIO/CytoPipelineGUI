@@ -1,4 +1,4 @@
-# CytoPipelineGUI - Copyright (C) <2022-2025> 
+# CytoPipelineGUI - Copyright (C) <2022-2026> 
 # <Université catholique de Louvain (UCLouvain), Belgique>
 #   
 #   Description and complete License: see LICENSE file.
@@ -236,6 +236,7 @@ plotSelectedFlowFrame <- function(
         linearRange,
         transfoListName = " ") {
     if (xChannelLabel != " ") {
+        
         message("displaying flow frame plot...")
         pipL <- buildCytoPipelineFromCache(
             experimentName,
@@ -735,6 +736,7 @@ plotScaleTransformedChannel <- function(
     applyTransform <- match.arg(applyTransform)
     transfoType <- match.arg(transfoType)
     if (!is.null(ff)) {
+        
         if (transfoType == "linear") {
             theTrans <- flowCore::linearTransform(
                 a = linA,

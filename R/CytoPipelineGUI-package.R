@@ -1,4 +1,4 @@
-# CytoPipelineGUI - Copyright (C) <2022-2025>
+# CytoPipelineGUI - Copyright (C) <2022-2026>
 # <Université catholique de Louvain (UCLouvain), Belgique>
 #
 #   Description and complete License: see LICENSE file.

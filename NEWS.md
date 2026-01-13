@@ -1,5 +1,9 @@
 # CytoPipelineGUI 1.9
-(no devel)
+
+## CytoPipelineGUI 1.9.1.
+- bug correction: since version 1.7.2, it was no more possible to display 
+flowFrames from the scale transformation pipeline part 
+=> this has been corrected
 
 # CytoPipelineGUI 1.7
 
