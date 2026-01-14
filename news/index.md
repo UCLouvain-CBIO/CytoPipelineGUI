@@ -7,6 +7,9 @@
 - bug correction: since version 1.7.2, it was no more possible to
   display flowFrames from the scale transformation pipeline part =\>
   this has been corrected
+- bug correction: logicle transform now uses all (t,m,w,a) parameters.
+  Previously, t (maximum scale) was always set to a default value hence
+  providing wrong visualization =\> this has been corrected.
 
 ## CytoPipelineGUI 1.7
 

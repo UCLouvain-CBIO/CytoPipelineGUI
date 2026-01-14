@@ -294,9 +294,10 @@ pipL <- CytoPipeline::buildCytoPipelineFromCache(
         channel = "CD3",
         applyTransform = "data",
         transfoType = "logicle",
-        negDecades = 1,
-        width = 0.5,
-        posDecades = 4
+        t = 262144,
+        m = 4.5,
+        w = 0.5,
+        a = 1.
     )
     
     p1+p2
@@ -344,7 +345,7 @@ pipL <- CytoPipeline::buildCytoPipelineFromCache(
     ##  [25] rmarkdown_2.30        graph_1.89.1          ragg_1.5.0           
     ##  [28] purrr_1.2.1           bit_4.6.0             xfun_0.55            
     ##  [31] cachem_1.1.0          jsonlite_2.0.0        flowWorkspace_4.23.1 
-    ##  [34] blob_1.2.4            later_1.4.5           parallel_4.6.0       
+    ##  [34] blob_1.3.0            later_1.4.5           parallel_4.6.0       
     ##  [37] cluster_2.1.8.1       R6_2.6.1              bslib_0.9.0          
     ##  [40] stringi_1.8.7         RColorBrewer_1.1-3    jquerylib_0.1.4      
     ##  [43] Rcpp_1.1.1            bookdown_0.46         iterators_1.0.14     
