@@ -290,9 +290,10 @@ pipL <- CytoPipeline::buildCytoPipelineFromCache(
         channel = "CD3",
         applyTransform = "data",
         transfoType = "logicle",
-        negDecades = 1,
-        width = 0.5,
-        posDecades = 4
+        t = 262144,
+        m = 4.5,
+        w = 0.5,
+        a = 1.
     )
     
     p1+p2

@@ -86,27 +86,56 @@ scaleTransformUI <- function(
                     # condition = 
                     #     paste0("input.",
                     #            NS(id, "transfoType"), " == 'logicle'"),
-                    sliderInput(
-                        inputId = NS(id, "negDecades"),
-                        label = "Extra Neg Decades:",
-                        min = 0,
-                        max = 1,
-                        step = 0.1,
-                        value = 0),
-                    sliderInput(
-                        inputId = NS(id, "width"),
-                        label = "Width:",
-                        min = 0,
-                        max = 3,
-                        step = 0.1,
-                        value = 1),
-                    sliderInput(
-                        inputId = NS(id, "posDecades"),
-                        label = "Pos Decades:",
-                        min = 2,
-                        max = 7,
-                        step = 0.1,
-                        value = 4.5)
+                    
+                    numericInput(
+                        inputId = NS(id, "t"),
+                        label = "Max scale (t):",
+                        min = 0.,
+                        max = 1000000000.,
+                        value = 262144),
+                    
+                    numericInput(
+                        inputId = NS(id, "m"),
+                        label = "Pos decades (m):",
+                        min = 0.,
+                        max = 10.,
+                        value = 4.5),
+                    
+                    numericInput(
+                        inputId = NS(id, "w"),
+                        label = "Width (w):",
+                        min = 0.,
+                        max = 3.,
+                        value = 1.),
+                    
+                    numericInput(
+                        inputId = NS(id, "a"),
+                        label = "Neg decades (a):",
+                        min = 0.,
+                        max = 5.,
+                        value = 0.)
+                    
+                    # sliderInput(
+                    #     inputId = NS(id, "negDecades"),
+                    #     label = "Extra Neg Decades:",
+                    #     min = 0,
+                    #     max = 1,
+                    #     step = 0.1,
+                    #     value = 0),
+                    # sliderInput(
+                    #     inputId = NS(id, "width"),
+                    #     label = "Width:",
+                    #     min = 0,
+                    #     max = 3,
+                    #     step = 0.1,
+                    #     value = 1),
+                    # sliderInput(
+                    #     inputId = NS(id, "posDecades"),
+                    #     label = "Pos Decades:",
+                    #     min = 2,
+                    #     max = 7,
+                    #     step = 0.1,
+                    #     value = 4.5)
                 ),
                 
                 conditionalPanel(
@@ -273,9 +302,13 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
             transfoType = "linear",
             linA = 1.0,
             linB = 0.0,
-            negDecades = 0.0,
-            width = 1,
-            posDecades = 4.5)
+            t = 262144,
+            m = 4.5,
+            w = 1.0,
+            a = 0.)
+            # negDecades = 0.0,
+            # width = 1,
+            # posDecades = 4.5)
         
         getTransfoList <- function(
             experimentName,
@@ -302,7 +335,9 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
         updateTransfoParams <- function(
             transfoList,
             ff) {
+            #message("UpdateTransfoChannel!")
             if (!is.null(transfoList) && !is.null(ff)) {
+                #message("not null (transfo AND ff)")
                 tPars <- getTransfoParams(
                     transfoList,
                     channel = flowCore::colnames(ff)[1])
@@ -317,36 +352,60 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
                 }
                 
                 if (!is.null(tPars)) {
+                    #message("tPars = ", tPars)
                     updateSelectInput(
                         inputId = "transfoType",
                         selected = tPars$type)
                     
                     if (tPars$type == "logicle") {
-                        val_negDecades <- round(tPars$paramsList$a, digits = 1)
-                        val_width <- round(tPars$paramsList$w, digits = 1)
-                        val_posDecades <- 
-                            round(
-                                tPars$paramsList$m -
-                                    tPars$paramsList$w, digits = 1)
+                        val_t <- round(tPars$paramsList$t, digits = 0)
+                        val_m <- signif(tPars$paramsList$m, digits = 3)
+                        val_w <- signif(tPars$paramsList$w, digits = 3)
+                        val_a <- signif(tPars$paramsList$a, digits = 3)
+                        # val_negDecades <- round(tPars$paramsList$a, digits = 1)
+                        # val_width <- round(tPars$paramsList$w, digits = 1)
+                        # val_posDecades <- 
+                        #     round(
+                        #         tPars$paramsList$m -
+                        #             tPars$paramsList$w, digits = 1)
                         
-                        updateSliderInput(
-                            inputId = "negDecades",
-                            value = val_negDecades)
-                        updateSliderInput(
-                            inputId = "width",
-                            value = val_width)
-                        updateSliderInput(
-                            inputId = "posDecades",
-                            value = val_posDecades)
+                        updateNumericInput(
+                            inputId = "t",
+                            value = val_t)
+                        updateNumericInput(
+                            inputId = "m",
+                            value = val_m)
+                        updateNumericInput(
+                            inputId = "w",
+                            value = val_w)
+                        updateNumericInput(
+                            inputId = "a",
+                            value = val_a)
+                        
+                        
+                        # updateSliderInput(
+                        #     inputId = "negDecades",
+                        #     value = val_negDecades)
+                        # updateSliderInput(
+                        #     inputId = "width",
+                        #     value = val_width)
+                        # updateSliderInput(
+                        #     inputId = "posDecades",
+                        #     value = val_posDecades)
                         
                         synchronizeReactiveTransfoParams(
                             transfoType = tPars$type,
-                            negDecades = val_negDecades,
-                            width = val_width,
-                            posDecades = val_posDecades)
+                            t = val_t,
+                            m = val_m,
+                            w = val_w,
+                            a = val_a
+                            # negDecades = val_negDecades,
+                            # width = val_width,
+                            # posDecades = val_posDecades
+                            )
                     } else {
-                        val_a <- signif(tPars$paramsList$a, 3)
-                        val_b <- signif(tPars$paramsList$b, 3)
+                        val_a <- signif(tPars$paramsList$a, digits = 3)
+                        val_b <- signif(tPars$paramsList$b, digits = 3)
                         
                         updateNumericInput(
                             inputId = "linA",
@@ -371,9 +430,14 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
             transfoType,
             linA = 0.,
             linB = 0.,
-            negDecades = 0.,
-            width = 0.,
-            posDecades = 0.){
+            t = 0.,
+            m = 0.,
+            w = 0.,
+            a = 0.
+            # negDecades = 0.,
+            # width = 0.,
+            # posDecades = 0.
+            ){
             if (transfoType != r$transfoType) {
                 #message("transfoType is different => updating...")
                 r$transfoType <- transfoType
@@ -388,18 +452,34 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
                     r$linB <- linB
                 }
             } else {
-                if (negDecades != r$negDecades) {
-                    #message("negDecades is different => updating...")
-                    r$negDecades <- negDecades
+                if (t != r$t) {
+                    #message("t is different => updating...")
+                    r$t <- t
                 }
-                if (width != r$width) {
-                    #message("width is different => updating...")
-                    r$width <- width
+                if (m != r$m) {
+                    #message("m is different => updating...")
+                    r$m <- m
                 }
-                if (posDecades != r$posDecades) {
-                    #message("posDecades is different => updating...")
-                    r$posDecades <- posDecades
+                if (w != r$w) {
+                    #message("w is different => updating...")
+                    r$w <- w
                 }
+                if (a != r$a) {
+                    #message("a is different => updating...")
+                    r$a <- a
+                }
+                # if (negDecades != r$negDecades) {
+                #     #message("negDecades is different => updating...")
+                #     r$negDecades <- negDecades
+                # }
+                # if (width != r$width) {
+                #     #message("width is different => updating...")
+                #     r$width <- width
+                # }
+                # if (posDecades != r$posDecades) {
+                #     #message("posDecades is different => updating...")
+                #     r$posDecades <- posDecades
+                # }
             }
         }
         
@@ -419,6 +499,23 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
                 path = path,
                 inputId = "flowFrameTransfo",
                 currentValue = input$flowFrameTransfo)
+            
+            # update transfo params if necessary (and possible)
+            if (input$scaleTransfoList != " "){
+                assign(
+                    "currentTransfoList", 
+                    getTransfoList(
+                        input$experimentTransfo,
+                        path = path,
+                        transfoName = input$scaleTransfoList),
+                    inherits = TRUE)
+                
+                updateTransfoParams(currentTransfoList,
+                                    currentFF())
+            }
+            
+            
+            
             
             #message("end obs event: experimentTransfo")
         })
@@ -486,18 +583,27 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
             input$transfoType
             input$linA
             input$linB
-            input$negDecades
-            input$width
-            input$posDecades
+            input$t
+            input$m
+            input$w
+            input$a
+            # input$negDecades
+            # input$width
+            # input$posDecades
         },{
             #message(paste0("obs event: one transfo param"))
             synchronizeReactiveTransfoParams(
                 transfoType = req(input$transfoType),
                 linA = req(input$linA),
                 linB = req(input$linB),
-                negDecades = req(input$negDecades),
-                width = req(input$width),
-                posDecades = req(input$posDecades))
+                t = req(input$t),
+                m = req(input$m),
+                w = req(input$w),
+                a = req(input$a)
+                # negDecades = req(input$negDecades),
+                # width = req(input$width),
+                # posDecades = req(input$posDecades)
+                )
             #message(paste0("end obs event: one transfo param"))
         })
         
@@ -516,10 +622,16 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
                 } else {
                     newTrans <- 
                         flowCore::logicleTransform(
-                            w = myList$width,
-                            m = myList$posDecades + 
-                                myList$width,
-                            a = myList$negDecades)
+                            t = myList$t,
+                            m = myList$m,
+                            w = myList$w,
+                            a = myList$a)
+                    # newTrans <- 
+                    #     flowCore::logicleTransform(
+                    #         w = myList$width,
+                    #         m = myList$posDecades + 
+                    #             myList$width,
+                    #         a = myList$negDecades)
                 }
                 
                 channel <- flowCore::colnames(currentFF())[1]
@@ -548,9 +660,14 @@ scaleTransformServer <- function(id, path, transfoList = NULL, ff = NULL) {
                 transfoType = r$transfoType,
                 linA = r$linA,
                 linB = r$linB,
-                negDecades = r$negDecades,
-                width = r$width,
-                posDecades = r$posDecades)
+                t = r$t,
+                m = r$m,
+                w = r$w,
+                a = r$a
+                # negDecades = r$negDecades,
+                # width = r$width,
+                # posDecades = r$posDecades
+                )
             
         })
         

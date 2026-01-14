@@ -657,11 +657,11 @@ plotDiffFlowFrame <- function(
 #' `linear` and `logicle`(bi-exponential) are supported.
 #' @param linA the intercept parameter of the linear transformation.  
 #' @param linB the slope parameter of the linear transformation. 
-#' @param negDecades the number of additional decades on the negative side 
-#' for the logicle transformation.  
-#' @param width the width parameter of the logicle transformation. 
-#' @param posDecades the number of positive decades of the logicle 
-#' tranformation. 
+#' @param t the max scale parameter of the logicle tranformation.
+#' @param m the number of positive decades of the logicle tranformation.
+#' @param w the width parameter of the logicle transformation.
+#' @param a the number of additional decades on the negative side 
+#' for the logicle transformation.   
 #' @return a ggplot object
 #' @export
 #'
@@ -709,9 +709,10 @@ plotDiffFlowFrame <- function(
 #'     ff,
 #'     channel = "Comp-670/30Violet-A",
 #'     transfoType = "logicle",
-#'     negDecades = 1,
-#'     width = 0.5,
-#'     posDecades = 4
+#'     t = 262144,
+#'     m = 4.5,
+#'     w = 0.5,
+#'     a = 1.0
 #' )
 #' 
 #' plotScaleTransformedChannel(
@@ -719,9 +720,10 @@ plotDiffFlowFrame <- function(
 #'     channel = "CD3",
 #'     applyTransform = "data",
 #'     transfoType = "logicle",
-#'     negDecades = 1,
-#'     width = 0.5,
-#'     posDecades = 4
+#'     t = 262144,
+#'     m = 4.5,
+#'     w = 0.5,
+#'     a = 1.0
 #' )
 #'
 plotScaleTransformedChannel <- function(
@@ -732,7 +734,9 @@ plotScaleTransformedChannel <- function(
         transfoType =
             c("linear", "logicle"),
         linA, linB,
-        negDecades, width, posDecades) {
+        t, m, w, a
+        #negDecades, width, posDecades
+        ) {
     applyTransform <- match.arg(applyTransform)
     transfoType <- match.arg(transfoType)
     if (!is.null(ff)) {
@@ -743,9 +747,14 @@ plotScaleTransformedChannel <- function(
                 b = linB)
         } else {
             theTrans <- flowCore::logicleTransform(
-                w = width,
-                m = posDecades + width,
-                a = negDecades)
+                t = t,
+                m = m,
+                w = w,
+                a = a)
+            # theTrans <- flowCore::logicleTransform(
+            #     w = width,
+            #     m = posDecades + width,
+            #     a = negDecades)
         }
 
         # find the channel name (can be based on marker name)
@@ -758,7 +767,8 @@ plotScaleTransformedChannel <- function(
         if (applyTransform == "data") {
             runTransforms <- TRUE
             if (transfoType == "logicle") {
-                linearRange <- c(0, posDecades + width)
+                #linearRange <- c(0, posDecades + width)
+                linearRange <- c(0, m)
             } else {
                 linearRange <- NULL
             }

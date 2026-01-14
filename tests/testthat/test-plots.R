@@ -231,29 +231,37 @@ test_that("plotScaleTransformedChannel works", {
         linA = 0.0002,
         linB = -0.5)
     
-    # vdiffr::expect_doppelganger(
-    #     "pltScaleTransCh-linear", fig = p1)
+    vdiffr::expect_doppelganger(
+        "pltScaleTransCh-linear", fig = p1)
     
     p2 <- plotScaleTransformedChannel(
         ff,
         channel = "Comp-670/30Violet-A",
         transfoType = "logicle",
-        negDecades = 1,
-        width = 0.5,
-        posDecades = 4
+        t = 262144,
+        m = 4.5,
+        w = 0.5,
+        a = 1.0
+        # negDecades = 1,
+        # width = 0.5,
+        # posDecades = 4
     )
     
-    # vdiffr::expect_doppelganger(
-    #     "pltScaleTransCh-logicle", fig = p2)
+    vdiffr::expect_doppelganger(
+        "pltScaleTransCh-logicle", fig = p2)
     
     p3 <- plotScaleTransformedChannel(
         ff,
         channel = "CD3",
         applyTransform = "data",
         transfoType = "logicle",
-        negDecades = 1,
-        width = 0.5,
-        posDecades = 4
+        t = 262144,
+        m = 4.5,
+        w = 0.5,
+        a = 1.0
+        # negDecades = 1,
+        # width = 0.5,
+        # posDecades = 4
     )
     
     # vdiffr::expect_doppelganger(

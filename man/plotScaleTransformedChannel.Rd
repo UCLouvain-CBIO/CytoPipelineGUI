@@ -11,9 +11,10 @@ plotScaleTransformedChannel(
   transfoType = c("linear", "logicle"),
   linA,
   linB,
-  negDecades,
-  width,
-  posDecades
+  t,
+  m,
+  w,
+  a
 )
 }
 \arguments{
@@ -36,13 +37,14 @@ the scale transformation parameters.}
 
 \item{linB}{the slope parameter of the linear transformation.}
 
-\item{negDecades}{the number of additional decades on the negative side
+\item{t}{the max scale parameter of the logicle tranformation.}
+
+\item{m}{the number of positive decades of the logicle tranformation.}
+
+\item{w}{the width parameter of the logicle transformation.}
+
+\item{a}{the number of additional decades on the negative side
 for the logicle transformation.}
-
-\item{width}{the width parameter of the logicle transformation.}
-
-\item{posDecades}{the number of positive decades of the logicle
-tranformation.}
 }
 \value{
 a ggplot object
@@ -96,9 +98,10 @@ plotScaleTransformedChannel(
     ff,
     channel = "Comp-670/30Violet-A",
     transfoType = "logicle",
-    negDecades = 1,
-    width = 0.5,
-    posDecades = 4
+    t = 262144,
+    m = 4.5,
+    w = 0.5,
+    a = 1.0
 )
 
 plotScaleTransformedChannel(
@@ -106,9 +109,10 @@ plotScaleTransformedChannel(
     channel = "CD3",
     applyTransform = "data",
     transfoType = "logicle",
-    negDecades = 1,
-    width = 0.5,
-    posDecades = 4
+    t = 262144,
+    m = 4.5,
+    w = 0.5,
+    a = 1.0
 )
 
 }
